@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title itemprop="name">某人的小说 | Yourlai&#39;s Blog</title>
+  
+    <link rel="shortcut icon" href="/images/favicon.ico">
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="stylesheet" id="saukra_css-css" href="/css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="/css/font.css" media="all">
+  <link rel="stylesheet" href="/css/insight.css" media="all">
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css" media="all">
+  <link rel="stylesheet" href="/css/zoom.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+" type="text/css" media="all"> -->
+  <script>
+  /*Initial Variables*/
+  var mashiro_option = new Object();
+  var mashiro_global = new Object();
+  mashiro_option.NProgressON = true;
+  /* 
+   * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+   * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+   */
+  mashiro_option.email_domain = "";
+  mashiro_option.email_name = "";
+  mashiro_option.cookie_version_control = "";
+  mashiro_option.qzone_autocomplete = false;
+  mashiro_option.site_name = "Yourlai'sBlog";
+  mashiro_option.author_name = "Blog";
+  mashiro_option.site_url = "https://sakura.hojun.cn";
+  mashiro_option.v_appId = "GyC3NzMvd0hT9Yyd2hYIC0MN-gzGzoHsz";
+  mashiro_option.v_appKey = "mgOpfzbkHYqU92CV4IDlAUHQ";
+  mashiro_option.mathjax = "0";
+  mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+  mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+
+  // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+  // mashiro_option.float_player_on = true;
+
+  /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+  var bg = "https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/cover/(1).jpg.webp,https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/cover/(2).jpg.webp,https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/cover/(3).jpg.webp,https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/cover/(4).jpg.webp,https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/cover/(5).jpg.webp,https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/cover/(6).jpg.webp,https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/cover/(7).jpg.webp,https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/cover/(8).jpg.webp".split(",");
+  var bgindex = Math.floor(Math.random()*bg.length);
+  if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+    alert('朋友，IE浏览器未适配哦~');
+  }
+  </script>
+  <style type="text/css">
+  .hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}
+  </style>
+  <style type="text/css">.site-top .lower nav{display:block !important;}.author-profile i,.post-like a,.post-share .show-share,.sub-text,.we-info a,span.sitename,.post-more i:hover,#pagination a:hover,.post-content a:hover,.float-content i:hover{color:#FE9600}.feature i,.download,.navigator i:hover,.links ul li:before,.ar-time i,span.ar-circle,.object,.comment .comment-reply-link,.siren-checkbox-radio:checked + .siren-checkbox-radioInput:after{background:#FE9600}::-webkit-scrollbar-thumb{background:#FE9600}.download,.navigator i:hover,.link-title,.links ul li:hover,#pagination a:hover,.comment-respond input[type='submit']:hover{border-color:#FE9600}.entry-content a:hover,.site-info a:hover,.comment h4 a,#comments-navi a.prev,#comments-navi a.next,.comment h4 a:hover,.site-top ul li a:hover,.entry-title a:hover,#archives-temp h3,span.page-numbers.current,.sorry li a:hover,.site-title a:hover,i.iconfont.js-toggle-search.iconsearch:hover,.comment-respond input[type='submit']:hover{color:#FE9600}.comments .comments-main{display:block !important;}.comments .comments-hidden{display:none !important;}background-position:center center;background-attachment:inherit;}
+  </style>
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit">
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <section id="main-container">
+    <div class="headertop ">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <div class="header-tou">
+        <a target="_blank" rel="noopener" href="https://sakura.hojun.cn">
+          <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/custom/avatar.jpg">
+        </a>
+      </div>
+      <div class="header-info">
+        <p>Never stop . Never give up.</p>
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="https://music.163.com/#/user/home?id=1298327087" target="_blank" class="social-github" title="wangyiyun">
+                    <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/social/wangyiyun.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="mailto:yourlai@yourlai.icu" target="_blank" class="social-github" title="email">
+                    <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/social/email.svg">
+                  </a>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  <div id="video-container" style="">
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name="" src="" width="auto" preload="auto">
+    </video>
+    <div id="video-btn" class="loadvideo videolive">
+    </div>
+    <div id="video-add">
+    </div>
+    <div class="video-stu">
+    </div>
+  </div>
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+    <div id="page" class="site wrapper">
+      <header class="site-header no-select gizle sabit" role="banner">
+  <div class="site-top">
+    <div class="site-branding">
+      <span class="site-title">
+        <span class="logolink moe-mashiro">
+          <a href="/">
+            <span class="sakurasono">Yourlai&#39;s</span>
+            <span class="shironeko">Blog</span>
+          </a>
+        </span>
+      </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+                    首页
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+                    归档
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/categories/%E6%8A%80%E6%9C%AF/">
+                          <i class="fa fa-code" aria-hidden="true"></i>
+                          技术
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/%E7%94%9F%E6%B4%BB/">
+                          <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                          生活
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/%E8%B5%84%E6%BA%90/">
+                          <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                          资源
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/%E9%9A%8F%E6%83%B3/">
+                          <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                          随想
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/%E8%BD%AC%E8%BD%BD/">
+                          <i class="fa fa-book" aria-hidden="true"></i>
+                          转载
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+                    清单
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/tags/%E6%82%A6%E8%AF%BB/">
+                          <i class="fa fa-th-list faa-bounce" aria-hidden="true"></i>
+                          书单
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/bangumi/">
+                          <i class="fa fa-film faa-vertical" aria-hidden="true"></i>
+                          番组
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/music/">
+                          <i class="fa fa-headphones" aria-hidden="true"></i>
+                          歌单
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/tags/%E5%9B%BE%E9%9B%86/">
+                          <i class="fa fa-photo" aria-hidden="true"></i>
+                          图集
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/comment/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+                    留言板
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/links/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+                    友人帐
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/donate/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-heart faa-pulse" aria-hidden="true"></i>
+                    赞赏
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+                    关于
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/about/">
+                          <i class="fa fa-meetup" aria-hidden="true"></i>
+                          我？
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/theme-sakura/">
+                          <i class="fa iconfont icon-sakura" aria-hidden="true"></i>
+                          主题
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/lab/">
+                          <i class="fa fa-cogs" aria-hidden="true"></i>
+                          Lab
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/client/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-android faa-vertical" aria-hidden="true"></i>
+                    客户端
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/atom.xml">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-rss faa-pulse" aria-hidden="true"></i>
+                    RSS
+                  </span>
+                </a>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+<div id="content" class="site-content">
+  <div id="primary" class="content-area">
+    <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+          <header class="entry-header">
+            <h1 class="entry-title">某人的小说</h1>
+            <p class="entry-census">&nbsp;·&nbsp;2025-1-27&nbsp;·&nbsp;<span id="busuanzi_value_page_pv"></span>次阅读</p></p>
+
+            <hr>
+          </header>
+        
+        <div class="entry-content">
+          <p>空气中弥漫着呛人的硝烟味，粘腻的机油味，裹挟在令人窒息的被加热过的尘土浪中，粗暴地闯进安莉特的呼吸道，捶打着她的肺泡。她每一次呼吸，都能尝到血腥味。 刚刚一枚炸弹不远不近正在她身旁炸响，几个倒霉的士兵立刻变成一堆四散的碎块。巨大的冲击力把她一下抛飞甩到地上，不幸被炸碎的士兵的碎肉和鲜血混着特兰土地上的冻土糊了她一脸。万幸，防护军服和头盔保护了她，没让她英年早逝。 但她也几乎是瞬间丧失了行动能力，血一下流了满脸，耳朵立刻开始尖锐鸣叫。她抱着冲锋枪瘫在地上，尽力把自己缩小，防止冲锋的士兵给自己造成二次伤害。 惨叫声，怒吼声，爆炸声，濒死的咆哮声，机械的轰隆声。 一片嘈杂中，她那嗡鸣的耳膜捕捉到几声尖叫。 “指挥员！快抢救指挥员！就是那个上校！先别管别人了！” 合理。特兰中线的最高指挥员之一，哈明萨将军的独生女儿怎么能这样死在战场上，他还等着他的好儿女们以后在中央继续发力呢。 特兰人兵败如山倒，中央军大部队冲锋很快，后勤军医们紧随其后，他们直扑安莉特，抬上担架把她往后方急运。军医在给她做简易的包扎止血。手法足够有效，也足够粗暴，她疼得龇牙咧嘴，想起了军队里流传已久的一些“兽医”笑话。 她相信“兽医”们的水平，也对这场战役很有信心，特兰人已是强弩之末，有实力的将领几乎已经都被消灭，他们现在翻不起什么风浪。 而且，她也不想再跟特兰人打下去了。 她安详地闭上了眼。   意识逐渐回复，她首先感觉到温暖的阳光抚摸着她的脸，她微微睁开眼，熟悉的病房。军队十万火急地把她送到了首都的大医院，十分殷勤地给她开了个单间。 “醒了？” 她往右一瞥，瞥见一个熟悉的身影。她那名义上的亲哥，血缘上的堂哥，科米莱.哈明萨。 “你发什么颠，你不是负责情报和侦查的吗，最么还跑去前线冲锋了。” 哈莉特没接他的话茬。 “咱们有三年没见了吧，跟特兰人打了这几年，感觉如何？” 感觉如何？ 她眼前闪过好多景象。 她呆了好一会，扯出一个僵硬的笑容。 “好极了。” 科米莱耸了耸肩。 “特兰人就是这样，你躺了整整四天，特兰元帅已经自杀，高层也已经投降，不过看你这伤，估计也出席不了受降仪式了。” 虚与委蛇的受降仪式有什么用？她更想看某些人吊死在绞刑架上。 “你还有空来看我呢？看来是跟南方的谈判很顺利啊？” “还好，‘青龙’没太过分，基本都点头了。倒是她几个徒弟咄咄逼人，特别是她二徒弟，很精干的样子。” “叫白鳞的那个蜥蜴女？我在前线都听说了，是个能人。可惜了，再怎么精干以后也是幕僚，青龙毕竟老了，过几年走了还是传给她儿子。接触到她大徒弟了吗？” “见了个面，跟她说了几句客套话，唯唯诺诺的，不像很有手段的样子。” “也不能排除是装的。见到传说中她儿子了吗？” “完全没，去了一个月，一面也没漏。什么宝贝疙瘩这么藏。 安莉特扯着一边嘴角，不阴不阳地笑了一下， “说不定‘青龙’其实是个老寡妇，根本没孩子，放出来烟雾弹给她真正的继承人——不知道哪个徒弟打掩护。” “反正跟南方最好不要再起冲突，没预料到特兰那么难缠，我们现在打不起，青龙跟她那一帮徒子徒孙都不是好相与的。” “说实话，跟南方有什么好打的？跟南方当好邻居可比跟他们打划算多了。” 科米莱叹了口气。古时中央跟南方本是一家，后来因为冰期的原因，中央的沙漠逐渐扩张，两地通行不便，于是文化差异越来越大，逐渐分离为两个民族。 好在近几十年冰期影响消退，沙漠面积逐渐萎缩，两地总算是重新有了联系。虽然南方在法理上还是中央的一部分，但看如今情况，南方独立也是板上钉钉的事了。 按理说，两地重新开始商业经济文化交流，不算坏事，特别是对产能过剩，急需市场的中央。两地对一些争议领土及关税海关等问题需要重新谈判，但南方内部则是割据混乱，山头林立，隔几天来跟中央谈判的代表就换个人，最近“青龙”的天下会逐渐势大，中央本来庆幸谈判对象终于稳定，却发现青龙及其徒子徒孙，态度强硬，寸步不让。 “明菲尔德呢？” “去西部了，又有部落不安分。” “西部也是个炸药桶。” “三天两头出点事，一群部落大事没有，小事不断。” “好了，别提什么南部西部了，你来也不只是看我吧？老头给我派了什么新活？” 科米莱一挑眉：“你倒是了解父亲，还是要你去管情报，把军情处外管处都给吞了，新成立了个情报组织，准备以后统一整合国内外信息，派你去当领导，好好张罗开。” “了解。”   事实上，安莉特根本没老老实实地呆在首都管事，而是把活一股脑地都丢给手下，扭头去开城度假了。 开城离首都并不远，但一路火开到开城，但路上的颠簸并不让她愉快。她左腿骨折，肋骨也断了几根，身上缝了大大小小几道口子，淤青碰伤更是数不胜数。尽管司机已经尽力稳当，她还是疼得冷汗涔涔。 万幸开城是个能治愈人的好地方。 开城很少下雨，太阳终日尽职尽责地散发着自己的光与热。但开城并不缺水，一条大河流过，带来了丰沃的冲积平原。这里天气终年炎热，却不是那种令人崩溃喘不过气的湿热，待在阴凉地里十分惬意。偶尔河风吹过，带来一阵清凉。这里的景色似乎都加了一个拉高饱和度的滤镜。天空比安莉特成色最好的蓝宝石还要蓝，娇艳大红的玫瑰伴着鲜绿的叶，爬上土黄的居民墙——这里居民房大多是泥砌成的。居民爱穿鲜艳的长袍长裙，各种颜色相互交映，十分好看。 开城是传统的旅游城市，面积不大，却该有的都有。酒店都是名副其实的销金窟。巨大的购物中心、影院剧院高耸入云，供贵客们一掷千金。 开城西部的临海沙滩也被深度开发，面积不大，只向会员开放。金黄的沙滩上立着遮阳伞，放着冲浪板。海水清澈透亮，往下稍潜能看见游动的热带鱼群和鲜艳的珊瑚礁。侍者全是帅哥美女，穿着性感火辣，端着凉饮，捧着零食，力求把游客们伺候开心。 将军的女儿不差钱，安莉特直接住进酒店的会员房间，当地的官员早已把一切一切安排妥帖。 开城不大，如今她一点不低调地住了进来，大大小小的当地权贵，形形色色的师傅技师，便迫不及待地前来探望巴结，她也不客气地整日吃喝玩乐做美容保养。她在特兰那鬼地方打了三年仗，如今享受享受怎么了？ 等到她腿稍好，便频繁在酒店举行舞会夜宴。她也不委屈自己站着，大摇大摆坐个轮椅。谁会敢指责战争英雄，安莉特上校的不得体呢？ 她最喜欢在宴会最高潮时，从轮椅上站起身来，喧嚣立刻消失，所有人都看着她，等她说话。她此时便会将杯中的酒液一饮而尽，全场欢呼干杯，夜宴的氛围更上一层，此时，她便感到极大满足， 她享受这种万众瞩目的感觉，似乎战场上残留的血腥味被酒精和香水的气息冲淡，伤兵残将的嘶吼也随着欢快的音乐声在她脑海里逐渐淡去了。 但不久之后，她就悲哀地发现，北方战场上那残酷的冰与血已经深深地刻进了她的灵魂，永远抹不掉了。那些死人的灵魂和血骨，一直紧紧地扒在她身上，从未远离。 契机仅仅是一杯红酒。   那只是一次普通的夜宴。 当地的一位官员凑到她身前，满脸堆笑，语气近乎讨好。他身后的侍女端着一个盘子，上边是几顶小巧玲珑的酒杯。 “哎呀，上校，您真该尝尝这红酒！来自桑塔拉品质最好的葡萄庄园!看这颜色，多漂亮啊!” 哈莉特并不意外，这样的酒会总有经销商为自己拓宽业务，他们乐于多几位有品位的客户，而追求品质的老爷太太们也喜爱给自己的生活来点奢侈的小品味。安莉特也不想知道这官员跟这葡萄庄园背后又有什么经济纠葛，她要是觉得合她口味，她不介意让这个葡萄庄园专供哈明萨家族，那庄园主真是做梦都要笑醒。 “那拿一杯吧。” 官员的笑几乎要扯到后脑勺，他谄媚地取下一杯，恭敬地递到哈莉特面前。 她抬手，接过那小小高脚杯里一点点殷红的酒液。漫不经心低头略略扫了一眼。 多漂亮的红色。 血一样的颜色。 跟弗里克被割喉时喷出的血的颜色一模一样。当时弗里克的脑袋因为惯性向后仰去，一截颈椎勉强链接脑袋和脖子，血花炸开一大片，有几滴甚至溅到了她脸上。他的脸还保持着生前惊恐的表情，一双大眼直勾勾地瞪着身后的安莉特…… 她的胃痉挛起来。 她身体比脑子快，下意识一甩手，把那小酒杯摔了出去，同时站起身，向后猛撤一步。轮椅被掀翻，一下子倒在地上。她的保镖们足够尽职尽责，一个猛冲上去控制住了官员，另一个用身体护住她。剩下几个都果断拔枪，警惕周围。 现场气氛一下子混乱起来，大家不明白到底发生了什么事。有闭眼尖叫的，有撒腿往外跑的，热闹的氛围一下消失了。安莉特此时反应过来，摆了摆手示意保镖她没事。见哈莉特恢复正常，宾客们都冷静下来。 这宴会是继续不下去了。   酒店里。 她把水龙头的水开到了最大，冰冷的水柱急促地冲刷着她的脸，她紧闭双眼，强迫自己冷静下来。她低着头弯着腰，大口大口地喘息着。 待到她觉得自己已经冷静了，她慢慢地抬起头来，酒店镜子里赫然一张惨白的人脸。凝着水珠，她的头发被水打湿了几缕，狼狈地粘在脸颊上。简直像一具失血而死的尸体。 镜子里不止有她一个人。 脑袋开花爆炸的弗里克，端正地立着军姿，血管和脊柱从没有了头的脖颈上伸出来，汩汩地冒着血，把他浇成一个血人。跳伞失败的奥克兰像块破布一样吊在天花板上，腹腔被划开，肠子在地板上拖出足有一米长。生了重病的奎利钦肤色蜡黄，两颊像骷髅一样深凹进去，了无生机地瘫在地板上。有眼睛的没眼睛的，他们都直勾勾地看着她。 她瞪着镜子里的死人们，觉得自己的太阳穴在突突狂跳，耳膜嗡嗡直响，心脏狂跳，眼前发花，浑身发冷。 她好像又站在特兰的雪地里了，愤怒的士兵们把特兰战俘剥光丢在雪地里，开着装甲车去追逐碾压他们。一遍一遍，直到人肉融进土地里，只能看见几根破碎的长骨。 她在干什么来着？ 哦对，她当时因为战线推进而心情大好，她叼着烟，踱进战俘营，下令把特兰军官们都拖出去枪毙。几声枪响，尸体被扔进还没上冻的小溪。苍白的人体相互纠结，从弹孔里流出鲜红的血，顺着溪水向下游漂去。 天气太冷，那血在水里几乎不扩散，沿着水流拉长，像一根邪恶的红色丝带。 还像她的头发。 她的头发本是偏红的橙色，此时也许是灯光的原因，镜子里她的头发居然反射出了血一样的红色。她一双浅绿的眼睛，也幽幽地反着光，像两朵不吉利的鬼火。 她一拳砸碎了镜子。 镜子碎裂的声音及其清脆，还伴着另外一声轻微的破碎声。她感到一股热流从鼻孔里窜出，瞬间，洗手台水池就被染红了。 血流的太猛，有一部分甚至呛进气管和食道，从口腔里流了出来。她剧烈地咳嗽，下半张脸全是血，狼狈不堪。   这个小插曲之后，安莉特的精神状态一日比一日差。她经常在镜子，在水面的倒影里，看见那些在特兰战场上死状凄惨的士兵。她甚至还出现了幻听等问题，经常在华美的音乐声中听到凄惨的哀嚎声。饮食也变得神经兮兮，她不愿意吃喝任何红色的东西，稍微有些腥味的荤菜也敬谢不敏。她也能闻见死人的尸臭，她就神经质地抓起一瓶昂贵的香水，狂按喷头，直到气味浓郁到几乎令人窒息。 她幻视幻听的症状也影响了现实生活，她不止一次在酒店打砸东西，弄得满屋狼藉，有一次甚至在屋内开枪，子弹在屋内连跳几下，差点把她也打死。她的血管似乎也出了问题，激动时，头晕目眩，鼻血止不住地流。或许是为了补偿自己，她的宴会变得越来越奢华，规模越来越大，时间越来越长。只有沉溺在香水酒精与烟草的环境中时，特兰的血肉似乎才稍稍远离。 她似乎废了。   这天又是夜宴，她醉醺醺地被人扶出酒店，摔进自己的车里，正要让司机起步，却发现车上早已坐了人。还不等她反应过来，漆黑的枪口顶上了她脑门。 她惊出了一身冷汗，酒也醒了，抬眼一看却长舒一口气。 “是你啊。西部的事干完了？” 来人正是她另一个兄弟明菲尔德。他一双湖蓝眼瞳，白金鬈发半长不短，扎成一个辫子垂在颈侧，身形挺拔，英俊逼人。 明菲尔德还是那副一成不变的冰冷臭脸，他收回手枪，放进上身大衣口袋。 “回中央汇报，返程路过开城罢了。你应当知道我为何而来。” “……” 安莉特有些心虚，没接话。 “你这大半年玩得很开心啊。” “……” 见她不接话，明菲尔德直接把一本杂志摔到了她脸上。 “你自己看。” 她扫了一眼，印刷很粗糙，肯定不是中央官方自己印刷的刊物。还没翻开，封面大大的标题就刺痛了她的眼睛。 《中央对特兰的战争是一场不义的侵略战争》 这说的也太对了，对得她想把发行人揪出来枪毙八百回。 “我记得情报局有管控民间舆情的职责吧，为什么这种出版物还能发行？于私，你是中路指挥之一，攻击对特兰的作战等于攻击你；于公，对特兰的作战是上层定下的战略，不是这种民间出版物可以置喙的。” 哈莉特翻看着这本刊物，内容真详实啊。什么老兵回忆，原住民采访，遗迹实拍，真是该死的应有尽有。 “换了旁人，你这种程度消极怠工的足够被枪毙了。但父亲愿意给你这个机会，这本杂志首都现在屡禁不止，甚至引起了学生游行抗议，父亲十分愤怒，要你先找到推手。” 安莉特没来由的一阵厌烦。 父亲父亲父亲。 明菲尔德总是这样，死老头随口一句，他便奉为圭臬。哈明萨将军提出的任何要求，不管合理不合理，他就闷着头去做。那破脸一年四季一个表情，活像个机器人。来见安莉特跟科米莱，开口就是“你们没有达到父亲的要求。” 死老头真是养了一条好狗。 你积极什么，你根本不是死老头的亲生孩子，再怎么努力以后也轮不到你。安莉特十分刻薄的想着。 安莉特这两个过继的兄弟，她与科米莱感情更好。科米莱的生父是哈明萨将军的弟弟，年纪轻轻战死沙场，他便成了遗腹子。生产之时，他母亲难产，一生下来就成了孤儿。哈明萨将军干脆认了这个侄子。安莉特比他小两岁，两人一起长大，性情相投，感情亲厚。两人长得也像，都继承了哈明萨家族标志性的橙红头发与绿色眼睛，说是亲生兄妹也没人怀疑。 明菲尔德则是哈明萨将军二妹的孩子。哈明萨将军的两个妹妹，都性情古怪倔强。大妹与人私奔，嫁去了哈明萨家死对头琼斯家；二妹则是一头扎入科研的怀抱，到了年纪找了个富翁，两人什么感情也没有，纯纯的协议婚姻，一个要专利，一个要资金。扯了证也没同居，过了几年一合计，应该有个孩子。于是一个取精，一个取卵，试管里摇摇晃晃造出来一个胚胎。胚胎在培养箱里就长成了明菲尔德。 他父母很少管他，养到八岁，母亲实验事故把自己炸死了，他父亲忙于商务，干脆直接把明菲尔德过继给了哈明萨将军。明菲尔德跟他的那个富商生父长得更像，几乎看不出来一点哈明萨家族的影子。 也许是家庭生长环境的影响，明菲尔德总是面无表情板着一张脸，他幼时就很少说话，成年后话也不多。比起与安莉特和科米莱这两个同龄人相处，明菲尔德似乎更愿意跟随哈明萨将军，与两人的关系自然也谈不上亲密。 只是科米莱对明菲尔德还算客气，保持着贵族子弟间该有的礼貌与疏离。哈莉特则更尖酸，两人成年后见面，说话都夹枪带棒。 明菲尔德抬手示意司机开车，车子发动，两人沉默良久，安莉特不是习惯冷场的人，有些尴尬，便开口问道：“西部的事办的怎么样？” 他瞥了安莉特一眼。 “别操心别人，先干好你自己的事。” …… 她就不该问。 “是呢，我不该问西部，我该问问你那个小情人。哦，不对，现在该叫嫂子是不是。” 这句话十足的阴阳怪气，她满意地看到明菲尔德手上青筋暴起，毫不掩饰地大笑出声。 谁能想到一对身居高位的兄弟会爱上同一个人。这段戏剧性的三角恋以明菲尔德的失败告终，科米莱抱得美人归。之后这件事被哈莉特拿来大书特书，两人骂战时，安莉特极尽嘲讽之态地一提，便基本能宣布战争的胜利。   明菲尔德并未久留，第二天一早便离开了。 他前脚刚走，后脚安莉特收拾东西，恋恋不舍地离开了开城。   杂志案让哈明萨将军震怒，情报局最高领导安莉特直接下场，自然进展神速。情报局的探子们倾巢出动，顺藤摸瓜，一路向上寻找杂志源头。安莉特到没去一线跟进，每天坐在办公室里，皱着眉头看手下们递上来的报告。大部分都是空洞无用的废话，有用的   这个贫民窟离繁华奢靡的市中心并不远，开城以市中心为核心，上下左右伸出四条崭新的大道。大道之间有些被开城安排了宅子别墅，也有公园之类绿化，但有些还是原先平民的住宅。虽然建起了繁华的购物中心，但平民住宅里的集市还留着，集市辟出一块又一块的空地，辐射出密密麻麻的小巷胡同。这些小巷填满了这座城市里最穷的人，像丑陋而渺小的跳蚤。弯弯绕绕的小路最终汇到一处，辟出一个不算小的广场。上面杂七杂八堆满了垃圾，因为开城天气炎热干燥，各种东西腐烂程度不高，虽然味道依旧难闻，但也没有恶臭扑鼻的地步。 话说回来，她看着贫民区破破烂烂的小巷，几个偷偷打量她的衣衫褴褛的皮包骨的小孩， 她   “快来帮帮忙！” 她凝视着这个赤身裸体的孕妇，面容还是女孩的样子，四肢细的吓人，却顶着一个大的吓人的肚子，她的脸色像蜡一样白，颧骨突出眼窝凹陷，满脸的死气。身下的生殖口有规律的一张一合，吐出腥膻的羊水，一个硕大的胎儿的头若隐若现。 袁思妍急得满脸都是汗，却手足无措，她能做的只有捏着一支营养膏，尝试喂到那个女孩嘴边，她看见安莉特进来，眼睛一亮。 “女士，您有水吗？” 安莉特没有接话。 她定定地看着这个女孩，思绪又飘回了特兰。 那个该死的女间谍，那个贱烂的畜生，那个坑害了他们连队的婊子。她被抓住时也是个孕妇，挺着一个巨大的肚子。她记得当时她被前线的溃败几乎气疯，几夜未睡，知道间谍被捕的消息时，她赤红着眼咬着牙，丝毫不体面地冲进了总指挥营帐里，举着枪托，像在首都打高尔夫球一样给那女人的脑袋来了一下。然后立刻被几个下属拉住，劝说她起码等到审讯完。 审讯完是怎样的？她剖开了那个女人的肚子，把那个血淋淋的胎儿挑在军刀上，凑到那个女人脸前让她看——那女人的眼皮早被割掉了。然后她把一根烧红的烙铁棒捅进了那个女人的生殖腔，恶狠狠地搅动。那女人的盆骨碎了，整个下肢瘫软下来。她还想再来点厉害的，那女人却断了气。她犹觉不解恨，把那女人的尸体剁成几块，丢在了荒无人烟的冰原里。 她一点也不觉得自己过分，这间谍偷取情报害死了他们多少士兵？她只后悔没给这贱人事先打点药，便宜了她死的这么快。   而现在，这个女孩跟那个该死的间谍的脸，诡异的重合了。 明明身在温暖的开城，屋外阳光灿烂，燥热的空气中只有一点微微的尘土气息，她却浑身发冷，似乎又回到了腥冷的特兰平原。身上面料柔软的衣服也变回了那糙硬的军服，兜里的手枪变回了冲锋枪。 她的喉头哽住了。 她的胃在痉挛。 她想吐。 “女士？女士？！” 是袁思妍的声音。 她只当     安莉特不可谓不见多识广，自己本人也是明艳的大美女，尽管如此，她依旧不得不承认，阿卡尔嘉长得真的很好看。</p>
+
+        </div>
+        <!-- .entry-content -->
+        <div class="single-reward">
+          <div class="reward-open">赏
+            <div class="reward-main">
+              <ul class="reward-row">
+                <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/custom/donate/AliPayQR.jpg"></li>
+                <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/custom/donate/WeChanQR.jpg"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/2025/01/27/28/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                小说</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+        
+          
+            <div class="post-nepre half next">
+          
+            <a href="/2025/01/27/19/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                Untitled Post - 2</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "GyC3NzMvd0hT9Yyd2hYIC0MN-gzGzoHsz",
+        appKey: "mgOpfzbkHYqU92CV4IDlAUHQ",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
+
+
+
+
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+          <a href="" class="profile gravatar"><img src="" itemprop="image" alt="" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="" itemprop="url" rel="author"></a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i></p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
+</div>
+
+
+
+    </div>    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..."/>
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            // PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2025 Yourlai<br>
+      powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer> -->
+<footer id="colophon" class="site-footer" role="contentinfo">
+  <div class="site-info">
+    <div class="footertext">
+      <div class="img-preload">
+        <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/wordpress-rotating-ball-o.svg">
+        <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/disqus-preloader.svg">
+      </div>
+      <p style="color: #666666;">&copy 2018</p>
+    </div>
+    <div class="footer-device">
+    <p style="font-family: 'Ubuntu', sans-serif;">
+        <span style="color: #b9b9b9;">Theme <a href="https://github.com/honjun/hexo-theme-sakura" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Sakura</a> <i class="iconfont icon-sakura rotating" style="color: #ffc0cb;display:inline-block"></i> by <a href="https://2heng.xin/" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Mashiro</a>&<a href="https://www.hojun.cn/" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Hojun</a>, Powered by Hexo, Hosted by Coding Pages</a>
+        </span>
+      </p>
+    </div>
+  </div><!-- .site-info -->
+</footer>
+
+
+
+<!-- <script src="/js/tocbot.js"></script> -->
+<script type="text/javascript" src="/js/lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/InsightSearch.js"></script>
+<script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="/js/zoom.min.js"></script>
+<script type="text/javascript" src="/js/sakura-app.js"></script>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine@1.3.4/dist/Valine.min.js'></script>
+<script src="/js/botui.js"></script>
+<!-- 不蒜子 网页计数器 -->
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script> -->
+<script type="text/javascript">
+/* <![CDATA[ */
+if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/honjun/hojun@1.2","name":"Unbroken.mp4","live":"close"},"windowheight":"fixed","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+} else {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/honjun/hojun@1.2","name":"Unbroken.mp4","live":"open"},"windowheight":"auto","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+}
+/* ]]> */
+
+</script>
+<script>
+$(document).ready(function() {
+  if ($(".toc").length > 0 && document.body.clientWidth > 1200) {
+    if ($(".pattern-center").length > 0) { //有图的情况
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -400,
+          scrollSmoothOffset: -85
+      });
+    } else {
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -85,
+          scrollSmoothOffset: -85
+      });
+    }
+    var offsetTop = $('.toc').offset().top - 95;
+    window.onscroll = function() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop >= offsetTop) {
+        $('.toc').addClass('toc-fixed');
+      } else {
+        $('.toc').removeClass('toc-fixed');
+      }
+    }
+  }
+});
+</script>
+
+    <div class="openNav no-select" style="height: 50px;">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <div id="mo-nav" class="">
+  <div class="m-avatar">
+    <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/custom/avatar.jpg">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">Yourlai'sBlog</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+            首页
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/archives">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+            归档
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/categories/%E6%8A%80%E6%9C%AF/">
+                  <i class="fa fa-code" aria-hidden="true"></i>
+                  技术
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/%E7%94%9F%E6%B4%BB/">
+                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                  生活
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/%E8%B5%84%E6%BA%90/">
+                  <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                  资源
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/%E9%9A%8F%E6%83%B3/">
+                  <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                  随想
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/%E8%BD%AC%E8%BD%BD/">
+                  <i class="fa fa-book" aria-hidden="true"></i>
+                  转载
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+            清单
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/tags/%E6%82%A6%E8%AF%BB/">
+                  <i class="fa fa-th-list faa-bounce" aria-hidden="true"></i>
+                  书单
+                </a>
+              </li>
+            
+              <li>
+                <a href="/bangumi/">
+                  <i class="fa fa-film faa-vertical" aria-hidden="true"></i>
+                  番组
+                </a>
+              </li>
+            
+              <li>
+                <a href="/music/">
+                  <i class="fa fa-headphones" aria-hidden="true"></i>
+                  歌单
+                </a>
+              </li>
+            
+              <li>
+                <a href="/tags/%E5%9B%BE%E9%9B%86/">
+                  <i class="fa fa-photo" aria-hidden="true"></i>
+                  图集
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/comment/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+            留言板
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/links/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+            友人帐
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/donate/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-heart faa-pulse" aria-hidden="true"></i>
+            赞赏
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+            关于
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/about/">
+                  <i class="fa fa-meetup" aria-hidden="true"></i>
+                  我？
+                </a>
+              </li>
+            
+              <li>
+                <a href="/theme-sakura/">
+                  <i class="fa iconfont icon-sakura" aria-hidden="true"></i>
+                  主题
+                </a>
+              </li>
+            
+              <li>
+                <a href="/lab/">
+                  <i class="fa fa-cogs" aria-hidden="true"></i>
+                  Lab
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/client/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-android faa-vertical" aria-hidden="true"></i>
+            客户端
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/atom.xml">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-rss faa-pulse" aria-hidden="true"></i>
+            RSS
+          </span>
+        </a>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">&copy 2019 hexo-sakura</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+<style>
+  .aplayer .aplayer-lrc {
+    height: 35px;
+  }
+  .aplayer .aplayer-lrc p{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px !important;
+  }
+  .aplayer .aplayer-lrc p.aplayer-lrc-current{
+    color: #FF1493;
+  }
+  .aplayer.aplayer-narrow .aplayer-body{
+    left: -66px !important;
+  }
+  .aplayer.aplayer-fixed .aplayer-lrc {
+    display: none;
+  }
+  .aplayer .aplayer-lrc.aplayer-lrc-hide {
+      display:none !important;
+  }
+  .aplayer.aplayer-fixed .lrc-show {
+    display: block;
+    background: rgba(255, 255, 255, 0.8);
+  }
+</style>
+<meting-js
+
+    id="10161735800"
+
+    server="netease"
+
+    type="playlist"
+
+    fixed="true"
+
+    autoplay="false"
+
+    loop="all"
+
+    order="random"
+
+    preload="auto"
+
+    volume="0.7"
+
+    mutex="true"
+
+</meting-js>
+<script>
+  $(function(){
+    $('body').on('click', '.aplayer', function(){
+      if($('.aplayer-button').hasClass('aplayer-play')) {
+        $('.aplayer-lrc').removeClass('lrc-show');
+      } else {
+        $('.aplayer-lrc').addClass('lrc-show');
+      }
+    })
+  });
+</script>
+</body>
+</html>

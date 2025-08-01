@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title itemprop="name">FreeRTOS入门教程 | Yourlai&#39;s Blog</title>
+  
+    <link rel="shortcut icon" href="/images/favicon.ico">
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="stylesheet" id="saukra_css-css" href="/css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="/css/font.css" media="all">
+  <link rel="stylesheet" href="/css/insight.css" media="all">
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css" media="all">
+  <link rel="stylesheet" href="/css/zoom.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+" type="text/css" media="all"> -->
+  <script>
+  /*Initial Variables*/
+  var mashiro_option = new Object();
+  var mashiro_global = new Object();
+  mashiro_option.NProgressON = true;
+  /* 
+   * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+   * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+   */
+  mashiro_option.email_domain = "";
+  mashiro_option.email_name = "";
+  mashiro_option.cookie_version_control = "";
+  mashiro_option.qzone_autocomplete = false;
+  mashiro_option.site_name = "Yourlai'sBlog";
+  mashiro_option.author_name = "Blog";
+  mashiro_option.site_url = "https://sakura.hojun.cn";
+  mashiro_option.v_appId = "GyC3NzMvd0hT9Yyd2hYIC0MN-gzGzoHsz";
+  mashiro_option.v_appKey = "mgOpfzbkHYqU92CV4IDlAUHQ";
+  mashiro_option.mathjax = "0";
+  mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+  mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+
+  // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+  // mashiro_option.float_player_on = true;
+
+  /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+  var bg = "https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/cover/(1).jpg.webp,https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/cover/(2).jpg.webp,https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/cover/(3).jpg.webp,https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/cover/(4).jpg.webp,https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/cover/(5).jpg.webp,https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/cover/(6).jpg.webp,https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/cover/(7).jpg.webp,https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/cover/(8).jpg.webp".split(",");
+  var bgindex = Math.floor(Math.random()*bg.length);
+  if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+    alert('朋友，IE浏览器未适配哦~');
+  }
+  </script>
+  <style type="text/css">
+  .hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}
+  </style>
+  <style type="text/css">.site-top .lower nav{display:block !important;}.author-profile i,.post-like a,.post-share .show-share,.sub-text,.we-info a,span.sitename,.post-more i:hover,#pagination a:hover,.post-content a:hover,.float-content i:hover{color:#FE9600}.feature i,.download,.navigator i:hover,.links ul li:before,.ar-time i,span.ar-circle,.object,.comment .comment-reply-link,.siren-checkbox-radio:checked + .siren-checkbox-radioInput:after{background:#FE9600}::-webkit-scrollbar-thumb{background:#FE9600}.download,.navigator i:hover,.link-title,.links ul li:hover,#pagination a:hover,.comment-respond input[type='submit']:hover{border-color:#FE9600}.entry-content a:hover,.site-info a:hover,.comment h4 a,#comments-navi a.prev,#comments-navi a.next,.comment h4 a:hover,.site-top ul li a:hover,.entry-title a:hover,#archives-temp h3,span.page-numbers.current,.sorry li a:hover,.site-title a:hover,i.iconfont.js-toggle-search.iconsearch:hover,.comment-respond input[type='submit']:hover{color:#FE9600}.comments .comments-main{display:block !important;}.comments .comments-hidden{display:none !important;}background-position:center center;background-attachment:inherit;}
+  </style>
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit">
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <section id="main-container">
+    <div class="headertop ">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <div class="header-tou">
+        <a target="_blank" rel="noopener" href="https://sakura.hojun.cn">
+          <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/custom/avatar.jpg">
+        </a>
+      </div>
+      <div class="header-info">
+        <p>Never stop . Never give up.</p>
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="https://music.163.com/#/user/home?id=1298327087" target="_blank" class="social-github" title="wangyiyun">
+                    <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/social/wangyiyun.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="mailto:yourlai@yourlai.icu" target="_blank" class="social-github" title="email">
+                    <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/social/email.svg">
+                  </a>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  <div id="video-container" style="">
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name="" src="" width="auto" preload="auto">
+    </video>
+    <div id="video-btn" class="loadvideo videolive">
+    </div>
+    <div id="video-add">
+    </div>
+    <div class="video-stu">
+    </div>
+  </div>
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+    <div id="page" class="site wrapper">
+      <header class="site-header no-select gizle sabit" role="banner">
+  <div class="site-top">
+    <div class="site-branding">
+      <span class="site-title">
+        <span class="logolink moe-mashiro">
+          <a href="/">
+            <span class="sakurasono">Yourlai&#39;s</span>
+            <span class="shironeko">Blog</span>
+          </a>
+        </span>
+      </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+                    首页
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+                    归档
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/categories/%E6%8A%80%E6%9C%AF/">
+                          <i class="fa fa-code" aria-hidden="true"></i>
+                          技术
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/%E7%94%9F%E6%B4%BB/">
+                          <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                          生活
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/%E8%B5%84%E6%BA%90/">
+                          <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                          资源
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/%E9%9A%8F%E6%83%B3/">
+                          <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                          随想
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/%E8%BD%AC%E8%BD%BD/">
+                          <i class="fa fa-book" aria-hidden="true"></i>
+                          转载
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+                    清单
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/tags/%E6%82%A6%E8%AF%BB/">
+                          <i class="fa fa-th-list faa-bounce" aria-hidden="true"></i>
+                          书单
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/bangumi/">
+                          <i class="fa fa-film faa-vertical" aria-hidden="true"></i>
+                          番组
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/music/">
+                          <i class="fa fa-headphones" aria-hidden="true"></i>
+                          歌单
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/tags/%E5%9B%BE%E9%9B%86/">
+                          <i class="fa fa-photo" aria-hidden="true"></i>
+                          图集
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/comment/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+                    留言板
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/links/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+                    友人帐
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/donate/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-heart faa-pulse" aria-hidden="true"></i>
+                    赞赏
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+                    关于
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/about/">
+                          <i class="fa fa-meetup" aria-hidden="true"></i>
+                          我？
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/theme-sakura/">
+                          <i class="fa iconfont icon-sakura" aria-hidden="true"></i>
+                          主题
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/lab/">
+                          <i class="fa fa-cogs" aria-hidden="true"></i>
+                          Lab
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/client/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-android faa-vertical" aria-hidden="true"></i>
+                    客户端
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/atom.xml">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-rss faa-pulse" aria-hidden="true"></i>
+                    RSS
+                  </span>
+                </a>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+<div id="content" class="site-content">
+  <div id="primary" class="content-area">
+    <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+          <header class="entry-header">
+            <h1 class="entry-title">FreeRTOS入门教程</h1>
+            <p class="entry-census">&nbsp;·&nbsp;2025-5-18&nbsp;·&nbsp;<span id="busuanzi_value_page_pv"></span>次阅读</p></p>
+
+            <hr>
+          </header>
+        
+        <div class="entry-content">
+          <p><strong>FreeRTOS</strong></p>
+<p><strong>入门文档</strong></p>
+<p><strong>2025-05-12</strong></p>
+<p>ESP32的FreeRTOS入门</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://yourlai.icu/archives/freertos/">封面</a></li>
+<li><a target="_blank" rel="noopener" href="http://yourlai.icu/archives/freertos/2/">写在前边</a></li>
+<li><a target="_blank" rel="noopener" href="http://yourlai.icu/archives/freertos/3/">文档格式</a></li>
+<li><a target="_blank" rel="noopener" href="http://yourlai.icu/archives/freertos/4/">一些小知识点</a></li>
+<li><a target="_blank" rel="noopener" href="http://yourlai.icu/archives/freertos/5/">任务（Task）</a></li>
+<li><a target="_blank" rel="noopener" href="http://yourlai.icu/archives/freertos/6/">队列（Queue）</a></li>
+<li><a target="_blank" rel="noopener" href="http://yourlai.icu/archives/freertos/7/">信号量（Semaphore）</a></li>
+<li><a target="_blank" rel="noopener" href="http://yourlai.icu/archives/freertos/8/">互斥锁(互斥量Mutex）</a></li>
+<li><a target="_blank" rel="noopener" href="http://yourlai.icu/archives/freertos/9/">事件组(Event Groups)</a></li>
+<li><a target="_blank" rel="noopener" href="http://yourlai.icu/archives/freertos/10/">直达任务通知（Task Notify）</a></li>
+</ul>
+<h1 id="写在前边"><a href="#写在前边" class="headerlink" title="写在前边"></a><strong>写在前边</strong></h1><p>弄这个文档的初衷是为了更快地入门ESP3RTOS2中的FreeRTOS，一寻思自己弄太慢了，就大家一起来完善吧。</p>
+<p>文档内容肯定会有错误，在群里说一下改正即可，如果进度比较快or有地方需要完善，按照已有格式进行完善即可，众人拾柴火焰高，对吧。</p>
+<h1 id="文档说明"><a href="#文档说明" class="headerlink" title="文档说明"></a><strong>文档说明</strong></h1><p>下边的函数或者某些参数如果没有看懂，可以参考《FreeRTOS基本函数大全》，需要结合PDF和AI了解。</p>
+<p><strong>文档的基本格式如下</strong><strong>↓</strong></p>
+<h1 id="某个大类1（使用“标题1”格式）"><a href="#某个大类1（使用“标题1”格式）" class="headerlink" title="某个大类1（使用“标题1”格式）"></a><strong>某个大类1（使用“标题1”格式）</strong></h1><p>然后是这个大类的简短介绍，包括具体使用流程等等。</p>
+<h2 id="1-具体流程1（使用“副标题”格式）-缩进一个TAB"><a href="#1-具体流程1（使用“副标题”格式）-缩进一个TAB" class="headerlink" title="1**.具体流程1（使用“副标题”格式）(缩进一个TAB)**"></a><strong>1</strong>**.<strong><strong>具体流程1（使用“副标题”格式）</strong></strong>(<strong><strong>缩进一个T</strong></strong>AB)**</h2><p>包括具体的代码和介绍，介绍放代码前。（代码使用代码块填写）</p>
+<h2 id="2-具体流程2（格式同上）"><a href="#2-具体流程2（格式同上）" class="headerlink" title="2**.**具体流程2（格式同上）"></a><strong>2</strong>**.**<strong>具体流程2（格式同上）</strong></h2><p>包括具体的代码和介绍，介绍放代码前。</p>
+<h1 id="某个大类-2"><a href="#某个大类-2" class="headerlink" title="某个大类****2"></a><strong>某个大类****2</strong></h1><h2 id="1-………………如此往下"><a href="#1-………………如此往下" class="headerlink" title="1.****………………如此往下"></a><strong>1</strong><strong>.****………………如此往下</strong></h2><p>目录</p>
+<h1 id="一些需要注意的"><a href="#一些需要注意的" class="headerlink" title="一些需要注意的"></a><strong>一些需要注意的</strong></h1><p>在ESP32中，没有unsigned char，被uint32替代。</p>
+<p>注意任务创建时顺序问题，若任务A未完全创建，而此时B已经创建完成且调用了A中的数据，则程序会在运行时崩溃。</p>
+<h1 id="任务（Task）"><a href="#任务（Task）" class="headerlink" title="任务（Task）"></a><strong>任务</strong><strong>（Task）</strong></h1><p>任务换个说法，就是程序所运行在的那个基本框架。</p>
+<p>具体使用流程：创建任务-&gt;调用任务</p>
+<h2 id="1-创建任务"><a href="#1-创建任务" class="headerlink" title="1**.**创建任务"></a><strong>1</strong>**.**<strong>创建任务</strong></h2><p>TaskA是任务的名字，可任意更改</p>
+<p>（任务也有句柄，为TaskHandle，直达任务通知用。）</p>
+<p>void TaskA(void* param) </p>
+<h2 id="2-在运行中调用任务"><a href="#2-在运行中调用任务" class="headerlink" title="2**.**在运行中调用任务"></a><strong>2</strong>**.**<strong>在运行中调用任务</strong></h2><p>通过xTaskCreate添加任务到内核中,这样就可以运行这个任务的程序了</p>
+<p>void app_main(void)<br>{<br>xTaskCreatePinnedToCore(TaskA,”Read_from_queue”,2048,NULL,3,NULL,1);<br>&#x2F;&#x2F;创建任务<br>xTaskCreatePinnedToCore(TaskB,”Write_to_queue”,2048,NULL,3,NULL,1);<br>}<br>BaseType_t xTaskCreatePinnedToCore(<br>TaskFunction_t pxTaskCode, &#x2F;&#x2F; 任务函数指针<br>const char *const pcName, &#x2F;&#x2F; 任务名称（字符串标识）<br>const uint32_t usStackDepth, &#x2F;&#x2F; 任务堆栈大小（单位：字，1字&#x3D;4字节）<br>void *const pvParameters, &#x2F;&#x2F; 任务参数指针（传递给任务的参数）<br>UBaseType_t uxPriority, &#x2F;&#x2F; 任务优先级（0~configMAX_PRIORITIES-1）<br>TaskHandle_t *const pxCreatedTask, &#x2F;&#x2F; 任务句柄输出（可为NULL；保存创建的任务句柄，可用于后续操作）<br>const BaseType_t xCoreID &#x2F;&#x2F; 绑定运行的CPU核心（0或1，或tskNO_AFFINITY）<br>);</p>
+<h1 id="队列（Queue）"><a href="#队列（Queue）" class="headerlink" title="队列（Queue）"></a><strong>队列（Queue）</strong></h1><p>队列，是一种先进先出（FIFO）的数据结构，用于在任务、中断或模块之间有序传递数据。</p>
+<p>使用流程：</p>
+<p>创建队列-&gt;向队列中发送&#x2F;读取数据-&gt;不使用使删除队列</p>
+<h2 id="1-创建队列"><a href="#1-创建队列" class="headerlink" title="**1. ** 创建队列"></a>**1. ** <strong>创建队列</strong></h2><p>先创建队列句柄，再使用xQueueCreate创建动态队列（必须可以被app_main调用）</p>
+<p>定义队列句柄并初始化为空（需app_main中通过xQueueCreate创建队列后赋值）<br>QueueHandle_t queue_handle &#x3D; NULL;<br>queue_handle &#x3D; xQueueCreate (5,sizeof(queue_data_t));</p>
+<h2 id="2-向队列中发送-接受数据"><a href="#2-向队列中发送-接受数据" class="headerlink" title="**2. ** 向队列中发送&#x2F;接受数据"></a>**2. ** <strong>向队列中发送&#x2F;接受数据</strong></h2><p>xQueueReceive函数接收后返回pdTrue&#x2F; pdFALSE。</p>
+<p>pdTRUE &#x3D;&#x3D; xQueueReceive (queue_handle,&amp;data,100)</p>
+<p>通过队列句柄（queue_handle）向队列发送数据</p>
+<p>xQueueSend(queue_handle,&amp;data,100);</p>
+<h1 id="信号量（Semaphore）"><a href="#信号量（Semaphore）" class="headerlink" title="信号量（Semaphore）"></a><strong>信号量（Semaphore）</strong></h1><p>信号量是一种同步机制，通过计数器控制多任务&#x2F;线程对共享资源的访问。本质是一个非负整数，支持两种原子操作：获取（Take&#x2F;P）和释放（Give&#x2F;V），需手动释放（减少）信号量。</p>
+<p>使用流程：</p>
+<p>①创建信号量（成功后返回信号量句柄）-&gt;获取信号量-&gt;（若不用则删除信号量）</p>
+<p>②单独释放信号量（相当于改变信号量）</p>
+<h2 id="1-创建信号量"><a href="#1-创建信号量" class="headerlink" title="**1. ** 创建信号量"></a>**1. ** <strong>创建信号量</strong></h2><p>类似创建队列，先使用创建信号量句柄再创建信号量</p>
+<p>同队列，xSemaphoreCreate必须可以被app_main调用（）</p>
+<p>SemaphoreHandle_t bin_sem; &#x2F;&#x2F;创建信号量句柄<br>bin_sem &#x3D; xSemaphoreCreateBinary(); &#x2F;&#x2F;通过之前定义的信号量句柄创建二进制信号量</p>
+<h2 id="2-释放信号量"><a href="#2-释放信号量" class="headerlink" title="**2. ** 释放信号量"></a>**2. ** <strong>释放信号量</strong></h2><p>此处只演示二进制信号量</p>
+<p>xSemaphoreGive(bin_sem); &#x2F;&#x2F;每隔1s释放一个信号量<br>vTaskDelay(pdMS_TO_TICKS(1000));</p>
+<h2 id="3-获取信号量（使用信号量）"><a href="#3-获取信号量（使用信号量）" class="headerlink" title="**3. ** 获取信号量（使用信号量）"></a>**3. ** <strong>获取信号量（使用信号量）</strong></h2><p>if(pdTRUE &#x3D;&#x3D; xSemaphoreTake(bin_sem,portMAX_DELAY))<br>&#x2F;&#x2F;因为是二进制信号量，所以只有两个状态0&#x2F;1<br>ESP_LOGI(“bin_sem”,”You got the SEM_BIN!”);</p>
+<h1 id="互斥锁-互斥量Mutex）"><a href="#互斥锁-互斥量Mutex）" class="headerlink" title="**互斥锁(**互斥量Mutex）"></a>**互斥锁(**<strong>互斥量Mutex）</strong></h1><p>实际上使用信号量控制访问权限的，确保同一时间只有一个任务可以访问资源，避免数据竞争。</p>
+<p>谁访问谁释放。当一个任务获取了锁（Take），其他任务就无法再获取该锁，直到原任务释放锁（Give）。</p>
+<p>使用流程：获取-&gt;进行硬件&#x2F;参数访问-&gt;释放</p>
+<h2 id="1-获取信号量"><a href="#1-获取信号量" class="headerlink" title="**1. ** 获取信号量"></a>**1. ** <strong>获取信号量</strong></h2><p>xSemaphoreTake(bin_sem,portMAX_DELAY)</p>
+<h2 id="2-释放信号量-1"><a href="#2-释放信号量-1" class="headerlink" title="**2. ** 释放信号量"></a>**2. ** <strong>释放信号量</strong></h2><p>xSemaphoreGive(bin_sem);</p>
+<h1 id="事件组-Event-Groups"><a href="#事件组-Event-Groups" class="headerlink" title="事件组(Event Groups)"></a><strong>事件组</strong><strong>(Event Groups)</strong></h1><p> </p>
+<p>这是一位事件位↓</p>
+<p>0</p>
+<p>0</p>
+<p>0</p>
+<p>1</p>
+<p>0</p>
+<p>↑↑↑这是一个五位事件组↑↑↑</p>
+<p>通过事件组，同时记录多个事件的发生状态，0无1有。</p>
+<p>使用流程：</p>
+<p>创建事件组-&gt;等待事件组中某个标志位-&gt;设置标志位-&gt;清除标志位</p>
+<h2 id="1-创建事件组"><a href="#1-创建事件组" class="headerlink" title="**1. ** 创建事件组"></a>**1. ** <strong>创建事件组</strong></h2><p>同样，需要先创建事件组的句柄，再定义两事件位。</p>
+<p>static EventGroupHandle_t test_event_handle;<br>&#x2F;&#x2F;创建事件组句柄，名字为test_event_handle<br>test_event_handle = xEventGroupCreate();<br>&#x2F;&#x2F;给test_event_handle创建事件组</p>
+<h2 id="2-读取-处理事件组"><a href="#2-读取-处理事件组" class="headerlink" title="**2. ** 读取&amp;处理事件组"></a>**2. ** <strong>读取&amp;处理事件组</strong></h2><p>读取：xEventGroupWaitBits这个函数有返回值为事件组的16进制值，也就是表格中的00010B&#x3D;&gt;0x02，第三位表示是否清除标志位，第四位表示是否等待的标志位都成功了才返回，选择pdTURE时为与条件，选择pdFALSE时为或条件</p>
+<p>event_group_data xEventGroupWaitBits(test_event_handle,BIT0BIT11,pdTRUE,pdFALSE,pdMS_TO_TICKS(5000));<br>&#x2F;&#x2F;设置标志位<br>xEventGroupSetBits(<br>EventGroupHandle_t xEventGroup,&#x2F;&#x2F;事件组句柄<br>const EventBits_t uxBitsToSet ); &#x2F;&#x2F;设置哪个位<br>&#x2F;&#x2F;清除标志位<br>xEventGroupClearBits(<br>EventGroupHandle_t xEventGroup,&#x2F;&#x2F;事件组句柄<br>const EventBits_t uxBitsToClear ); &#x2F;&#x2F;设置哪个位</p>
+<h1 id="直达任务通知（Task-Notify）"><a href="#直达任务通知（Task-Notify）" class="headerlink" title="直达任务通知（Task Notify）"></a><strong>直达任务通知</strong><strong>（Task Notify）</strong></h1><p>直接向任务发送通知并携带数据，而无需通过队列&#x2F;信号量等中间象（单向通信，一发一收）。</p>
+<p>使用流程：发送通知-&gt;接收通知</p>
+<h2 id="1-发送通知"><a href="#1-发送通知" class="headerlink" title="**1. ** 发送通知"></a>**1. ** <strong>发送通知</strong></h2><p>先创建任务句柄，再通过函数发送</p>
+<p>static TaskHandle_t TaskA_Handle;<br>static TaskHandle_t TaskB_Handle;<br>xTaskNotify(TaskA_Handle,value,eSetValueWithOverwrite);<br>&#x2F;&#x2F;把一个32位的值value发送到“TaskA_Handle”任务中，发送的模式位第三个参数“eSetValue”</p>
+<h2 id="2-等待接收通知"><a href="#2-等待接收通知" class="headerlink" title="**2. ** 等待接收通知"></a>**2. ** <strong>等待接收通知</strong></h2><p>先创建一个值用来接收数据，再使用xTaskNotifyWait接收</p>
+<p>xTaskNotifyWait接收自身任务的句柄中的数据，传到TaskNotify_data中。</p>
+<p>xTaskNotifyWait(<br>uint32_t ulBitsToClearOnEntry, &#x2F;&#x2F; 进入时清除的位掩码<br>uint32_t ulBitsToClearOnExit, &#x2F;&#x2F; 退出时清除的位掩码<br>uint32_t *pulNotificationValue, &#x2F;&#x2F; 输出参数：接收通知值<br>TickType_t xTicksToWait &#x2F;&#x2F; 超时时间（单位：Tick）<br>);<br>例：<br>uint32_t TaskBNotify_data = 0;<br>xTaskNotifyWait(0x00,ULONG_MAX,&amp;TaskNotify_data,portMAX_DELAY);</p>
+
+        </div>
+        <!-- .entry-content -->
+        <div class="single-reward">
+          <div class="reward-open">赏
+            <div class="reward-main">
+              <ul class="reward-row">
+                <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/custom/donate/AliPayQR.jpg"></li>
+                <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/custom/donate/WeChanQR.jpg"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/2025/05/20/wp-global-styles-sakura/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                Custom Styles</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+        
+          
+            <div class="post-nepre half next">
+          
+            <a href="/2025/04/09/2025-4-9%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                2025.4.9版本更新</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "GyC3NzMvd0hT9Yyd2hYIC0MN-gzGzoHsz",
+        appKey: "mgOpfzbkHYqU92CV4IDlAUHQ",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
+
+
+
+
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+          <a href="" class="profile gravatar"><img src="" itemprop="image" alt="" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="" itemprop="url" rel="author"></a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i></p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
+</div>
+
+
+
+    </div>    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..."/>
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            // PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2025 Yourlai<br>
+      powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer> -->
+<footer id="colophon" class="site-footer" role="contentinfo">
+  <div class="site-info">
+    <div class="footertext">
+      <div class="img-preload">
+        <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/wordpress-rotating-ball-o.svg">
+        <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/disqus-preloader.svg">
+      </div>
+      <p style="color: #666666;">&copy 2018</p>
+    </div>
+    <div class="footer-device">
+    <p style="font-family: 'Ubuntu', sans-serif;">
+        <span style="color: #b9b9b9;">Theme <a href="https://github.com/honjun/hexo-theme-sakura" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Sakura</a> <i class="iconfont icon-sakura rotating" style="color: #ffc0cb;display:inline-block"></i> by <a href="https://2heng.xin/" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Mashiro</a>&<a href="https://www.hojun.cn/" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Hojun</a>, Powered by Hexo, Hosted by Coding Pages</a>
+        </span>
+      </p>
+    </div>
+  </div><!-- .site-info -->
+</footer>
+
+
+
+<!-- <script src="/js/tocbot.js"></script> -->
+<script type="text/javascript" src="/js/lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/InsightSearch.js"></script>
+<script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="/js/zoom.min.js"></script>
+<script type="text/javascript" src="/js/sakura-app.js"></script>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine@1.3.4/dist/Valine.min.js'></script>
+<script src="/js/botui.js"></script>
+<!-- 不蒜子 网页计数器 -->
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script> -->
+<script type="text/javascript">
+/* <![CDATA[ */
+if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/honjun/hojun@1.2","name":"Unbroken.mp4","live":"close"},"windowheight":"fixed","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+} else {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/honjun/hojun@1.2","name":"Unbroken.mp4","live":"open"},"windowheight":"auto","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+}
+/* ]]> */
+
+</script>
+<script>
+$(document).ready(function() {
+  if ($(".toc").length > 0 && document.body.clientWidth > 1200) {
+    if ($(".pattern-center").length > 0) { //有图的情况
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -400,
+          scrollSmoothOffset: -85
+      });
+    } else {
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -85,
+          scrollSmoothOffset: -85
+      });
+    }
+    var offsetTop = $('.toc').offset().top - 95;
+    window.onscroll = function() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop >= offsetTop) {
+        $('.toc').addClass('toc-fixed');
+      } else {
+        $('.toc').removeClass('toc-fixed');
+      }
+    }
+  }
+});
+</script>
+
+    <div class="openNav no-select" style="height: 50px;">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <div id="mo-nav" class="">
+  <div class="m-avatar">
+    <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/custom/avatar.jpg">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">Yourlai'sBlog</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+            首页
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/archives">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+            归档
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/categories/%E6%8A%80%E6%9C%AF/">
+                  <i class="fa fa-code" aria-hidden="true"></i>
+                  技术
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/%E7%94%9F%E6%B4%BB/">
+                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                  生活
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/%E8%B5%84%E6%BA%90/">
+                  <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                  资源
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/%E9%9A%8F%E6%83%B3/">
+                  <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                  随想
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/%E8%BD%AC%E8%BD%BD/">
+                  <i class="fa fa-book" aria-hidden="true"></i>
+                  转载
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+            清单
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/tags/%E6%82%A6%E8%AF%BB/">
+                  <i class="fa fa-th-list faa-bounce" aria-hidden="true"></i>
+                  书单
+                </a>
+              </li>
+            
+              <li>
+                <a href="/bangumi/">
+                  <i class="fa fa-film faa-vertical" aria-hidden="true"></i>
+                  番组
+                </a>
+              </li>
+            
+              <li>
+                <a href="/music/">
+                  <i class="fa fa-headphones" aria-hidden="true"></i>
+                  歌单
+                </a>
+              </li>
+            
+              <li>
+                <a href="/tags/%E5%9B%BE%E9%9B%86/">
+                  <i class="fa fa-photo" aria-hidden="true"></i>
+                  图集
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/comment/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+            留言板
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/links/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+            友人帐
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/donate/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-heart faa-pulse" aria-hidden="true"></i>
+            赞赏
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+            关于
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/about/">
+                  <i class="fa fa-meetup" aria-hidden="true"></i>
+                  我？
+                </a>
+              </li>
+            
+              <li>
+                <a href="/theme-sakura/">
+                  <i class="fa iconfont icon-sakura" aria-hidden="true"></i>
+                  主题
+                </a>
+              </li>
+            
+              <li>
+                <a href="/lab/">
+                  <i class="fa fa-cogs" aria-hidden="true"></i>
+                  Lab
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/client/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-android faa-vertical" aria-hidden="true"></i>
+            客户端
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/atom.xml">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-rss faa-pulse" aria-hidden="true"></i>
+            RSS
+          </span>
+        </a>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">&copy 2019 hexo-sakura</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+<style>
+  .aplayer .aplayer-lrc {
+    height: 35px;
+  }
+  .aplayer .aplayer-lrc p{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px !important;
+  }
+  .aplayer .aplayer-lrc p.aplayer-lrc-current{
+    color: #FF1493;
+  }
+  .aplayer.aplayer-narrow .aplayer-body{
+    left: -66px !important;
+  }
+  .aplayer.aplayer-fixed .aplayer-lrc {
+    display: none;
+  }
+  .aplayer .aplayer-lrc.aplayer-lrc-hide {
+      display:none !important;
+  }
+  .aplayer.aplayer-fixed .lrc-show {
+    display: block;
+    background: rgba(255, 255, 255, 0.8);
+  }
+</style>
+<meting-js
+
+    id="10161735800"
+
+    server="netease"
+
+    type="playlist"
+
+    fixed="true"
+
+    autoplay="false"
+
+    loop="all"
+
+    order="random"
+
+    preload="auto"
+
+    volume="0.7"
+
+    mutex="true"
+
+</meting-js>
+<script>
+  $(function(){
+    $('body').on('click', '.aplayer', function(){
+      if($('.aplayer-button').hasClass('aplayer-play')) {
+        $('.aplayer-lrc').removeClass('lrc-show');
+      } else {
+        $('.aplayer-lrc').addClass('lrc-show');
+      }
+    })
+  });
+</script>
+</body>
+</html>
