@@ -73,7 +73,7 @@
     <div class="focusinfo no-select">
       <div class="header-tou">
         <a target="_blank" rel="noopener" href="http://yourlai.icu">
-          <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6https://cdn.jsdelivr.net/gh/yourlai2015/cdn/img/hexo/ava_Little_size.jpg">
+          <img src="https://cdn.jsdelivr.net/gh/yourlai2015/cdn/img/custom/ava_Little_size.jpg">
         </a>
       </div>
       <div class="header-info">
@@ -87,7 +87,7 @@
               
                 <li>
                   <a href="https://music.163.com/#/user/home?id=1298327087" target="_blank" class="social-github" title="wangyiyun">
-                    <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/social/wangyiyun.png">
+                    <img src="https://cdn.jsdelivr.net/gh/yourlai2015/cdn/img/social/wangyiyun.png">
                   </a>
                 </li>
               
@@ -95,7 +95,7 @@
               
                 <li>
                   <a href="mailto:yourlai@yourlai.icu" target="_blank" class="social-github" title="email">
-                    <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/social/email.svg">
+                    <img src="https://cdn.jsdelivr.net/gh/yourlai2015/cdn/img/social/email.svg">
                   </a>
                 </li>
               
@@ -270,19 +270,36 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
 <div class="pattern-center-blank"></div>
 
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/yourlai2015/cdn/img/hexo/(0).webp);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/yourlai2015/cdn/img/hexo/(0).webp">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      本站的服务器是怎么来的</h1>
+      <p class="entry-census">
+        <span>
+          <a href="">
+            <img src="">
+          </a>
+        </span>
+        <span>
+          <a href=""></a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2025-1-29<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
+  </div>
+
 <div id="content" class="site-content">
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
       <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
         <div class="toc"></div>
         <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
-        
-          <header class="entry-header">
-            <h1 class="entry-title">本站的服务器是怎么来的</h1>
-            <p class="entry-census">&nbsp;·&nbsp;2025-1-29&nbsp;·&nbsp;<span id="busuanzi_value_page_pv"></span>次阅读</p></p>
-
-            <hr>
-          </header>
         
         <div class="entry-content">
           <p>啊，关于这个，那可就有的说了。 这个网站跑在了一个rk3328的芯片上，四核A53，1+8G的配置（我家云&amp;粒子云）。除此之外，还all in boom了HomeAssistant，qBittorrent乱七八糟的应用。固件用的是现成的，乘风Ride_Wind大佬的固件，内置了Navi导航。 算算多少钱：我家云（55包邮）、2.5寸硬盘和硬盘盒（捡的）、120G近似全新的金士顿SATA固态（40面交）。总计95块钱，还行。 <img src="http://yourlai.icu/wp-content/uploads/2025/01/IMG_20250125_165615-e1738125280973-300x202.jpg"><img src="http://yourlai.icu/wp-content/uploads/2025/01/IMG_20250125_215853-e1738125546773-285x300.jpg"> 虽然开启OMV硬盘休眠之后内置的机械还会掉盘，但是换个思路，我换成SSD不就不会掉盘了吗（天才我是 换成SSD之后也不需要担心随机读写和寿命的问题，也可以把emmc里的应用拷贝到SSD里，把SSD当大号的emmc用（好像有点奢侈）。有一点小瑕疵，乘风大佬的挂载脚本里延迟时间有点长，15s的时间SSD还没挂载好，外置的HDD就已经成sda1了，抢了SSD的位置，导致应用无法使用。以防万一，直接把SSD的UUID写到系统里，顺便把时间改短点，这样问题就解决了。 WordPress权限有点问题，没法正常更新（我也懒得找原因了），所以直接SSH加各种插件和主题。 乘风大佬的Nginx默认不支持IPV6，当然反向代理肯定也不支持。从恩山找到了另一个大佬编译好的Nginx（<a target="_blank" rel="noopener" href="https://www.right.com.cn/FORUM/forum.php?mod=viewthread&tid=1491735&page=1">帖子连接在这里</a>），把Nginx替换掉再改改配置就可以了。固件自带导航，默认80端口会打开导航，同样进反向代理改一下，默认打开WordPress就好了。 为什么我不用IPV4呢？一方面是NAT3，另一方面是懒得弄DDNS。既然IPV6啥也不管，端口也都开了，那我直接用IPV6得了。也不用设置太多，看到我家云获取到IPV6公网之后，测试一下发现能进，那就完事了。域名解析一下，年后再去备案。OK，再解决下一个问题。 HomeAssistant还有MQTT的服务器都是运行在Docker里的，容器默认开机自启动就好了。 MQTT我还没研究明白，等过完年再学。 ———————————————— 年后：很好，MQTT再等等吧，又买了一块RK3399的开发板，回学校之后再搞这个吧。</p>
@@ -293,8 +310,8 @@
           <div class="reward-open">赏
             <div class="reward-main">
               <ul class="reward-row">
-                <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/custom/donate/AliPayQR.jpg"></li>
-                <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/custom/donate/WeChanQR.jpg"></li>
+                <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/yourlai2015/cdn/img/custom/donate/AliPayQR.jpg"></li>
+                <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/yourlai2015/cdn/img/custom/donate/WeChanQR.jpg"></li>
               </ul>
             </div>
           </div>
@@ -392,7 +409,7 @@
     <div class="ins-search-mask"></div>
     <div class="ins-search-container">
         <div class="ins-input-wrapper">
-            <input type="text" class="ins-search-input" placeholder="Type something..."/>
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..."/>
             <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
         </div>
         <div class="ins-section-wrapper">
@@ -404,10 +421,10 @@
 (function (window) {
     var INSIGHT_CONFIG = {
         TRANSLATION: {
-            POSTS: 'Posts',
-            // PAGES: 'Pages',
-            CATEGORIES: 'Categories',
-            TAGS: 'Tags',
+            POSTS: '文章',
+            // PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
         },
         ROOT_URL: '/',
         CONTENT_URL: '/content.json',
@@ -519,7 +536,7 @@ $(document).ready(function() {
   </section>
   <div id="mo-nav" class="">
   <div class="m-avatar">
-    <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6https://cdn.jsdelivr.net/gh/yourlai2015/cdn/img/hexo/ava_Little_size.jpg">
+    <img src="https://cdn.jsdelivr.net/gh/yourlai2015/cdn/img/custom/ava_Little_size.jpg">
   </div>
   <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">Yourlai'sBlog</p>
   <p style="text-align: center; word-spacing: 20px;">
