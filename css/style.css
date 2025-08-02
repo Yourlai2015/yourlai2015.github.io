@@ -4079,8 +4079,8 @@ li.feature-2 {
     width:63%;
     margin:auto;
     font-size:16px;
-    color:#eaeadf;
-    background:rgba(0,0,0,.5);
+    color: #fc6868;
+    background: rgb(255 255 255 / 58%);
     padding:15px;
     margin-top:22px;
     letter-spacing:0;
@@ -4089,6 +4089,7 @@ li.feature-2 {
     box-sizing:initial;
     white-space:nowrap
 }
+/*
 .header-info:before {
     content:"";
     position:absolute;
@@ -4099,6 +4100,7 @@ li.feature-2 {
     border-style:solid;
     border-color:transparent transparent rgba(0,0,0,.5) transparent
 }
+*/
 .header-info p {
     margin:0;
     font-family:'Ubuntu',sans-serif;
@@ -4893,7 +4895,7 @@ h3#comments-list-title,nav#comments-navi {
     position:absolute;
     width:30px;
     height:3px;
-    background-color:#fff;
+    background-color:#3fbbf5;
     top:24px;
     left:10px
 }
