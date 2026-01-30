@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title itemprop="name">基于STM32标准库的HX711称重模块 | Yourlai&#39;s Blog</title>
+  
+    <link rel="shortcut icon" href="/images/favicon.ico">
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="stylesheet" id="saukra_css-css" href="/css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="/css/font.css" media="all">
+  <link rel="stylesheet" href="/css/insight.css" media="all">
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css" media="all">
+  <link rel="stylesheet" href="/css/zoom.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+" type="text/css" media="all"> -->
+  <script>
+  /*Initial Variables*/
+  var mashiro_option = new Object();
+  var mashiro_global = new Object();
+  mashiro_option.NProgressON = true;
+  /* 
+   * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+   * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+   */
+  mashiro_option.email_domain = "";
+  mashiro_option.email_name = "";
+  mashiro_option.cookie_version_control = "";
+  mashiro_option.qzone_autocomplete = false;
+  mashiro_option.site_name = "Yourlai'sBlog";
+  mashiro_option.author_name = "Blog";
+  mashiro_option.site_url = "https://yourlai.icu";
+  mashiro_option.v_appId = "GyC3NzMvd0hT9Yyd2hYIC0MN-gzGzoHsz";
+  mashiro_option.v_appKey = "mgOpfzbkHYqU92CV4IDlAUHQ";
+  mashiro_option.mathjax = "0";
+  mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+  mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+
+  // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+  // mashiro_option.float_player_on = true;
+
+  /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+  var bg = "https://cdn.cdn.yourlai.icu/img/hexo/(0).webp,https://cdn.cdn.yourlai.icu/img/hexo/(1).webp,https://cdn.cdn.yourlai.icu/img/hexo/(2).webp,https://cdn.cdn.yourlai.icu/img/hexo/(3).webp,https://cdn.cdn.yourlai.icu/img/hexo/(4).webp,https://cdn.cdn.yourlai.icu/img/hexo/(5).webp,https://cdn.cdn.yourlai.icu/img/hexo/After_05254.jpg".split(",");
+  var bgindex = Math.floor(Math.random()*bg.length);
+  if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+    alert('朋友，IE浏览器未适配这一块~');
+  }
+  </script>
+  <style type="text/css">
+  .hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}
+  </style>
+  <style type="text/css">.site-top .lower nav{display:block !important;}.author-profile i,.post-like a,.post-share .show-share,.sub-text,.we-info a,span.sitename,.post-more i:hover,#pagination a:hover,.post-content a:hover,.float-content i:hover{color:#FE9600}.feature i,.download,.navigator i:hover,.links ul li:before,.ar-time i,span.ar-circle,.object,.comment .comment-reply-link,.siren-checkbox-radio:checked + .siren-checkbox-radioInput:after{background:#FE9600}::-webkit-scrollbar-thumb{background:#FE9600}.download,.navigator i:hover,.link-title,.links ul li:hover,#pagination a:hover,.comment-respond input[type='submit']:hover{border-color:#FE9600}.entry-content a:hover,.site-info a:hover,.comment h4 a,#comments-navi a.prev,#comments-navi a.next,.comment h4 a:hover,.site-top ul li a:hover,.entry-title a:hover,#archives-temp h3,span.page-numbers.current,.sorry li a:hover,.site-title a:hover,i.iconfont.js-toggle-search.iconsearch:hover,.comment-respond input[type='submit']:hover{color:#FE9600}.comments .comments-main{display:block !important;}.comments .comments-hidden{display:none !important;}background-position:center center;background-attachment:inherit;}
+  </style>
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit">
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <section id="main-container">
+    <div class="headertop ">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <div class="header-tou">
+        <a target="_blank" rel="noopener" href="https://yourlai.icu">
+          <img src="https://cdn.cdn.yourlai.icu//img/custom/ava_Little_size.jpg">
+        </a>
+      </div>
+      <div class="header-info">
+        <p>Never stop . Never give up.</p>
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="https://cdn.cdn.yourlai.icu/img/other/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="https://space.bilibili.com/396079395" target="_blank" class="social-github" title="Bilibili">
+                    <img src="https://cdn.cdn.yourlai.icu//img/social/bilibili.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://music.163.com/#/user/home?id=1298327087" target="_blank" class="social-github" title="网易云音乐">
+                    <img src="https://cdn.cdn.yourlai.icu//img/social/wangyiyun.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="http://ipv6.yourlai.icu" target="_blank" class="social-github" title="博客主站">
+                    <img src="https://cdn.cdn.yourlai.icu//img/social/blog.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="mailto:yourlai@yourlai.icu" target="_blank" class="social-github" title="Email">
+                    <img src="https://cdn.cdn.yourlai.icu//img/social/email.svg">
+                  </a>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="https://cdn.cdn.yourlai.icu/img/other/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  <div id="video-container" style="">
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name="" src="" width="auto" preload="auto">
+    </video>
+    <div id="video-btn" class="loadvideo videolive">
+    </div>
+    <div id="video-add">
+    </div>
+    <div class="video-stu">
+    </div>
+  </div>
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+    <div id="page" class="site wrapper">
+      <header class="site-header no-select gizle sabit" role="banner">
+  <div class="site-top">
+    <div class="site-branding">
+      <span class="site-title">
+        <span class="logolink moe-mashiro">
+          <a href="/">
+            <span class="sakurasono">Yourlai&#39;s</span>
+            <span class="shironeko">Blog</span>
+          </a>
+        </span>
+      </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+                    首页
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+                    随便写的
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/categories/wiki/">
+                          <i class="fa fa-code" aria-hidden="true"></i>
+                          Wiki
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/%E6%95%99%E7%A8%8B/">
+                          <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                          教程
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/%E9%97%B2%E8%B0%88/">
+                          <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                          闲谈
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/%E5%B0%8F%E8%AF%B4/">
+                          <i class="fa fa-book" aria-hidden="true"></i>
+                          小说
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+                    推荐
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/tags/%E6%82%A6%E8%AF%BB/">
+                          <i class="fa fa-th-list faa-bounce" aria-hidden="true"></i>
+                          书单
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/bangumi/">
+                          <i class="fa fa-film faa-vertical" aria-hidden="true"></i>
+                          番组
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/music/">
+                          <i class="fa fa-headphones" aria-hidden="true"></i>
+                          歌单
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/tags/%E5%9B%BE%E9%9B%86/">
+                          <i class="fa fa-photo" aria-hidden="true"></i>
+                          图集
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/about/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-question-circle faa-wrench" aria-hidden="true"></i>
+                    关于本站
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a target="_blank" rel="noopener" href="https://yourlai.icu">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+                    主站链接
+                  </span>
+                </a>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.cdn.yourlai.icu/img/ecs-img/2025/11-8/After-06758.webp);" src="https://cdn.cdn.yourlai.icu/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.cdn.yourlai.icu/img/ecs-img/2025/11-8/After-06758.webp">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      基于STM32标准库的HX711称重模块</h1>
+      <p class="entry-census">
+        <span>
+          <a href="">
+            <img src="">
+          </a>
+        </span>
+        <span>
+          <a href=""></a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2026-1-29<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
+  </div>
+
+<div id="content" class="site-content">
+  <div id="primary" class="content-area">
+    <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h2 id="HX711介绍"><a href="#HX711介绍" class="headerlink" title="HX711介绍"></a>HX711介绍</h2><p>HX711是一种高精度、低成本的压力传感器信号放大器，主要用于测量重力或压力变化。它工作在 2.7V 至 5.5V 的电源范围内，支持多种传感器类型，如电桥、应变计等。HX711 提供了一种简便的数字接口来读取模拟输出信号，适用于嵌入式系统和传感器应用。<br>1、<a target="_blank" rel="noopener" href="http://www.aviaic.com/images/ueditor/1750665637420420.pdf">海芯HX711介绍手册</a><br>2、<a target="_blank" rel="noopener" href="https://atta.szlcsc.com/upload/public/pdf/source/20240910/523FF17855B2F1313F971C77291F913D.pdf?Expires=4070880000&OSSAccessKeyId=LTAIJDIkh7KmGS1H&Signature=OTsVkHXXYo7ILQbhmvk/8fkoLGc=&response-content-disposition=attachment;filename=C6705483_%25E6%25A8%25A1%25E6%2595%25B0%25E8%25BD%25AC%25E6%258D%EF%BF%BD%25E8%258A%25AF%25E7%2589%2587ADC_HX711_%25E8%25A7%2584%25E6%25A0%25BC%25E4%25B9%25A6_WJ1227228.PDF">海芯HX711手册</a></p>
+<h2 id="一、HX711参数和电路"><a href="#一、HX711参数和电路" class="headerlink" title="一、HX711参数和电路"></a>一、HX711参数和电路</h2><p>称重传感器模块有灵敏度和激励电压两个重要参数：（这两个参数是假设值，以实际设计电路为准）<br>灵敏度：1.0mV&#x2F;V<br>激励电压：3~12V<br>满量程输出电压 &#x3D; 激励电压 * 灵敏度<br>这样的话，假如激励电压是 3V，那么输出最大电压是 3mV。</p>
+<table>
+<thead>
+<tr>
+<th align="center">引脚名称</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">GND</td>
+<td align="center">模块地线</td>
+</tr>
+<tr>
+<td align="center">DT</td>
+<td align="center">数据输出端口</td>
+</tr>
+<tr>
+<td align="center">SCK</td>
+<td align="center">时钟输入端口</td>
+</tr>
+<tr>
+<td align="center">VCC</td>
+<td align="center">电源</td>
+</tr>
+</tbody></table>
+<p><img src="https://yourlai.icu/wp-content/uploads/2026/01/image-4-1024x598.png" alt="HX711 Pinout"></p>
+<h2 id="二、工作原理介绍"><a href="#二、工作原理介绍" class="headerlink" title="二、工作原理介绍"></a>二、工作原理介绍</h2><p>HX711压力传感器的工作原理是基于全臂电桥，利用压力传感器的阻值变化，转化为电压变化，从而实现重量的测量。</p>
+<p>应变片一般由金属丝为材料制作的应变电阻，当金属丝受外力作用时，其长度和截面积都会发生变化，进而其电阻值即会发生改变。</p>
+<p>当金属丝受外力作用而伸长时，其长度增加，而截面积减少，电阻值便会增大。<br>当金属丝受外力作用而压缩时，长度减小而截面增加，电阻值则会减小。<br>金属应变片对电阻丝材料有较高的要求，一般要求灵敏度系数大，电阻温系数小，具有优良的机械加工和焊接性能等，康铜是目前应用最广泛的应变丝材料。</p>
+<p><img src="https://yourlai.icu/wp-content/uploads/2026/01/image-8.png" alt="应变片示意图"></p>
+<p>称重传感器模块上下表面各有一个应变片，每个应变片内有 2 个压力电阻。一共为 4 个压力电阻，组成全桥式电路。全桥电路可以提高所测的精度，而且电桥本身也能实现自补偿（温度补偿）。</p>
+<p><img src="https://yourlai.icu/wp-content/uploads/2026/01/image-9.png" alt="全桥电路示意图"></p>
+<h2 id="三、数据的获取与处理"><a href="#三、数据的获取与处理" class="headerlink" title="三、数据的获取与处理"></a>三、数据的获取与处理</h2><p>HX711 芯片与单片机的通讯只需要两个引脚，时钟引脚PD_SCK及数据引脚DOUT，用来输出数据，选择输入通道和增益。<br>当数据输出管脚 DOUT 为高电平时，表明 A&#x2F;D 转换器还未准备好输出数据，此时串口时钟输入信号 PD_SCK 应为低电平。当 DOUT 从高电平变低电平后，PD_SCK 应输入 25 至 27 个不等的时钟脉冲。<br>其中第一个时钟脉冲的上升沿将读出输出 24 位数据的最高位（MSB），直至第 24 个时钟脉冲完成，24 位输出数据从最高位至最低位逐位输出完成。第 25 至 27 个时钟脉冲用来决定下一次 A&#x2F;D 转换的输入通道和增益。</p>
+<h3 id="HX711-h"><a href="#HX711-h" class="headerlink" title="HX711.h"></a>HX711.h</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __HX711_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __HX711_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stm32f10x.h&quot;</span> <span class="comment">// 包含STM32F10x系列的头文件</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> HX711_DT_GPIO          GPIOA</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> HX711_SCK_GPIO         GPIOA</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> HX711_DT_PIN           GPIO_Pin_0</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> HX711_SCK_PIN          GPIO_Pin_1  </span></span><br><span class="line"></span><br><span class="line"><span class="comment">// --- HX711 相关宏定义 ---</span></span><br><span class="line"><span class="comment">// 用于控制SCK和读取DT的引脚状态</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> W_SCK(x)   GPIO_WriteBit(HX711_SCK_GPIO, HX711_SCK_PIN, (BitAction)(x))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> R_DT       GPIO_ReadInputDataBit(HX711_DT_GPIO, HX711_DT_PIN)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 校准系数 (需要根据实际校准结果调整）</span></span><br><span class="line"><span class="comment">// GapValue 代表单位重量变化对应的ADC差值</span></span><br><span class="line"><span class="keyword">extern</span> <span class="type">float</span> GapValue;</span><br><span class="line"></span><br><span class="line"><span class="comment">// --- 全局变量声明 ---</span></span><br><span class="line"><span class="keyword">extern</span> <span class="type">unsigned</span> <span class="type">long</span> HX711_Buffer;</span><br><span class="line"><span class="keyword">extern</span> <span class="type">unsigned</span> <span class="type">long</span> Weight_Maopi;</span><br><span class="line"><span class="keyword">extern</span> <span class="type">int32_t</span> Weight_Zhengshu;</span><br><span class="line"><span class="keyword">extern</span> <span class="type">int32_t</span> Weight_xiaoshu;</span><br><span class="line"><span class="keyword">extern</span> <span class="type">float</span> Weight_tmp;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="type">float</span> Weight_filtered;</span><br><span class="line"></span><br><span class="line"><span class="comment">// --- 函数声明 ---</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">HX711_Init</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="type">unsigned</span> <span class="type">long</span> <span class="title function_">HX711_Read</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">Get_Maopi</span><span class="params">(<span class="type">void</span>)</span>; <span class="comment">// 获取毛皮值（去皮）</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">Get_Weight</span><span class="params">(<span class="type">void</span>)</span>; <span class="comment">// 获取当前重量</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span> <span class="comment">/* __HX711_H */</span></span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="HX711-C"><a href="#HX711-C" class="headerlink" title="HX711.C"></a>HX711.C</h3><p>为了实现较高精度并且稳定数值，本代码采用以下算法：<br>取五次连续测量值，排序后刨除两个极值，再对剩余的三个值求平均值。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;HX711.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// --- 全局变量定义 ---</span></span><br><span class="line"><span class="type">unsigned</span> <span class="type">long</span> HX711_Buffer = <span class="number">0</span>;</span><br><span class="line"><span class="type">unsigned</span> <span class="type">long</span> Weight_Maopi = <span class="number">0</span>;</span><br><span class="line"><span class="type">int32_t</span> Weight_Zhengshu = <span class="number">0</span>;</span><br><span class="line"><span class="type">int32_t</span> Weight_xiaoshu = <span class="number">0</span>;</span><br><span class="line"><span class="type">float</span> Weight_tmp = <span class="number">0.0f</span>;</span><br><span class="line"><span class="type">float</span> Weight_filtered = <span class="number">0.0f</span>;</span><br><span class="line"><span class="type">float</span> GapValue = <span class="number">3774.2f</span>; </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief  初始化HX711连接的GPIO引脚</span></span><br><span class="line"><span class="comment">  *         针对STM32F103C8T6 (如BluePill核心板) 进行了时钟使能配置</span></span><br><span class="line"><span class="comment">  * @param  None</span></span><br><span class="line"><span class="comment">  * @retval None</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">HX711_Init</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    GPIO_InitTypeDef hx711_gpio_struct;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使能GPIO时钟</span></span><br><span class="line">    <span class="comment">// 对于PB0, PB1，需要使能GPIOB的时钟</span></span><br><span class="line">    <span class="comment">// STM32F103C8T6通常只挂载在APB2总线上</span></span><br><span class="line">    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 配置SCK引脚 (PB1) - 推挽输出</span></span><br><span class="line">    hx711_gpio_struct.GPIO_Mode = GPIO_Mode_Out_PP;</span><br><span class="line">    hx711_gpio_struct.GPIO_Pin = HX711_SCK_PIN;</span><br><span class="line">    hx711_gpio_struct.GPIO_Speed = GPIO_Speed_50MHz;</span><br><span class="line">    GPIO_Init(HX711_SCK_GPIO, &amp;hx711_gpio_struct);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 配置DT引脚 (PB0) - 上拉输入</span></span><br><span class="line">    hx711_gpio_struct.GPIO_Mode = GPIO_Mode_IPU; <span class="comment">// 上拉输入</span></span><br><span class="line">    hx711_gpio_struct.GPIO_Pin = HX711_DT_PIN;</span><br><span class="line">    <span class="comment">// GPIO_Speed 对输入模式无意义，可不设置或保持上次设置</span></span><br><span class="line">    GPIO_Init(HX711_DT_GPIO, &amp;hx711_gpio_struct);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 初始化时将SCK拉高 (虽然注释说拉高，但函数内部是拉低，这里保持原逻辑)</span></span><br><span class="line">    <span class="comment">// 根据HX711协议，SCK空闲时应为低电平，这里拉高是为了在初始化后确保状态</span></span><br><span class="line">    W_SCK(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief  从HX711读取一次A/D转换结果</span></span><br><span class="line"><span class="comment">  * @param  None</span></span><br><span class="line"><span class="comment">  * @retval unsigned long - 24位ADC值 (已处理符号位)</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="type">unsigned</span> <span class="type">long</span> <span class="title function_">HX711_Read</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> Count = <span class="number">0</span>;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">char</span> i;</span><br><span class="line"></span><br><span class="line">    W_SCK(<span class="number">0</span>); <span class="comment">// 拉低SCK，准备开始读取</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 等待HX711准备好 (DT拉低表示转换完成)</span></span><br><span class="line">    <span class="comment">// 注意：如果HX711一直未准备好，这里可能会死等，实际应用中可能需要超时处理</span></span><br><span class="line">    <span class="keyword">while</span>(R_DT);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 读取24位数据 (对应128增益)</span></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">24</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        W_SCK(<span class="number">1</span>); <span class="comment">// SCK拉高，数据准备好</span></span><br><span class="line">        Count = Count &lt;&lt; <span class="number">1</span>; <span class="comment">// 数据左移一位</span></span><br><span class="line">        W_SCK(<span class="number">0</span>); <span class="comment">// SCK拉低，为下次读取做准备</span></span><br><span class="line">        <span class="keyword">if</span>(R_DT) <span class="comment">// 读取当前位数据</span></span><br><span class="line">        &#123;</span><br><span class="line">            Count++; <span class="comment">// 如果DT为高，则当前位为1</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 读取完24位后，需要额外的一个时钟脉冲来设置下一次转换的增益 (对于128增益)</span></span><br><span class="line">    <span class="comment">// 这样总共是25个脉冲，对应A+通道128倍增益</span></span><br><span class="line">    W_SCK(<span class="number">1</span>); <span class="comment">// 第25个脉冲</span></span><br><span class="line">    Count = Count ^ <span class="number">0x800000</span>; <span class="comment">// 对24位数据的最高位（符号位）进行处理</span></span><br><span class="line">                              <span class="comment">// HX711的24位数据是有符号的，最高位为符号位</span></span><br><span class="line">                              <span class="comment">// 当读数为负时，最高位为1，这里通过异或操作将其取反，</span></span><br><span class="line">                              <span class="comment">// 转换为无符号数，方便后续计算。注意这改变了负数的表示方式。</span></span><br><span class="line">    W_SCK(<span class="number">0</span>); <span class="comment">// 结束读取，拉低SCK</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> Count;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief  获取当前毛皮值 (去皮值)</span></span><br><span class="line"><span class="comment">  * @param  None</span></span><br><span class="line"><span class="comment">  * @retval None</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">Get_Maopi</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    Weight_Maopi = HX711_Read(); <span class="comment">// 读取当前空载状态下的ADC值作为毛皮值</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief  获取当前重量</span></span><br><span class="line"><span class="comment">  * @param  None</span></span><br><span class="line"><span class="comment">  * @retval None</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief  获取当前重量</span></span><br><span class="line"><span class="comment">  * @param  None</span></span><br><span class="line"><span class="comment">  * @retval None</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">Get_Weight</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> temp_buffers[<span class="number">5</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="type">float</span> current_weights[<span class="number">5</span>] = &#123;<span class="number">0.0f</span>&#125;;</span><br><span class="line">    <span class="type">float</span> sorted_weights[<span class="number">5</span>] = &#123;<span class="number">0.0f</span>&#125;;</span><br><span class="line">    <span class="type">float</span> current_weight = <span class="number">0.0f</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 读取五次ADC值，中间添加延迟</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        temp_buffers[i] = HX711_Read();</span><br><span class="line">       <span class="comment">// delayus(60);</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 计算五次重量</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 不再强制限制为0，保留负值</span></span><br><span class="line">        <span class="type">int32_t</span> temp_diff = temp_buffers[i] - Weight_Maopi;</span><br><span class="line">        current_weights[i] = ((<span class="type">float</span>)temp_diff / GapValue) * <span class="number">10.0f</span> / <span class="number">1.082f</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 复制到排序数组</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        sorted_weights[i] = current_weights[i];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 冒泡排序</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>; j &lt; <span class="number">4</span> - i; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(sorted_weights[j] &gt; sorted_weights[j+<span class="number">1</span>])</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="type">float</span> temp = sorted_weights[j];</span><br><span class="line">                sorted_weights[j] = sorted_weights[j+<span class="number">1</span>];</span><br><span class="line">                sorted_weights[j+<span class="number">1</span>] = temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 去除最大最小值，取中间3个求平均</span></span><br><span class="line">    current_weight = (sorted_weights[<span class="number">1</span>] + sorted_weights[<span class="number">2</span>] + sorted_weights[<span class="number">3</span>]) / <span class="number">3.0f</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 应用死区阈值处理</span></span><br><span class="line">    <span class="keyword">if</span> (Weight_filtered == <span class="number">0.0f</span>) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 第一次读取，直接使用当前值</span></span><br><span class="line">        Weight_filtered = current_weight;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 计算当前值与上一个滤波值的差值</span></span><br><span class="line">        <span class="type">float</span> diff = (current_weight &gt; Weight_filtered) ? </span><br><span class="line">                     (current_weight - Weight_filtered) : </span><br><span class="line">                     (Weight_filtered - current_weight);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 死区阈值</span></span><br><span class="line">        <span class="type">const</span> <span class="type">float</span> dead_zone = <span class="number">0.03f</span>;    <span class="comment">// 死区阈值，0.03g以内认为无效</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (diff &gt;= dead_zone) </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 差值大于等于死区阈值，更新滤波值</span></span><br><span class="line">            Weight_filtered = current_weight;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 如果差值小于死区阈值，保持原值不变</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Weight_tmp = Weight_filtered;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 提取整数部分</span></span><br><span class="line">    Weight_Zhengshu = (<span class="type">int32_t</span>)Weight_tmp;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 正确计算小数部分（保留符号）</span></span><br><span class="line">    <span class="type">float</span> decimal_part = Weight_tmp - (<span class="type">float</span>)Weight_Zhengshu;</span><br><span class="line">    Weight_xiaoshu = (<span class="type">int32_t</span>)(decimal_part * <span class="number">100</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 保证小数部分的绝对值不超过99</span></span><br><span class="line">    <span class="keyword">if</span> (Weight_xiaoshu &gt;= <span class="number">100</span>) &#123;</span><br><span class="line">        Weight_xiaoshu = <span class="number">99</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (Weight_xiaoshu &lt;= <span class="number">-100</span>) &#123;</span><br><span class="line">        Weight_xiaoshu = <span class="number">-99</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="四、实物展示"><a href="#四、实物展示" class="headerlink" title="四、实物展示"></a>四、实物展示</h2><p><img src="https://yourlai.icu/wp-content/uploads/2026/01/d5fd28269dc0a0028747d3e1124c138f-576x1024.jpg" alt="实物图"></p>
+<pre><code>
+</code></pre>
+
+        </div>
+        <!-- .entry-content -->
+        <div class="single-reward">
+          <div class="reward-open">赏
+            <div class="reward-main">
+              <ul class="reward-row">
+                <li class="alipay-code"><img src="https://cdn.cdn.yourlai.icu//img/custom/donate/AliPayQR.jpg"></li>
+                <li class="wechat-code"><img src="https://cdn.cdn.yourlai.icu//img/custom/donate/WeChanQR.jpg"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+        
+          
+            <div class="post-nepre full next">
+          
+            <a href="/2025/06/25/%E6%9B%B4%E5%A5%BD%E5%9C%B0%E7%94%A8ai%E8%BE%85%E5%8A%A9/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.cdn.yourlai.icu/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.cdn.yourlai.icu/img/hexo/(3).webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.cdn.yourlai.icu/img/hexo/(3).webp">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                更好地用AI辅助</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "GyC3NzMvd0hT9Yyd2hYIC0MN-gzGzoHsz",
+        appKey: "mgOpfzbkHYqU92CV4IDlAUHQ",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
+
+
+
+
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+          <a href="" class="profile gravatar"><img src="" itemprop="image" alt="" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="" itemprop="url" rel="author"></a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i></p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
+</div>
+
+
+
+    </div>    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..."/>
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            // PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2026 Yourlai<br>
+      powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer> -->
+<footer id="colophon" class="site-footer" role="contentinfo">
+  <div class="site-info">
+    <div class="footertext">
+      <div class="img-preload">
+        <img src="https://cdn.cdn.yourlai.icu/img/other/wordpress-rotating-ball-o.svg">
+        <img src="https://cdn.cdn.yourlai.icu/img/other/disqus-preloader.svg">
+      </div>
+      <p style="color: #62b8ed;"><a target="_blank" rel="noopener" href="https://yourlai.icu" style="color: #62b8ed; text-decoration: none;">Yourlai &copy; 2025</a></p>
+    </div>
+    <div class="footer-device">
+    <p style="font-family: 'Ubuntu', sans-serif;">
+        <span style="color: #60bfe4;">Powered by Hexo, Hosted by Coding Pages</span>
+      </p>
+    </div>
+  </div><!-- .site-info -->
+</footer>
+
+
+
+<!-- <script src="/js/tocbot.js"></script> -->
+<script type="text/javascript" src="/js/lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/InsightSearch.js"></script>
+<script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="/js/zoom.min.js"></script>
+<script type="text/javascript" src="/js/sakura-app.js"></script>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine@1.3.4/dist/Valine.min.js'></script>
+<script src="/js/botui.js"></script>
+<!-- 不蒜子 网页计数器 -->
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script> -->
+<script type="text/javascript">
+/* <![CDATA[ */
+if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/honjun/hojun@1.2","name":"Unbroken.mp4","live":"close"},"windowheight":"fixed","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+} else {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/honjun/hojun@1.2","name":"Unbroken.mp4","live":"open"},"windowheight":"auto","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+}
+/* ]]> */
+
+</script>
+<script>
+$(document).ready(function() {
+  if ($(".toc").length > 0 && document.body.clientWidth > 1200) {
+    if ($(".pattern-center").length > 0) { //有图的情况
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -400,
+          scrollSmoothOffset: -85
+      });
+    } else {
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -85,
+          scrollSmoothOffset: -85
+      });
+    }
+    var offsetTop = $('.toc').offset().top - 95;
+    window.onscroll = function() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop >= offsetTop) {
+        $('.toc').addClass('toc-fixed');
+      } else {
+        $('.toc').removeClass('toc-fixed');
+      }
+    }
+  }
+});
+</script>
+
+    <div class="openNav no-select" style="height: 50px;">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <div id="mo-nav" class="">
+  <div class="m-avatar">
+    <img src="https://cdn.cdn.yourlai.icu//img/custom/ava_Little_size.jpg">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">Yourlai'sBlog</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+      
+        <a href="https://space.bilibili.com/396079395" class="fa " target="_blank" style="color: #; margin-left:20px"></a>
+      
+        <a href="https://music.163.com/#/user/home?id=1298327087" class="fa " target="_blank" style="color: #; margin-left:20px"></a>
+      
+        <a href="http://ipv6.yourlai.icu" class="fa " target="_blank" style="color: #; margin-left:20px"></a>
+      
+        <a href="mailto:yourlai@yourlai.icu" class="fa " target="_blank" style="color: #; margin-left:20px"></a>
+      
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+            首页
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/archives">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+            随便写的
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/categories/wiki/">
+                  <i class="fa fa-code" aria-hidden="true"></i>
+                  Wiki
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/%E6%95%99%E7%A8%8B/">
+                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                  教程
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/%E9%97%B2%E8%B0%88/">
+                  <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                  闲谈
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/%E5%B0%8F%E8%AF%B4/">
+                  <i class="fa fa-book" aria-hidden="true"></i>
+                  小说
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+            推荐
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/tags/%E6%82%A6%E8%AF%BB/">
+                  <i class="fa fa-th-list faa-bounce" aria-hidden="true"></i>
+                  书单
+                </a>
+              </li>
+            
+              <li>
+                <a href="/bangumi/">
+                  <i class="fa fa-film faa-vertical" aria-hidden="true"></i>
+                  番组
+                </a>
+              </li>
+            
+              <li>
+                <a href="/music/">
+                  <i class="fa fa-headphones" aria-hidden="true"></i>
+                  歌单
+                </a>
+              </li>
+            
+              <li>
+                <a href="/tags/%E5%9B%BE%E9%9B%86/">
+                  <i class="fa fa-photo" aria-hidden="true"></i>
+                  图集
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/about/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-question-circle faa-wrench" aria-hidden="true"></i>
+            关于本站
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a target="_blank" rel="noopener" href="https://yourlai.icu">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+            主站链接
+          </span>
+        </a>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">Yourlai  &copy 2025</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+<style>
+  .aplayer .aplayer-lrc {
+    height: 35px;
+  }
+  .aplayer .aplayer-lrc p{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px !important;
+  }
+  .aplayer .aplayer-lrc p.aplayer-lrc-current{
+    color: #14ccff;
+  }
+  .aplayer.aplayer-narrow .aplayer-body{
+    left: -66px !important;
+  }
+  .aplayer.aplayer-fixed .aplayer-lrc {
+    display: none;
+  }
+  .aplayer .aplayer-lrc.aplayer-lrc-hide {
+      display:none !important;
+  }
+  .aplayer.aplayer-fixed .lrc-show {
+    display: block;
+    background: rgba(255, 255, 255, 0.8);
+  }
+</style>
+<meting-js
+
+    id="13308314083"
+
+    server="netease"
+
+    type="playlist"
+
+    fixed="true"
+
+    autoplay="true"
+
+    loop="all"
+
+    order="random"
+
+    preload="auto"
+
+    volume="0.7"
+
+    mutex="true"
+
+</meting-js>
+<script>
+  $(function(){
+    $('body').on('click', '.aplayer', function(){
+      if($('.aplayer-button').hasClass('aplayer-play')) {
+        $('.aplayer-lrc').removeClass('lrc-show');
+      } else {
+        $('.aplayer-lrc').addClass('lrc-show');
+      }
+    })
+  });
+</script>
+</body>
+</html>

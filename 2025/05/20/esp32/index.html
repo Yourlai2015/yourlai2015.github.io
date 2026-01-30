@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title itemprop="name">ESP32入门文档 | Yourlai&#39;s Blog</title>
+  
+    <link rel="shortcut icon" href="/images/favicon.ico">
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="stylesheet" id="saukra_css-css" href="/css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="/css/font.css" media="all">
+  <link rel="stylesheet" href="/css/insight.css" media="all">
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css" media="all">
+  <link rel="stylesheet" href="/css/zoom.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+" type="text/css" media="all"> -->
+  <script>
+  /*Initial Variables*/
+  var mashiro_option = new Object();
+  var mashiro_global = new Object();
+  mashiro_option.NProgressON = true;
+  /* 
+   * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+   * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+   */
+  mashiro_option.email_domain = "";
+  mashiro_option.email_name = "";
+  mashiro_option.cookie_version_control = "";
+  mashiro_option.qzone_autocomplete = false;
+  mashiro_option.site_name = "Yourlai'sBlog";
+  mashiro_option.author_name = "Blog";
+  mashiro_option.site_url = "https://yourlai.icu";
+  mashiro_option.v_appId = "GyC3NzMvd0hT9Yyd2hYIC0MN-gzGzoHsz";
+  mashiro_option.v_appKey = "mgOpfzbkHYqU92CV4IDlAUHQ";
+  mashiro_option.mathjax = "0";
+  mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+  mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+
+  // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+  // mashiro_option.float_player_on = true;
+
+  /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+  var bg = "https://cdn.cdn.yourlai.icu/img/hexo/(0).webp,https://cdn.cdn.yourlai.icu/img/hexo/(1).webp,https://cdn.cdn.yourlai.icu/img/hexo/(2).webp,https://cdn.cdn.yourlai.icu/img/hexo/(3).webp,https://cdn.cdn.yourlai.icu/img/hexo/(4).webp,https://cdn.cdn.yourlai.icu/img/hexo/(5).webp,https://cdn.cdn.yourlai.icu/img/hexo/After_05254.jpg".split(",");
+  var bgindex = Math.floor(Math.random()*bg.length);
+  if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+    alert('朋友，IE浏览器未适配这一块~');
+  }
+  </script>
+  <style type="text/css">
+  .hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}
+  </style>
+  <style type="text/css">.site-top .lower nav{display:block !important;}.author-profile i,.post-like a,.post-share .show-share,.sub-text,.we-info a,span.sitename,.post-more i:hover,#pagination a:hover,.post-content a:hover,.float-content i:hover{color:#FE9600}.feature i,.download,.navigator i:hover,.links ul li:before,.ar-time i,span.ar-circle,.object,.comment .comment-reply-link,.siren-checkbox-radio:checked + .siren-checkbox-radioInput:after{background:#FE9600}::-webkit-scrollbar-thumb{background:#FE9600}.download,.navigator i:hover,.link-title,.links ul li:hover,#pagination a:hover,.comment-respond input[type='submit']:hover{border-color:#FE9600}.entry-content a:hover,.site-info a:hover,.comment h4 a,#comments-navi a.prev,#comments-navi a.next,.comment h4 a:hover,.site-top ul li a:hover,.entry-title a:hover,#archives-temp h3,span.page-numbers.current,.sorry li a:hover,.site-title a:hover,i.iconfont.js-toggle-search.iconsearch:hover,.comment-respond input[type='submit']:hover{color:#FE9600}.comments .comments-main{display:block !important;}.comments .comments-hidden{display:none !important;}background-position:center center;background-attachment:inherit;}
+  </style>
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit">
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <section id="main-container">
+    <div class="headertop ">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <div class="header-tou">
+        <a target="_blank" rel="noopener" href="https://yourlai.icu">
+          <img src="https://cdn.cdn.yourlai.icu//img/custom/ava_Little_size.jpg">
+        </a>
+      </div>
+      <div class="header-info">
+        <p>Never stop . Never give up.</p>
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="https://cdn.cdn.yourlai.icu/img/other/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="https://space.bilibili.com/396079395" target="_blank" class="social-github" title="Bilibili">
+                    <img src="https://cdn.cdn.yourlai.icu//img/social/bilibili.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://music.163.com/#/user/home?id=1298327087" target="_blank" class="social-github" title="网易云音乐">
+                    <img src="https://cdn.cdn.yourlai.icu//img/social/wangyiyun.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="http://ipv6.yourlai.icu" target="_blank" class="social-github" title="博客主站">
+                    <img src="https://cdn.cdn.yourlai.icu//img/social/blog.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="mailto:yourlai@yourlai.icu" target="_blank" class="social-github" title="Email">
+                    <img src="https://cdn.cdn.yourlai.icu//img/social/email.svg">
+                  </a>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="https://cdn.cdn.yourlai.icu/img/other/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  <div id="video-container" style="">
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name="" src="" width="auto" preload="auto">
+    </video>
+    <div id="video-btn" class="loadvideo videolive">
+    </div>
+    <div id="video-add">
+    </div>
+    <div class="video-stu">
+    </div>
+  </div>
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+    <div id="page" class="site wrapper">
+      <header class="site-header no-select gizle sabit" role="banner">
+  <div class="site-top">
+    <div class="site-branding">
+      <span class="site-title">
+        <span class="logolink moe-mashiro">
+          <a href="/">
+            <span class="sakurasono">Yourlai&#39;s</span>
+            <span class="shironeko">Blog</span>
+          </a>
+        </span>
+      </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+                    首页
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+                    随便写的
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/categories/wiki/">
+                          <i class="fa fa-code" aria-hidden="true"></i>
+                          Wiki
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/%E6%95%99%E7%A8%8B/">
+                          <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                          教程
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/%E9%97%B2%E8%B0%88/">
+                          <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                          闲谈
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/%E5%B0%8F%E8%AF%B4/">
+                          <i class="fa fa-book" aria-hidden="true"></i>
+                          小说
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+                    推荐
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/tags/%E6%82%A6%E8%AF%BB/">
+                          <i class="fa fa-th-list faa-bounce" aria-hidden="true"></i>
+                          书单
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/bangumi/">
+                          <i class="fa fa-film faa-vertical" aria-hidden="true"></i>
+                          番组
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/music/">
+                          <i class="fa fa-headphones" aria-hidden="true"></i>
+                          歌单
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/tags/%E5%9B%BE%E9%9B%86/">
+                          <i class="fa fa-photo" aria-hidden="true"></i>
+                          图集
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/about/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-question-circle faa-wrench" aria-hidden="true"></i>
+                    关于本站
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a target="_blank" rel="noopener" href="https://yourlai.icu">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+                    主站链接
+                  </span>
+                </a>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.cdn.yourlai.icu/img/hexo/After_05254.jpg);" src="https://cdn.cdn.yourlai.icu/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.cdn.yourlai.icu/img/hexo/After_05254.jpg">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      ESP32入门文档</h1>
+      <p class="entry-census">
+        <span>
+          <a href="">
+            <img src="">
+          </a>
+        </span>
+        <span>
+          <a href=""></a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2025-5-20<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
+  </div>
+
+<div id="content" class="site-content">
+  <div id="primary" class="content-area">
+    <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="ESP32外设入门文档"><a href="#ESP32外设入门文档" class="headerlink" title="ESP32外设入门文档"></a>ESP32外设入门文档</h1><p><strong>2025-05-14</strong></p>
+<h2 id="写在前边"><a href="#写在前边" class="headerlink" title="写在前边"></a>写在前边</h2><p>弄这个文档的初衷是为了更快地入门ESP32，一寻思自己弄太慢了，就大家一起来完善吧。文档内容肯定会有错误，在群里说一下改正即可，如果进度比较快or有地方需要完善，按照已有格式进行完善即可，众人拾柴火焰高，对吧。</p>
+<h2 id="文档说明"><a href="#文档说明" class="headerlink" title="文档说明"></a>文档说明</h2><p>本文档中只说明ESP32中的情况<br>下边的函数或者某些参数如果没有看懂，需要结合PDF和AI了解。</p>
+<h2 id="GPIO"><a href="#GPIO" class="headerlink" title="GPIO"></a>GPIO</h2><p>GPIO有四种常见的工作模式：</p>
+<ul>
+<li><strong>输出</strong>：可以设置GPIO的高低电平</li>
+<li><strong>输入</strong>：可以获取外部输入的高低电平信息，一般要设置加上拉电阻或下拉电阻</li>
+<li><strong>浮空输出</strong>：可以设置GPIO的高低电平，但要在电路外部中增加上拉电阻</li>
+<li><strong>开漏输入</strong>：可以获取外部输入的高低电平信息，但要在电路外部中增加上拉电阻</li>
+</ul>
+<p>GPIO的使用流程：初始化-&gt;设置GPIO工作模式</p>
+<h3 id="GPIO初始化"><a href="#GPIO初始化" class="headerlink" title="GPIO初始化"></a>GPIO初始化</h3><p>定义结构体-&gt;调用API初始化GPIO</p>
+<h4 id="①定义结构体"><a href="#①定义结构体" class="headerlink" title="①定义结构体"></a>①定义结构体</h4><p>结构体由以下内容组成</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">gpio_config_t</span> led_GPIO_config = &#123; <span class="hljs-comment">//结构体名字可以随便改</span><br>    .pin_bit_mask = (<span class="hljs-number">1</span>&lt;&lt;On_Board_LED_GPIO), <span class="hljs-comment">// GPIO掩码，用来同时操作多个GPIO</span><br>    .pull_up_en = GPIO_PULLUP_DISABLE, <span class="hljs-comment">//GPIO上拉使能</span><br>    .pull_down_en = GPIO_PULLDOWN_ENABLE, <span class="hljs-comment">//GPIO下拉使能</span><br>    .mode = GPIO_MODE_OUTPUT, <span class="hljs-comment">//GPIO模式</span><br>    .intr_type = GPIO_INTR_DISABLE, <span class="hljs-comment">//GPIO中断类型</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">gpio_config_t</span> led_GPIO_config = &#123; <span class="hljs-comment">//结构体名字可以随便改</span><br>    .pin_bit_mask = (<span class="hljs-number">1</span>&lt;&lt;On_Board_LED_GPIO), <span class="hljs-comment">// GPIO掩码，用来同时操作多个GPIO</span><br>    .pull_up_en = GPIO_PULLUP_DISABLE, <span class="hljs-comment">//GPIO上拉使能</span><br>    .pull_down_en = GPIO_PULLDOWN_ENABLE, <span class="hljs-comment">//GPIO下拉使能</span><br>    .mode = GPIO_MODE_OUTPUT, <span class="hljs-comment">//GPIO模式</span><br>    .intr_type = GPIO_INTR_DISABLE, <span class="hljs-comment">//GPIO中断类型</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h4 id="②使用API初始化GPIO"><a href="#②使用API初始化GPIO" class="headerlink" title="②使用API初始化GPIO"></a>②使用API初始化GPIO</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">gpio_config(&amp;led_GPIO_config); <span class="hljs-comment">// 通过 乐鑫提供的API初始化GPIO ，使用上述的结构体</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">gpio_config(&amp;led_GPIO_config); <span class="hljs-comment">//通过乐鑫提供的API初始化GPIO，使用上述的结构体</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="GPIO输出"><a href="#GPIO输出" class="headerlink" title="GPIO输出"></a>GPIO输出</h3><p>输出的两个参数分别是：</p>
+<ul>
+<li><code>gpio_num</code>：GPIO引脚编号（如GPIO_NUM_2）。</li>
+<li><code>level</code>：电平值（0&#x2F;1）这里level非零即为1</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">GPIO_set_level ( gpio_num ,level );<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">GPIO_set_level(gpio_num,level);<br></code></pre></td></tr></table></figure>
+
+<h3 id="GPIO交换矩阵"><a href="#GPIO交换矩阵" class="headerlink" title="GPIO交换矩阵"></a>GPIO交换矩阵</h3><p>GPIO交换矩阵的核心作用：</p>
+<ul>
+<li><strong>动态信号路由</strong>：允许将90%以上的外设信号（如UART、PWM、SPI等）自由映射到 任意可用的GPIO引脚（部分特殊功能引脚除外）。</li>
+<li><strong>突破物理限制</strong>：解决PCB设计时的引脚冲突问题，例如可将同一外设（如 UART0）的TX和RX分配到不同位置的引脚。</li>
+</ul>
+<p>简而言之，可以让任意引脚使用任意的功能。</p>
+<h2 id="定时器PWM"><a href="#定时器PWM" class="headerlink" title="定时器PWM"></a>定时器PWM</h2><p>定时器是通道的基础.通道必须绑定到一个已通过ledc_timer_config配置的定时器。定时器定义了PWM的全局参数（如频率），而通道负责将这一时间基准转化为具体GPIO的输出。<strong>共享性</strong>:一个定时器可被多个通道共享。例如，定时器配置为1kHz频率后，多个通道可基于同一频率输出不同占空比的信号。<strong>参数一致性</strong>:通道的speed_mode必须与绑定的定时器一致，否则PWM信号无法正确生成。</p>
+<h3 id="配置流程："><a href="#配置流程：" class="headerlink" title="配置流程："></a>配置流程：</h3><p>配置PWM,绑定通道和GPIO</p>
+<h4 id="①配置PWM："><a href="#①配置PWM：" class="headerlink" title="①配置PWM："></a>①配置PWM：</h4><p>创建PWM配置结构体-&gt;通过API使用结构体对PWM的定时器进行配置</p>
+<h4 id="②绑定："><a href="#②绑定：" class="headerlink" title="②绑定："></a>②绑定：</h4><p>完成通道绑定设置-&gt;通过API使用结构体对PWM的定时器进行绑定</p>
+<h4 id="创建PWM配置结构体"><a href="#创建PWM配置结构体" class="headerlink" title="创建PWM配置结构体"></a>创建PWM配置结构体</h4><p>对PWM进行初始化设置，设置定时器频率、通道，时钟源，翻转频率，分辨率</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">ledc_timer_config_t</span> On_Board_LED_GPIO_Timer_change = &#123;<br>    .speed_mode = LEDC_LOW_SPEED_MODE, <span class="hljs-comment">//定时器频率（8MHz/80MHz）</span><br>    .timer_num = LEDC_TIMER <span class="hljs-number">0</span>, <span class="hljs-comment">//使用的定时器通道（0~3）</span><br>    .clk_cfg = LEDC_AUTO_CLK, <span class="hljs-comment">//时钟源（一般为AUTO）</span><br>    .freq_hz = <span class="hljs-number">5000</span>, <span class="hljs-comment">//翻转的频率（Hz）</span><br>    .duty_resolution = LEDC_TIMER_13_BIT, <span class="hljs-comment">//定时器的分辨率为2^13-1（表示占空比范围0~2^13-1）</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>↓↓ ESP32的时钟源类型 ↓↓</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">ledc_timer_config_t</span> On_Board_LED_GPIO_Timer_change = &#123;<br>    .speed_mode = LEDC_LOW_SPEED_MODE, <span class="hljs-comment">//定时器频率（8MHz/80MHz）</span><br>    .timer_num = LEDC_TIMER0, <span class="hljs-comment">//使用的定时器通道（0~3）</span><br>    .clk_cfg = LEDC_AUTO_CLK, <span class="hljs-comment">//时钟源（一般为AUTO）</span><br>    .freq_hz = <span class="hljs-number">5000</span>, <span class="hljs-comment">//翻转的频率（Hz）</span><br>    .duty_resolution = LEDC_TIMER_13_BIT, <span class="hljs-comment">//定时器的分辨率为2^13-1（表示占空比范围0~2^13-1）</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">时钟源类型</th>
+<th align="left">频率范围</th>
+<th align="left">适用模式</th>
+<th align="left">特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">APB_CLK</td>
+<td align="left">80MHz（默认）</td>
+<td align="left">高速模式</td>
+<td align="left">高精度、低抖动</td>
+</tr>
+<tr>
+<td align="left">RTC8M_CLK</td>
+<td align="left">~8MHz（可校准）</td>
+<td align="left">低速模式</td>
+<td align="left">低功耗、可深度睡眠工作</td>
+</tr>
+<tr>
+<td align="left">REF_TICK</td>
+<td align="left">1MHz</td>
+<td align="left">特殊应用</td>
+<td align="left">同步系统时钟</td>
+</tr>
+</tbody></table>
+<p>此处一般为自动</p>
+<h4 id="使用API配置PWM"><a href="#使用API配置PWM" class="headerlink" title="使用API配置PWM"></a>使用API配置PWM</h4><p><code>ledc_timer_config</code>用于初始化用到的定时器 （）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">ledc_timer_config(&amp;On_Board_LED_GPIO_Timer_change);<span class="hljs-comment">//调用API配置PWM</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">ledc_timer_config(&amp;On_Board_LED_GPIO_Timer_change);<span class="hljs-comment">//调用API配置PWM</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="通道初始化"><a href="#通道初始化" class="headerlink" title="通道初始化"></a>通道初始化</h4><p>指定配置的通道，及其绑定的定时器与GPIO，并指明定时器频率，中断类型和信号占空比</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">ledc_channel_config_t</span> On_Board_LED_GPIO_Timer_channel_change = &#123;<br>    .channel = <span class="hljs-number">0</span>, <span class="hljs-comment">//GPIO绑定的通道</span><br>    .gpio_num = On_Board_LED_GPIO, <span class="hljs-comment">//绑定的GPIO引脚</span><br>    .timer_sel = <span class="hljs-number">0</span>, <span class="hljs-comment">//所绑定的定时器</span><br>    .speed_mode = LEDC_LOW_SPEED_MODE, <span class="hljs-comment">//定时器频率（与所绑定的定时器频率相同）</span><br>    .duty = <span class="hljs-number">0</span>, <span class="hljs-comment">//占空比</span><br>    .intr_type = LEDC_INTR_DISABLE, <span class="hljs-comment">//中断类型</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">ledc_channel_config_t</span> On_Board_LED_GPIO_Timer_channel_change = &#123;<br>    .channel = <span class="hljs-number">0</span>, <span class="hljs-comment">//GPIO绑定的通道</span><br>    .gpio_num = On_Board_LED_GPIO, <span class="hljs-comment">//绑定的GPIO引脚</span><br>    .timer_sel = <span class="hljs-number">0</span>, <span class="hljs-comment">//所绑定的定时器</span><br>    .speed_mode = LEDC_LOW_SPEED_MODE, <span class="hljs-comment">//定时器频率（与所绑定的定时器频率相同）</span><br>    .duty = <span class="hljs-number">0</span>, <span class="hljs-comment">//占空比</span><br>    .intr_type = LEDC_INTR_DISABLE, <span class="hljs-comment">//中断类型</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h4 id="使用API进行绑定"><a href="#使用API进行绑定" class="headerlink" title="使用API进行绑定"></a>使用API进行绑定</h4><p><code>ledc_channel_config</code>用于初始化ledc输出通道 以及将timer关联起来</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">ledc_channel_config(&amp;ledc_channel)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">ledc_channel_config(&amp;ledc_channel)<br></code></pre></td></tr></table></figure>
+
+<p>这样对应的通道就能输出PWM频率了（上例 为 On_Board_LED_GPIO这个GPIO接口 输出PWM ）</p>
+<h2 id="计时计数"><a href="#计时计数" class="headerlink" title="计时计数"></a>计时计数</h2><h2 id="IIC"><a href="#IIC" class="headerlink" title="IIC"></a>IIC</h2><p>协议：注意！注意！新旧I2C协议代码不通用！不兼容！旧版 “driver&#x2F;i2c.h” 新版 “driver&#x2F;i2c_master.h”</p>
+<h3 id="配置流程：-1"><a href="#配置流程：-1" class="headerlink" title="配置流程："></a>配置流程：</h3><p>写初始化I2C函数，写I2C对寄存器读写函数（用于寄存器初始化函数中），主函数调用I2C初始化函数与寄存器初始化函数</p>
+<h4 id="①配置I2C："><a href="#①配置I2C：" class="headerlink" title="①配置I2C："></a>①配置I2C：</h4><p>创建I2C初始化结构体-&gt;配置参数-&gt;安装I2C驱动</p>
+<h4 id="②寄存器读写函数-寄存器初始化函数"><a href="#②寄存器读写函数-寄存器初始化函数" class="headerlink" title="②寄存器读写函数-&gt;寄存器初始化函数"></a>②寄存器读写函数-&gt;寄存器初始化函数</h4><p>需要用到寄存器值读写</p>
+<h4 id="③-在主函数中调用I2C初始化函数与寄存器初始化函数"><a href="#③-在主函数中调用I2C初始化函数与寄存器初始化函数" class="headerlink" title="③ 在主函数中调用I2C初始化函数与寄存器初始化函数"></a>③ 在主函数中调用I2C初始化函数与寄存器初始化函数</h4><h4 id="文件中创建结构体初始化I2C"><a href="#文件中创建结构体初始化I2C" class="headerlink" title="文件中创建结构体初始化I2C"></a>文件中创建结构体初始化I2C</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">i2c_config_t</span> conf = &#123;<br>    .mode = I2C_MODE_MASTER, <span class="hljs-comment">// 确定主从模式</span><br>    .sda_io_num = I2C_MASTER_SDA_IO, <span class="hljs-comment">// 配置 SDA 的 GPIO</span><br>    .sda_pullup_en = GPIO_PULLUP_ENABLE, <span class="hljs-comment">//打开上拉电阻，避免浮空</span><br>    .scl_io_num = I2C_MASTER_SCL_IO, <span class="hljs-comment">// 配置 SCL 的 GPIO</span><br>    .scl_pullup_en = GPIO_PULLUP_ENABLE, <span class="hljs-comment">//打开上拉电阻，避免浮空</span><br>    .master.clk_speed = I2C_MASTER_FREQ_HZ, <span class="hljs-comment">// 为项目选择 频率</span><br>&#125;;<br>i2c_param_config(BSP_I2C_NUM, &amp;i2c_conf); <span class="hljs-comment">// 配置参数 // BSP_I2C_NUM是具体的I2C编号，宏定义一般为0或者1</span><br><span class="hljs-keyword">return</span> i2c_driver_install(BSP_I2C_NUM, i2c_conf.mode, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>); <span class="hljs-comment">// 安装驱动</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">i2c_config_t</span> conf = &#123;<br>    .mode = I2C_MODE_MASTER, <span class="hljs-comment">//确定主从模式</span><br>    .sda_io_num = I2C_MASTER_SDA_IO, <span class="hljs-comment">// 配置 SDA 的 GPIO</span><br>    .sda_pullup_en = GPIO_PULLUP_ENABLE, <span class="hljs-comment">//打开上拉电阻，避免浮空</span><br>    .scl_io_num = I2C_MASTER_SCL_IO, <span class="hljs-comment">// 配置 SCL 的 GPIO</span><br>    .scl_pullup_en = GPIO_PULLUP_ENABLE, <span class="hljs-comment">//打开上拉电阻，避免浮空</span><br>    .master.clk_speed = I2C_MASTER_FREQ_HZ, <span class="hljs-comment">// 为项目选择频率</span><br>&#125;;<br>i2c_param_config(BSP_I2C_NUM, &amp;i2c_conf);<span class="hljs-comment">//配置参数 //BSP_I2C_NUM是具体的I2C编号，宏定义一般为0或者1</span><br><span class="hljs-keyword">return</span> i2c_driver_install(BSP_I2C_NUM, i2c_conf.mode, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);<span class="hljs-comment">//安装驱动)</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="通过I2C对寄存器值进行读取写入（用于寄存器初始化函数中）"><a href="#通过I2C对寄存器值进行读取写入（用于寄存器初始化函数中）" class="headerlink" title="通过I2C对寄存器值进行读取写入（用于寄存器初始化函数中）"></a>通过I2C对寄存器值进行读取写入（用于寄存器初始化函数中）</h4><p><code>BSP_I2C_NUM</code>依旧是使用的I2C外设编号，<code>SENSOR_ADDR</code>是寄存器的地址，I2C通过地址找到寄存器并进行读写操作。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// 读取寄存器的值</span><br><span class="hljs-type">esp_err_t</span> <span class="hljs-title function_">I2C_register_read</span><span class="hljs-params">(<span class="hljs-type">uint8_t</span> reg_addr, <span class="hljs-type">uint8_t</span> *data, <span class="hljs-type">size_t</span> len)</span>&#123;<br>    <span class="hljs-keyword">return</span> i2c_master_write_read_device(BSP_I2C_NUM,SENSOR_ADDR, &amp;reg_addr, <span class="hljs-number">1</span>, data, len, <span class="hljs-number">1000</span> / portTICK_PERIOD_MS);<br>&#125;<br><br><span class="hljs-comment">// 给寄存器写值</span><br><span class="hljs-type">esp_err_t</span> <span class="hljs-title function_">I2C_register_write_byte</span><span class="hljs-params">(<span class="hljs-type">uint8_t</span> reg_addr, <span class="hljs-type">uint8_t</span> data)</span>&#123;<br>    <span class="hljs-type">uint8_t</span> write_buf[<span class="hljs-number">2</span>] = &#123;reg_addr, data&#125;;<br>    <span class="hljs-keyword">return</span> i2c_master_write_to_device(BSP_I2C_NUM, SENSOR_ADDR, write_buf, <span class="hljs-keyword">sizeof</span>(write_buf), <span class="hljs-number">1000</span> / portTICK_PERIOD_MS);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// 读取寄存器的值</span><br><span class="hljs-type">esp_err_t</span> I <span class="hljs-number">2</span>C _register_read(<span class="hljs-type">uint8_t</span> reg_addr, <span class="hljs-type">uint8_t</span> *data, <span class="hljs-type">size_t</span> len) &#123;<br>    <span class="hljs-keyword">return</span> i2c_master_write_read_device(BSP_I2C_NUM,SENSOR_ADDR, &amp;reg_addr, <span class="hljs-number">1</span>, data, len, <span class="hljs-number">1000</span> / portTICK_PERIOD_MS);<br>&#125;<br><span class="hljs-comment">// 给寄存器写值</span><br><span class="hljs-type">esp_err_t</span> I <span class="hljs-number">2</span>C _register_write_byte(<span class="hljs-type">uint8_t</span> reg_addr, <span class="hljs-type">uint8_t</span> data) &#123;<br>    <span class="hljs-type">uint8_t</span> write_buf[<span class="hljs-number">2</span>] = &#123;reg_addr, data&#125;;<br>    <span class="hljs-keyword">return</span> i2c_master_write_to_device(BSP_I2C_NUM, SENSOR_ADDR, write_buf, <span class="hljs-keyword">sizeof</span>(write_buf), <span class="hljs-number">1000</span> / portTICK_PERIOD_MS);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="在主函数中调用初始化函数"><a href="#在主函数中调用初始化函数" class="headerlink" title="在主函数中调用初始化函数"></a>在主函数中调用初始化函数</h4><p><code>ESP_ERROR_CHECK</code> 是一个宏函数，位于 esp-idf 文件中，用于检测执行函数的返回结果，如果没有错误，什么事情都不会发生，如果有错误，会引起单片机重启。使用这个宏函数，需要包含 esp_err.h 头文件。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c">ESP_ERROR_CHECK(bsp_i2c_init());<br>ESP_LOGI(TAG, <span class="hljs-string">&quot;I2C initialized successfully&quot;</span>); <span class="hljs-comment">//打印日志</span><br>sensor_init(); <span class="hljs-comment">// 初始化 寄存器 芯片</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">ESP_ERROR_CHECK(bsp_i2c_init());ESP_LOGI(TAG, <span class="hljs-string">&quot;I2C initialized successfully&quot;</span>); <span class="hljs-comment">//打印日志sensor_init(); // 初始化寄存器芯片)</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="串口（UART）"><a href="#串口（UART）" class="headerlink" title="串口（UART）"></a>串口（UART）</h2><p>使用方法与其他的配置大同小异<br>使用流程：创建配置结构体-&gt;调用结构体进行配置-&gt;安装驱动（设置RX&#x2F;TX缓冲区）-&gt;读取&#x2F;发送</p>
+<h4 id="创建配置结构体"><a href="#创建配置结构体" class="headerlink" title="创建配置结构体"></a>创建配置结构体</h4><table>
+<thead>
+<tr>
+<th align="left">baud_rate</th>
+<th align="left">波特率</th>
+<th align="left">设置数据传输速率，单位是每秒比特数（bps）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">data_bits</td>
+<td align="left">数据位</td>
+<td align="left">定义每个数据包的位数</td>
+</tr>
+<tr>
+<td align="left">parity</td>
+<td align="left">校验位</td>
+<td align="left">错误检测机制，检测单比特错误</td>
+</tr>
+<tr>
+<td align="left">stop_bits</td>
+<td align="left">停止位</td>
+<td align="left">标识数据包结束的位数</td>
+</tr>
+<tr>
+<td align="left">flow_ctrl</td>
+<td align="left">流控制</td>
+<td align="left">防止数据溢出的硬件流控</td>
+</tr>
+<tr>
+<td align="left">source_clk</td>
+<td align="left">时钟源</td>
+<td align="left">选择 UART 的基准时钟源</td>
+</tr>
+</tbody></table>
+<p>这里对流控制进一步解释（因为我也不会）<br>流控制的作用：</p>
+<ul>
+<li>防止数据溢出：当接收方缓冲区满时，通过流控制信号让发送方暂停传输。</li>
+<li>保证传输可靠性：避免高速发送导致低速接收设备无法处理数据。</li>
+<li>适应不同硬件性能：协调不同处理速度的设备（如MCU与PC）之间的通信。</li>
+</ul>
+<p><strong>硬件流控制</strong>（通过物理引脚信号控制数据流）：</p>
+<ul>
+<li>RTS（RequestToSend）：接收方准备好接收数据时，拉高此信号。</li>
+<li>CTS（ClearToSend）：发送方检测到CTS有效时，才允许发送数据。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">uart_config_t</span> uart_config = &#123;<br>    .baud_rate = <span class="hljs-number">115200</span>, <span class="hljs-comment">// 常用波特率</span><br>    .data_bits = UART_DATA_8_BITS, <span class="hljs-comment">// 标准数据位</span><br>    .parity = UART_PARITY_DISABLE, <span class="hljs-comment">// 无校验</span><br>    .stop_bits = UART_STOP_BITS_1, <span class="hljs-comment">// 1停止位</span><br>    .flow_ctrl = UART_HW_FLOWCTRL_DISABLE,<span class="hljs-comment">// 禁用流控</span><br>    .source_clk = UART_SCLK_DEFAULT <span class="hljs-comment">// 使用 APB 时钟</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">uart_config_t</span> uart_config = &#123;<br>    .baud_rate = <span class="hljs-number">115200</span>, <span class="hljs-comment">// 常用波特率</span><br>    .data_bits = UART_DATA_8_BITS, <span class="hljs-comment">// 标准数据位</span><br>    .parity = UART_PARITY_DISABLE, <span class="hljs-comment">// 无校验</span><br>    .stop_bits = UART_STOP_BITS_1, <span class="hljs-comment">// 1停止位</span><br>    .flow_ctrl = UART_HW_FLOWCTRL_DISABLE,<span class="hljs-comment">// 禁用流控</span><br>    .source_clk = UART_SCLK_DEFAULT <span class="hljs-comment">// 使用 APB 时钟</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h4 id="调用API配置结构体"><a href="#调用API配置结构体" class="headerlink" title="调用API配置结构体"></a>调用API配置结构体</h4><p>这里 <code>UART_PORT_NUM</code> 是 串口号 （ 选择 哪个 串口 ）（ ESP32芯片通常包含3个独立的UART硬件控制器，串口0默认串口下载，串口1一般为FLASH的引脚（可通过GPIO交换矩阵更改引脚），串口2常用 ）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">uart_param_config(UART_PORT_NUM, &amp;uart_config)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">uart_param_config(UART_PORT_NUM, &amp;uart_config)<br></code></pre></td></tr></table></figure>
+
+<h4 id="安装UART驱动"><a href="#安装UART驱动" class="headerlink" title="安装UART驱动"></a>安装UART驱动</h4><p>串口号-发送缓存大小-接收缓存大小-队列长度-队列句柄（传回来用的）-中断标志（一般使用0，使用默认配置）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">uart_driver_install(UART_PORT_NUM, BUF_SIZE * <span class="hljs-number">2</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-literal">NULL</span>, intr_alloc_flags)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">uart_driver_install(UART_PORT_NUM, BUF_SIZE * <span class="hljs-number">2</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-literal">NULL</span>, intr_alloc_flags)<br></code></pre></td></tr></table></figure>
+
+<h4 id="读取串口数据"><a href="#读取串口数据" class="headerlink" title="读取串口数据"></a>读取串口数据</h4><p>这函数有返回值：如果成功，则返回读取的字节数；失败则返回-1。串口号-缓冲区-缓冲区大小-等待数据的超时时间 <code>portMAX_DELAY</code>表示无限等待</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">uart_read_bytes(UART_PORT_NUM,BUF_SIZE, <span class="hljs-type">uint32_t</span> buf_size, TickType_t ticks_to_wait);<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">uart_read_bytes(UART_PORT_NUM,BUF_SIZE, <span class="hljs-type">uint32_t</span> buf_size, TickType_t ticks_to_wait);<br></code></pre></td></tr></table></figure>
+
+<h4 id="发送串口数据"><a href="#发送串口数据" class="headerlink" title="发送串口数据"></a>发送串口数据</h4><p>串口号-待发送数据的源地址-发送数据的字节数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">uart_write_bytes( U ART_PORT_NUM,src,size);<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">uart_write_bytes(UART_PORT_NUM,src,size);<br></code></pre></td></tr></table></figure>
+
+<h4 id="更改串口引脚（可选）"><a href="#更改串口引脚（可选）" class="headerlink" title="更改串口引脚（可选）"></a>更改串口引脚（可选）</h4><p>通过GPIO矩阵，将默认的串口引脚更改。若更改，则需在安装驱动前配置该项。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">uart_set_pin(UART_PORT_NUM, ECHO_TEST_TXD, ECHO_TEST_RXD, ECHO_TEST_RTS, ECHO_TEST_CTS) <span class="hljs-comment">// 串口号 实际的发送GPIO 实际的接收GPIO 后壁那两个用于流控，-1为关闭</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">uart_set_pin(UART_PORT_NUM, ECHO_TEST_TXD, ECHO_TEST_RXD, ECHO_TEST_RTS, ECHO_TEST_CTS)<span class="hljs-comment">//串口号 实际的发送GPIO 实际的接收GPIO 后壁那两个用于流控，-1为关闭)</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="WiFi"><a href="#WiFi" class="headerlink" title="WiFi"></a>WiFi</h2><h3 id="STA模式"><a href="#STA模式" class="headerlink" title="STA模式"></a>STA模式</h3><p>STA模式：连接已有的网络，ESP32作为终端设备<br>使用流程：总流程：创建并初始化函数-&gt;监听设备事件-&gt;分情况调用回调函数进行各项初始化和配置<br>初始化流程：初始化NVS（存储SSID和密码），初始化TCP&#x2F;IP栈（使用esp_netif_init），初始化事件系统循环（存储系统事件，包括WIFI MQTT BLU等），初始化WIFI，设置事件回调函数并监听事件</p>
+<h4 id="初始化NVS，TCP-IP，系统事件循环"><a href="#初始化NVS，TCP-IP，系统事件循环" class="headerlink" title="初始化NVS，TCP&#x2F;IP，系统事件循环"></a>初始化NVS，TCP&#x2F;IP，系统事件循环</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c">esp_netif_init() ; <span class="hljs-comment">// 初始化TCP/IP栈</span><br>esp_event_loop_create_default() ; <span class="hljs-comment">// 初始化事件系统循环</span><br>nvs_flash_init() ; <span class="hljs-comment">// 初始化NVS</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">esp_netif_init(); <span class="hljs-comment">//初始化TCP/IP栈esp_event_loop_create_default();//初始化事件系统循环nvs_flash_init(); //初始化NVS)</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="初始化WIFI"><a href="#初始化WIFI" class="headerlink" title="初始化WIFI"></a>初始化WIFI</h4><p>先定义个WIFI初始化结构体-&gt;再创建个设置STA的初始化结构体-&gt;调用API进行初始化（WIFI和WIFI设置）-&gt;启动WIFI</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">wifi_init_config_t</span> cfg = WIFI_INIT_CONFIG_DEFAULT(); <span class="hljs-comment">// 创建了一个WIFI初始化结构体</span><br>ESP_ERROR_CHECK(esp_wifi_init(&amp;cfg)); <span class="hljs-comment">// 调用API利用结构体初始化WIFI</span><br><span class="hljs-type">wifi_config_t</span> wifi_config =&#123;<br>    .sta = &#123;<br>        .ssid = DEFAULT_WIFI_SSID, <span class="hljs-comment">//WIFI的SSID</span><br>        .password = DEFAULT_WIFI_PASSWORD, <span class="hljs-comment">//WIFI密码</span><br>        .threshold.authmode = WIFI_AUTH_WPA2_PSK, <span class="hljs-comment">//加密方式</span><br>        .pmf_cfg = <span class="hljs-comment">// PMF（Protected Management Frames，受保护管理帧）是 Wi-Fi 安全标准（802.11w）中的一项功能，用于保护无线管理帧，防止被恶意攻击者伪造或篡改</span><br>        &#123;<br>            .capable = <span class="hljs-literal">true</span>, <span class="hljs-comment">// 设备支持PMF功能</span><br>            .required = <span class="hljs-literal">false</span> <span class="hljs-comment">// 连接时不强制要求对方也支持 PMF</span><br>        &#125;,<br>    &#125;,<br>&#125;;<br>esp_wifi_set_mode(WIFI_MODE_STA) ; <span class="hljs-comment">// 使用SAT模式</span><br>esp_wifi_set_config(WIFI_IF_STA, &amp;wifi_config) <span class="hljs-comment">// 调用API设置WIFI</span><br>esp_wifi_start() ; <span class="hljs-comment">//启动WIFI</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">wifi_init_config_t</span> cfg = WIFI_INIT_CONFIG_DEFAULT();<span class="hljs-comment">//创建了一个WIFI初始化结构体ESP_ERROR_CHECK(esp_wifi_init(&amp;cfg)); //调用API利用结构体初始化WIFIwifi_config_t wifi_config =&#123; .sta = &#123; .ssid = DEFAULT_WIFI_SSID, //WIFI的SSID .password = DEFAULT_WIFI_PASSWORD, //WIFI密码 .threshold.authmode = WIFI_AUTH_WPA2_PSK, //加密方式 .pmf_cfg = //PMF（Protected Management Frames，受保护管理帧）是 Wi-Fi 安全标准（802.11w）中的一项功能，用于保护无线管理帧，防止被恶意攻击者伪造或篡改 &#123;.capable = true, //设备支持PMF功能 .required = false //连接时不强制要求对方也支持 PMF &#125;,&#125;,&#125;;esp_wifi_set_mode(WIFI_MODE_STA); //使用SAT模式esp_wifi_set_config(WIFI_IF_STA, &amp;wifi_config) //调用API设置WIFIesp_wifi_start(); //启动WIFI)</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="设置事件回调函数"><a href="#设置事件回调函数" class="headerlink" title="设置事件回调函数"></a>设置事件回调函数</h4><p>WIFI事件的回调函数<br>事件回调函数有以下几个要素：1. 有个能被调用的“注册回调函数的接口”（就是将回调函数与事件进行绑定）2. 有个回调函数（被调用之后产生的动作）<br>WIFI需要注册多个回调函数：WIFI和网络（IP_EVENT）<br>这里的事件回调函数，主要是为了判断WIFI的各个事件段该做什么，比如未连接WiFi怎么办，获取ip之后怎么办。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">static</span> <span class="hljs-type">void</span> <span class="hljs-title function_">event_handler</span><span class="hljs-params">(<span class="hljs-type">void</span>* arg, <span class="hljs-type">esp_event_base_t</span> event_base,<span class="hljs-type">int32_t</span> event_id, <span class="hljs-type">void</span>* event_data)</span> <span class="hljs-comment">//上边 event_base 是监听到的大事件（WIFI BLU IP等）（就是下方 esp_event_handler_register 监听到的） // event_id表示同一事件类别下的具体事件标识符 ， event_data 是事件附加的数据</span><br>&#123;<br>    <span class="hljs-keyword">if</span>( e vent_base == WIFI_EVENT) <span class="hljs-comment">// 监测WIFI事件</span><br>    &#123;<br>        swit c <span class="hljs-title function_">h</span><span class="hljs-params">( e vent_id )</span><br>        &#123;<br>            <span class="hljs-keyword">case</span> WIFI_EVENT_STA_START: <span class="hljs-comment">// IF 启动了STA模式</span><br>                esp_wifi_connect( ); <span class="hljs-comment">// 连接WIFI（调用上方设置的WiFi配置）</span><br>                <span class="hljs-keyword">break</span> ;<br>            <span class="hljs-keyword">case</span> WIFI_EVENT_STA_CONNECTED:<br>                ESP_LOGI( T AG, <span class="hljs-string">&quot; ESP CONNECTED TO AP &quot;</span> )<br>                <span class="hljs-keyword">break</span>;<br>            <span class="hljs-keyword">case</span> WIFI_EVENT_STA_ DIS CONNECTED: <span class="hljs-comment">// 没连上就反复连接</span><br>                esp_wifi_connect(); <span class="hljs-comment">// 这里实际上应该在多次失败之后，等待一段时间再连接</span><br>                <span class="hljs-keyword">break</span>;<br>            <span class="hljs-keyword">default</span>:<br>                b reak;<br>        &#125;<br>        <span class="hljs-keyword">if</span>(event_base == IP _EVENT)<br>        &#123;<br>            <span class="hljs-keyword">switch</span>(event_id)<br>            &#123;<br>                <span class="hljs-keyword">case</span> IP_EVENT_STA_GOT_IP : <span class="hljs-comment">// 获取到了IP</span><br>                    ESP_LOGI(TAG,<span class="hljs-string">&quot;ESP GET IP &quot;</span>)<br>                    <span class="hljs-keyword">break</span>;<br>                <span class="hljs-keyword">default</span>:<br>                    <span class="hljs-keyword">break</span>;<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br><span class="hljs-comment">// 注册 回调函数（ 将事件与回调函数绑定 ）（定义的名字是 event_handler ）</span><br>esp_event_handler_register (WIFI_EVENT,ESP_EVENT_ANY_ID,&amp;event_handler,<span class="hljs-literal">NULL</span>)); <span class="hljs-comment">//监听的事件类型，监听该类型的哪些事件，事件的处理函数（该函数需要处理的程序）（这里名字是 event_handler ），自定义参数</span><br>esp_event_handler_register( IP _EVENT, IP _EVENT_ STA_GOT_IP ,&amp;event_handler,<span class="hljs-literal">NULL</span>)); <span class="hljs-comment">//上边这个函数是将回调函数与“STA获得IP“这个事件进行绑定</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">static</span> <span class="hljs-type">void</span> <span class="hljs-title function_">event_handler</span><span class="hljs-params">(<span class="hljs-type">void</span>* arg, <span class="hljs-type">esp_event_base_t</span> event_base,<span class="hljs-type">int32_t</span> event_id, <span class="hljs-type">void</span>* event_data)</span><span class="hljs-comment">//上边event_base是监听到的大事件（WIFI BLU IP等）（就是下方esp_event_handler_register监听到的）//event_id表示同一事件类别下的具体事件标识符，event_data是事件附加的数据&#123; if(event_base == WIFI_EVENT) //监测WIFI事件 &#123; switch(event_id) &#123; case WIFI_EVENT_STA_START: //IF启动了STA模式 esp_wifi_connect(); //连接WIFI（调用上方设置的WiFi配置） break; case WIFI_EVENT_STA_CONNECTED: ESP_LOGI(TAG,&quot;ESP CONNECTED TO AP&quot;) break; case WIFI_EVENT_STA_DISCONNECTED: //没连上就反复连接 esp_wifi_connect(); //这里实际上应该在多次失败之后，等待一段时间再连接 break; default:break; &#125; if(event_base == IP_EVENT) &#123; switch(event_id) &#123; case IP_EVENT_STA_GOT_IP: //获取到了IP ESP_LOGI(TAG,&quot;ESP GET IP&quot;) break; default:break; &#125; &#125;&#125;//注册回调函数（将事件与回调函数绑定）（定义的名字是event_handler）esp_event_handler_register(WIFI_EVENT,ESP_EVENT_ANY_ID,&amp;event_handler,NULL));//监听的事件类型，监听该类型的哪些事件，事件的处理函数（该函数需要处理的程序）（这里名字是event_handler），自定义参数esp_event_handler_register(IP_EVENT,IP_EVENT_STA_GOT_IP,&amp;event_handler,NULL));//上边这个函数是将回调函数与“STA获得IP“这个事件进行绑定)</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="一键配网模式（SmartConfig）"><a href="#一键配网模式（SmartConfig）" class="headerlink" title="一键配网模式（SmartConfig）"></a>一键配网模式（SmartConfig）</h3><h2 id="MQTT"><a href="#MQTT" class="headerlink" title="MQTT"></a>MQTT</h2><p>基于TCP&#x2F;IP的低带宽需求报文传输服务<br>使用流程：①创建MQTT句柄（通过这个对MQTT进行操作）-&gt;创建并调用结构体（存储初始化MQTT的参数）-&gt;②-&gt;注册回调函数-&gt;启用MQTT ②配置事件回调函数，对MQTT各个状态进行反应（对订阅、发布、接收数据等进行操作）</p>
+<h3 id="①MQTT基础设置"><a href="#①MQTT基础设置" class="headerlink" title="①MQTT基础设置"></a>①MQTT基础设置</h3><h4 id="创建MQTT句柄"><a href="#创建MQTT句柄" class="headerlink" title="创建MQTT句柄"></a>创建MQTT句柄</h4><p>这里实际上创建了一个MQTT客户端，名为<code>s_mqtt_client</code>后续所有对MQTT客户端的操作，都使用<code>s_mqtt_client</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">esp_mqtt_client_handle_t</span> s_mqtt_client = <span class="hljs-literal">NULL</span>;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">esp_mqtt_client_handle_t</span> s_mqtt_client = <span class="hljs-literal">NULL</span>;<br></code></pre></td></tr></table></figure>
+
+<h4 id="创建并填充结构体"><a href="#创建并填充结构体" class="headerlink" title="创建并填充结构体"></a>创建并填充结构体</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">esp_mqtt_client_config_t</span> mqtt_cfg = &#123;<span class="hljs-number">0</span>&#125;; <span class="hljs-comment">// 这些参数全是字符型</span><br>mqtt_cfg.broker.address.uri = MQTT_ADDRESS; <span class="hljs-comment">//MQTT地址</span><br>mqtt_cfg.broker.address.port = MQTT_PORT ; <span class="hljs-comment">//MQTT端口（一般为1883）</span><br>mqtt_cfg . credentials . client_id = MQTT_CLIENT; <span class="hljs-comment">// 客户端MQTT的ID（自定义不能重复）</span><br>mqtt_cfg.credentials.username = MQTT_USERNAME; <span class="hljs-comment">// MQTT用户名</span><br>mqtt_cfg.credentials.authentication.password = MQTT_PASSWORD; <span class="hljs-comment">//密码</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">esp_mqtt_client_config_t</span> mqtt_cfg = &#123;<span class="hljs-number">0</span>&#125;;<span class="hljs-comment">//这些参数全是字符型</span><br>mqtt_cfg.broker.address.uri = MQTT_ADDRESS; <span class="hljs-comment">//MQTT地址</span><br>mqtt_cfg.broker.address.port = MQTT_PORT; <span class="hljs-comment">//MQTT端口（一般为1883）</span><br>mqtt_cfg.credentials.client_id = MQTT_CLIENT;<span class="hljs-comment">//客户端MQTT的ID（自定义不能重复）</span><br>mqtt_cfg.credentials.username = MQTT_USERNAME; <span class="hljs-comment">//MQTT用户名</span><br>mqtt_cfg.credentials.authentication.password = MQTT_PASSWORD;<span class="hljs-comment">//密码)</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="调用配置结构体-并-初始化客户端"><a href="#调用配置结构体-并-初始化客户端" class="headerlink" title="调用配置结构体 并 初始化客户端"></a>调用配置结构体 并 初始化客户端</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">s_mqtt_client = esp_mqtt_client_init(&amp;mqtt_cfg); <span class="hljs-comment">// 初始化客户端并获取句柄</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">s_mqtt_client = esp_mqtt_client_init(&amp;mqtt_cfg);<span class="hljs-comment">// 初始化客户端并获取句柄)</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="注册回调函数"><a href="#注册回调函数" class="headerlink" title="注册回调函数"></a>注册回调函数</h4><p>为 MQTT 客户端注册事件回调函数。具体来说：1. 调用 <code>esp_mqtt_client_register_event()</code> 来关联 MQTT 客户端 <code>s_mqtt_client</code> 和事件回调函数<code>aliot_mqtt_event_handler</code>。2. 指定 <code>ESP_EVENT_ANY_ID</code> 表示接收所有类型的 MQTT 事件（例如连接、断开、发布、订阅、接收数据等）。3. 回调函数中可以根据事件类型（event_id）做出相应处理，例如记录日志、修改连接状态或发布配置信息。4. 最后传入 <code>s_mqtt_client</code> 作为用户数据，这样在回调中可以访问到该 MQTT 客户端句柄或相关信息。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">esp_mqtt_client_register_event(s_mqtt_client, ESP_EVENT_ANY_ID, aliot_mqtt_event_handler, s_mqtt_client); <span class="hljs-comment">//为 MQTT 客户端注册事件回调函数（将MQTT客户端与MQTT回调函数绑定）</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">esp_mqtt_client_register_event(s_mqtt_client, ESP_EVENT_ANY_ID, aliot_mqtt_event_handler, s_mqtt_client);<span class="hljs-comment">//为 MQTT 客户端注册事件回调函数（将MQTT客户端与MQTT回调函数绑定)</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="启用MQTT"><a href="#启用MQTT" class="headerlink" title="启用MQTT"></a>启用MQTT</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">esp_mqtt_client_start(s_mqtt_client); （ 这里其实调用了MQTT客户端 s_mqtt_client ）<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">esp_mqtt_client_start(s_mqtt_client);（这里其实调用了MQTT客户端s_mqtt_client）<br></code></pre></td></tr></table></figure>
+
+<h3 id="②配置MQTT事件回调函数"><a href="#②配置MQTT事件回调函数" class="headerlink" title="②配置MQTT事件回调函数"></a>②配置MQTT事件回调函数</h3><p>可以用这个回调函数直接读取MQTT订阅的数据<br>配置方式与WIFI大差不差</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">static</span> <span class="hljs-type">void</span> <span class="hljs-title function_">aliot_mqtt_event_handler</span><span class="hljs-params">(<span class="hljs-type">void</span>* event_handler_arg,<span class="hljs-type">esp_event_base_t</span> event_base,<span class="hljs-type">int32_t</span> event_id,<span class="hljs-type">void</span>* event_data)</span><br>&#123;<br>    <span class="hljs-type">esp_mqtt_event_handle_t</span> event = event_data; <span class="hljs-comment">// 获取MQTT接收到的数据 // 上方 这行代码的本质是将通用指针转换为 MQTT 事件数据结构指针，以便提取事件信息。</span><br>    <span class="hljs-keyword">switch</span> ((<span class="hljs-type">esp_mqtt_event_id_t</span>)event_id)<br>    &#123;<br>        <span class="hljs-keyword">case</span> MQTT_EVENT_CONNECTED: <span class="hljs-comment">// 连接上MQTT后的操作</span><br>            ESP_LOGI(TAG, <span class="hljs-string">&quot;mqtt connected&quot;</span>);<br>            s_is_mqtt_connected = <span class="hljs-literal">true</span>;<br>            esp_mqtt_client_subscribe_single(s_mqtt_client, MQTT_SUBSCRIBE_TOPIC, <span class="hljs-number">1</span>); <span class="hljs-comment">// 订阅主题。第一个参数是定义的MQTT句柄，第二个是订阅的主题，第三个是QoS ， 表示消息至少送达一次。</span><br>            <span class="hljs-comment">// 发布 Home Assistant 传感器配置消息</span><br>            publish_sensor_config();<br>            <span class="hljs-keyword">break</span>;<br>        <span class="hljs-keyword">case</span> MQTT_EVENT_DISCONNECTED: <span class="hljs-comment">// 未 连接上MQTT后的操作</span><br>            ESP_LOGI(TAG, <span class="hljs-string">&quot;mqtt disconnected&quot;</span>);<br>            s_is_mqtt_connected = <span class="hljs-literal">false</span>;<br>            <span class="hljs-keyword">break</span>;<br>        <span class="hljs-keyword">case</span> MQTT_EVENT_SUBSCRIBED: <span class="hljs-comment">// 订阅后的操作</span><br>            ESP_LOGI(TAG, <span class="hljs-string">&quot;mqtt subscribed, msg_id=%d&quot;</span>, event-&gt;msg_id);<br>            <span class="hljs-keyword">break</span>;<br>        <span class="hljs-keyword">case</span> MQTT_EVENT_PUBLISHED: <span class="hljs-comment">// 发布后的操作</span><br>            ESP_LOGI(TAG, <span class="hljs-string">&quot;mqtt publish ack, msg_id=%d&quot;</span>, event-&gt;msg_id);<br>            <span class="hljs-keyword">break</span>;<br>        <span class="hljs-keyword">case</span> MQTT_EVENT_DATA: <span class="hljs-comment">// 通过MQTT获取的数据</span><br>            ESP_LOGI(TAG, <span class="hljs-string">&quot;mqtt data received&quot;</span>);<br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;TOPIC=%.*s\r\n&quot;</span>, event-&gt;topic_len, event-&gt;topic);<br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;DATA=%.*s\r\n&quot;</span>, event-&gt;data_len, event-&gt;data); <span class="hljs-comment">// event见下方注</span><br>            <span class="hljs-keyword">break</span>;<br>        <span class="hljs-keyword">case</span> MQTT_EVENT_ERROR: <span class="hljs-comment">// MQTT事件IF错误的操作</span><br>            ESP_LOGI(TAG, <span class="hljs-string">&quot;MQTT_EVENT_ERROR&quot;</span>);<br>            <span class="hljs-keyword">break</span>;<br>        <span class="hljs-keyword">default</span>:<br>            <span class="hljs-keyword">break</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">static</span> <span class="hljs-type">void</span> <span class="hljs-title function_">aliot_mqtt_event_handler</span><span class="hljs-params">(<span class="hljs-type">void</span>* event_handler_arg,<span class="hljs-type">esp_event_base_t</span> event_base,<span class="hljs-type">int32_t</span> event_id,<span class="hljs-type">void</span>* event_data)</span> &#123; <span class="hljs-type">esp_mqtt_event_handle_t</span> event = event_data; / / 获取MQTT接收到的数据 / / 上方这行代码的本质是将通用指针转换为 MQTT 事件数据结构指针，以便提取事件信息。 <span class="hljs-keyword">switch</span> ((<span class="hljs-type">esp_mqtt_event_id_t</span>)event_id) &#123; <span class="hljs-keyword">case</span> MQTT_EVENT_CONNECTED: <span class="hljs-comment">//连接上MQTT后的操作 ESP_LOGI(TAG, &quot;mqtt connected&quot;); s_is_mqtt_connected = true; esp_mqtt_client_subscribe_single(s_mqtt_client, MQTT_SUBSCRIBE_TOPIC, 1);//订阅主题。第一个参数是定义的MQTT句柄，第二个是订阅的主题，第三个是QoS，表示消息至少送达一次。 // 发布 Home Assistant 传感器配置消息 publish_sensor_config(); break; case MQTT_EVENT_DISCONNECTED: //未连接上MQTT后的操作 ESP_LOGI(TAG, &quot;mqtt disconnected&quot;); s_is_mqtt_connected = false; break; case MQTT_EVENT_SUBSCRIBED: //订阅后的操作 ESP_LOGI(TAG, &quot;mqtt subscribed, msg_id=%d&quot;, event-&gt;msg_id); break; case MQTT_EVENT_PUBLISHED: //发布后的操作 ESP_LOGI(TAG, &quot;mqtt publish ack, msg_id=%d&quot;, event-&gt;msg_id); break; case MQTT_EVENT_DATA: //通过MQTT获取的数据 ESP_LOGI(TAG, &quot;mqtt data received&quot;); printf(&quot;TOPIC=%.*s\r\n&quot;, event-&gt;topic_len, event-&gt;topic); printf(&quot;DATA=%.*s\r\n&quot;, event-&gt;data_len, event-&gt;data);//event见下方注 break; case MQTT_EVENT_ERROR: //MQTT事件IF错误的操作 ESP_LOGI(TAG, &quot;MQTT_EVENT_ERROR&quot;); break; default:break; &#125;)</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>注：</strong></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">在 MQTT 事件回调函数中，传入的 event 对象其实是一个 esp_mqtt_event_t 结构体指针，它包含了多个字段，常用的有： - msg_id：消息的编号，用于标识发布、订阅等操作对应的消息。 - topic：指向 MQTT 消息主题的指针（当接收数据时有效）。 - topic_len：主题字符串的长度。 - data：指向 MQTT 消息数据的指针，对于 MQTT_EVENT_DATA 事件，该字段保存了接收到的消息内容。 - data_len：消息数据的长度。 - total_data_len：在分段接收数据的情况下，总的数据长度。 - client：MQTT 客户端的句柄。 - error_handle：在发生错误时可能包含错误相关的信息。 这些字段结合起来，可以通过 event 对象获取到当前 MQTT 事件的详细信息，从而在回调中根据不同的事件类型进行相应处理。<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">在 MQTT 事件回调函数中，传入的 event 对象其实是一个 esp_mqtt_event_t 结构体指针，它包含了多个字段，常用的有： - msg_id：消息的编号，用于标识发布、订阅等操作对应的消息。 - topic：指向 MQTT 消息主题的指针（当接收数据时有效）。 - topic_len：主题字符串的长度。 - data：指向 MQTT 消息数据的指针，对于 MQTT_EVENT_DATA 事件，该字段保存了接收到的消息内容。 - data_len：消息数据的长度。 - total_data_len：在分段接收数据的情况下，总的数据长度。 - client：MQTT 客户端的句柄。 - error_handle：在发生错误时可能包含错误相关的信息。这些字段结合起来，可以通过 event 对象获取到当前 MQTT 事件的详细信息，从而在回调中根据不同的事件类型进行相应处理。<br></code></pre></td></tr></table></figure>
+
+<h3 id="使用MQTT-发送-数据"><a href="#使用MQTT-发送-数据" class="headerlink" title="使用MQTT 发送 数据"></a>使用MQTT 发送 数据</h3><p>发送流程：NVS 是 Non-Volatile Storage（非易失性存储）的缩写，是 ESP32 用来持久化保存数据的一种机制。它类似于“小型文件系统”，常用于保存 WiFi 配置、密钥、参数等，即使断电数据也不会丢失。此处，NVS 主要用于保证系统能正常保存和读取配置 信息。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">esp_err_t</span> ret = nvs_flash_init();<br><span class="hljs-keyword">if</span> （ ret == ESP_ERR_NVS_NO_FREE_PAGE||ret == ESP_ERR_NVS_NEW_VERSION_FOUND) <span class="hljs-comment">//NVS出现错误，执行擦除</span><br>    ESP_ERROR_CHECK(nvs_flash_erase()); <span class="hljs-comment">//重新尝试初始化</span><br>    ESP_ERROR_CHECK(nvs_flash_init()); &#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">esp_err_t</span> ret = nvs_flash_init(); <span class="hljs-keyword">if</span> （ret == ESP_ERR_NVS_NO_FREE_PAGE||ret == ESP_ERR_NVS_NEW_VERSION_FOUND) <span class="hljs-comment">//NVS出现错误，执行擦除 ESP_ERROR_CHECK(nvs_flash_erase()); //重新尝试初始化 ESP_ERROR_CHECK(nvs_flash_init()); &#125;)</span><br></code></pre></td></tr></table></figure>
+
+<p>初始化WIFI<br>传入回调函数，用于通知连接成功事件</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">wifi_sta_init(wifi_event_handler);<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">wifi_sta_init(wifi_event_handler);<br></code></pre></td></tr></table></figure>
+
+<p>监听WIFI连接事件<br>直到WiFi连接成功后，才启动MQTT连接</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c">ev=xEventGroupWaitBits(s_wifi_ev,WIFI_CONNECT_BIT,pdTRUE,pdFALSE,portMAX_DELAY);<br><span class="hljs-keyword">if</span>(ev &amp; WIFI_CONNECT_BIT)<br>&#123;<br>    mqtt_start();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">ev=xEventGroupWaitBits(s_wifi_ev,WIFI_CONNECT_BIT,pdTRUE,pdFALSE,portMAX_DELAY); <span class="hljs-keyword">if</span>(ev &amp; WIFI_CONNECT_BIT) &#123; mqtt_start(); &#125;)<br></code></pre></td></tr></table></figure>
+
+<h4 id="发布数据"><a href="#发布数据" class="headerlink" title="发布数据"></a>发布数据</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">//延时2秒发布一条消息到/test/topic1主题</span><br><span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)<br>&#123;<br>    <span class="hljs-type">int</span> count = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">if</span>(s_is_mqtt_connected)<br>    &#123;<br>        <span class="hljs-built_in">snprintf</span>(mqtt_pub_buff,<span class="hljs-number">64</span>,<span class="hljs-string">&quot;&#123;\&quot;count\&quot;:\&quot;%d\&quot;&#125;&quot;</span>,count); <span class="hljs-comment">// 将数据发送到缓冲区</span><br>        esp_mqtt_client_publish(s_mqtt_client, MQTT_PUBLIC_TOPIC, mqtt_pub_buff, <span class="hljs-built_in">strlen</span>(mqtt_pub_buff),<span class="hljs-number">1</span>, <span class="hljs-number">0</span>); <span class="hljs-comment">// 通过 MQTT 客户端，将刚刚生成的 JSON 字符串发布到主题</span><br>        count++;<br>    &#125;<br>    vTaskDelay(pdMS_TO_TICKS(<span class="hljs-number">2000</span>));<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">//延时2秒发布一条消息到/test/topic1主题 while(1) &#123; int count = 0; if(s_is_mqtt_connected) &#123; snprintf(mqtt_pub_buff,64,&quot;&#123;\&quot;count\&quot;:\&quot;%d\&quot;&#125;&quot;,count);//将数据发送到缓冲区 esp_mqtt_client_publish(s_mqtt_client, MQTT_PUBLIC_TOPIC, mqtt_pub_buff, strlen(mqtt_pub_buff),1, 0);//通过 MQTT 客户端，将刚刚生成的 JSON 字符串发布到主题 count++; &#125; vTaskDelay(pdMS_TO_TICKS(2000)); &#125;)</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h2><p>JSON是一种规范好的数据格式， 本质上就是字符串 。用于传输数据信息，基于“键-值对“，可以包含对象、数组、字符串、数字、布尔、NULL这六种最基本的数据。<br>ESP32中可以使用cJSON数据解析器来分析和打包JSON数据，需要调用”cJSON.h”。<br>JSON的基本格式如下</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;键名&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;值&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;键名&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;键名&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;值&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;键名&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;值&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;键名&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;值&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;键名&quot;</span> <span class="hljs-punctuation">:</span> 数字<span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;键名&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;值&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;值&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;值&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">]</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span> <span class="hljs-attr">&quot;键名&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;值&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;键名&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span> <span class="hljs-attr">&quot;键名&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;值&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;键名&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;值&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;键名&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;值&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;键名&quot;</span> <span class="hljs-punctuation">:</span> 数字<span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;键名&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;值&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;值&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;值&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">]</span> <span class="hljs-punctuation">&#125;</span>)<br></code></pre></td></tr></table></figure>
+
+<h3 id="解析JSON流程："><a href="#解析JSON流程：" class="headerlink" title="解析JSON流程："></a>解析JSON流程：</h3><p>解析JSON-&gt;……&gt;解析JSON-&gt;读取键的数据-&gt;读取数据的值</p>
+<h3 id="解析JSON并保存"><a href="#解析JSON并保存" class="headerlink" title="解析JSON并保存"></a>解析JSON并保存</h3><p>本文档中只说明ESP32中的情况</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">cJson* js_get_from_mqtt = cJSON_Pqrse(json_str); <span class="hljs-comment">//创建了个名为 js_get_from_mqtt的cJSON格式的指针 //将 json_str（这是个字符串）通过函数cJSON_Pqrse解析，然后复制到js_get_from_mqtt中</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">cJson* js_get_from_mqtt = cJSON_Pqrse(json_str);<span class="hljs-comment">//创建了个名为js_get_from_mqtt的cJSON格式的指针//将json_str（这是个字符串）通过函数cJSON_Pqrse解析，然后复制到js_get_from_mqtt中)</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="读取JSON中某个键的数据"><a href="#读取JSON中某个键的数据" class="headerlink" title="读取JSON中某个键的数据"></a>读取JSON中某个键的数据</h4><p>这里的数据，可以是具体的数值和字符串，也可以是对象。若JSON层层嵌套，则需层层解析。重复使用 <code>cJSON_GetObjectItem</code>，一层一层解析 ， 以下操作也同理</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">cJson* Humidity_get_from_js =cJSON_ GetObjectItem( js_get_from_mqtt , <span class="hljs-string">&quot; Humidity &quot;</span> ) ; <span class="hljs-comment">// 读取 js_get_from_mqtt 中 Humidity 这个项目的数据，将其赋值到 Humidity_get_from_js</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">cJson* Humidity_get_from_js=cJSON_GetObjectItem(js_get_from_mqtt,<span class="hljs-string">&quot;Humidity&quot;</span>);<span class="hljs-comment">//读取js_get_from_mqtt中Humidity这个项目的数据，将其赋值到Humidity_get_from_js)</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="读取获取数据的值"><a href="#读取获取数据的值" class="headerlink" title="读取获取数据的值"></a>读取获取数据的值</h4><p>如果要获取数据的值为字符串，则用<code>cJSON_GetStringValue()</code><br>如果是数值，则用<code>cJSON_GetNumberValue()</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">Humidity _val = cJSON_Get NumberValue (Humidity_get_from_js); <span class="hljs-comment">//把 Humidity_get_from_js 的数据转换成具体的数字，赋值到 Humidity_val 中</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">Humidity_val = cJSON_GetNumberValue(Humidity_get_from_js);<span class="hljs-comment">//把Humidity_get_from_js的数据转换成具体的数字，赋值到Humidity_val中)</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="生成JSON流程："><a href="#生成JSON流程：" class="headerlink" title="生成JSON流程："></a>生成JSON流程：</h3><p>创建cJSON格式的对象-&gt;向对象中添加键-值</p>
+<h4 id="创建cJSON格式的对象"><a href="#创建cJSON格式的对象" class="headerlink" title="创建cJSON格式的对象"></a>创建cJSON格式的对象</h4><p>这里创建了个名为 <code>js _obj _tx_humidity</code>的cJSON对象。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">cJSON *js _obj _tx_humidity = cJSON_CreatObjecte();<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">cJSON *js _obj _tx_humidity = cJSON_CreatObjecte();)<br></code></pre></td></tr></table></figure>
+
+<h4 id="向对象中添加键-值"><a href="#向对象中添加键-值" class="headerlink" title="向对象中添加键-值"></a>向对象中添加键-值</h4><p>这里向 <code>js _obj _tx_humidity</code>这个对象中添加的键-值为 “Humidity”,”%d”<br>然后向 <code>js _obj _tx_humidity</code>这个对象中又添加了一个对象<code>js _obj _sys</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c">cJSON_ Add NumberTo <span class="hljs-title function_">Object</span><span class="hljs-params">(js_obj_tx_humidity , <span class="hljs-string">&quot; H umidity &quot;</span> , humidity )</span> ; <span class="hljs-comment">// 自动识别数据类型</span><br>cJSON_Add Item <span class="hljs-title function_">ToObject</span><span class="hljs-params">(js_obj_tx_humidity,<span class="hljs-string">&quot; sys &quot;</span>,js_obj_sys)</span>;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">cJSON_AddNumberToObject(js_obj_tx_humidity,<span class="hljs-string">&quot;Humidity&quot;</span>,humidity);<span class="hljs-comment">//自动识别数据类型cJSON_AddItemToObject(js_obj_tx_humidity,&quot;sys&quot;,js_obj_sys);)</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="WS2812"><a href="#WS2812" class="headerlink" title="WS2812"></a>WS2812</h2><p>以下是调用已有配置对WS2812进行驱动单总线控制的彩色LED灯珠 ，因为对控制时序比较严格，故使用RMT红外控制。同GPIO等操作方式，需先使用结构体进行初始化，再使用API通过结构体配置。<br>Tips：使用”led_strip.h”<br>使用流程（基于官方Example）：创建结构体（共两个）-&gt;调用API进行配置-&gt;使用函数配置亮度颜色等参数</p>
+<h3 id="结构体创建"><a href="#结构体创建" class="headerlink" title="结构体创建"></a>结构体创建</h3><h4 id="先创建LED的配置结构体和被操控的LED对象"><a href="#先创建LED的配置结构体和被操控的LED对象" class="headerlink" title="先创建LED的配置结构体和被操控的LED对象"></a>先创建LED的配置结构体和被操控的LED对象</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">static</span> <span class="hljs-type">led_strip_handle_t</span> led_strip; <span class="hljs-comment">// 创建句柄名为 led_strip</span><br><span class="hljs-type">led_strip_config_t</span> WS2812_ strip_config = &#123;<br>    .strip_gpio_num = BLINK_GPIO, <span class="hljs-comment">// 灯珠DATA所连接的GPIO引脚</span><br>    .max_leds = <span class="hljs-number">1</span>, <span class="hljs-comment">// 最大灯珠数量</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">static</span> <span class="hljs-type">led_strip_handle_t</span> led_strip; / / 创建句柄名为<span class="hljs-type">led_stripled_strip_config_t</span> WS2812_strip_config = &#123; .strip_gpio_num = BLINK_GPIO, <span class="hljs-comment">//灯珠DATA所连接的GPIO引脚 .max_leds = 1, //最大灯珠数量&#125;;)</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="再创建RMT的配置结构体"><a href="#再创建RMT的配置结构体" class="headerlink" title="再创建RMT的配置结构体"></a>再创建RMT的配置结构体</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">led_strip_rmt_config_t</span> rmt_config = &#123;<br>    .resolution_hz = <span class="hljs-number">10</span> * <span class="hljs-number">1000</span> * <span class="hljs-number">1000</span>, <span class="hljs-comment">// 10MHz //RMT的频率</span><br>    .flags.with_dma = <span class="hljs-literal">false</span>, <span class="hljs-comment">// 是否启用DMA</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">led_strip_rmt_config_t</span> rmt_config = &#123; .resolution_hz = <span class="hljs-number">10</span> * <span class="hljs-number">1000</span> * <span class="hljs-number">1000</span>, <span class="hljs-comment">// 10MHz //RMT的频率 .flags.with_dma = false, //是否启用DMA&#125;;)</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="调用API进行配置"><a href="#调用API进行配置" class="headerlink" title="调用API进行配置"></a>调用API进行配置</h3><p>使用<code>led_strip_new_rmt_device</code>函数利用传递进来两个参数（LED和RMT的配置结构体），生成到 先前创建的 LED对象（ <code>led_strip</code> ）中</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">led_strip_new_rmt_device(&amp;WS2812_strip_config, &amp;rmt_config, &amp;led_strip) ;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">led_strip_new_rmt_device(&amp;WS2812_strip_config, &amp;rmt_config, &amp;led_strip);)<br></code></pre></td></tr></table></figure>
+
+<h3 id="配置LED亮度等参数"><a href="#配置LED亮度等参数" class="headerlink" title="配置LED亮度等参数"></a>配置LED亮度等参数</h3><p>对生成的对象（<code>led_strip</code>）,进行参数配置；配置后刷新LED状态；</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">/* Set the LED pixel using R LED GB from 0 (0%) to 255 (100%) for each color */</span><br>led_strip_set_pixel(led_strip, <span class="hljs-number">0</span>, <span class="hljs-number">16</span>, <span class="hljs-number">16</span>, <span class="hljs-number">16</span>);<br><span class="hljs-comment">/* Refresh the strip to send data */</span><br>led_strip_refresh(led_strip);<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">/* Set the LED pixel using RLEDGB from 0 (0%) to 255 (100%) for each color */</span>led_strip_set_pixel(led_strip, <span class="hljs-number">0</span>, <span class="hljs-number">16</span>, <span class="hljs-number">16</span>, <span class="hljs-number">16</span>);<span class="hljs-comment">/* Refresh the strip to send data */</span>led_strip_refresh(led_strip);)<br></code></pre></td></tr></table></figure>
+
+<p>这样WS2812就会常亮了（不基于BLink例程）</p>
+<p>以下是从RMT驱动开始，驱动WS2812<br>基于此帖子（ 【ESP32 IDF】用RMT控制 WS2812 彩色灯带 - 东邪独孤 - 博客园 ）</p>
+<h2 id="DHT11"><a href="#DHT11" class="headerlink" title="DHT11"></a>DHT11</h2><p>单总线工作的数字温湿度传感器，工作范围“-20<del>60摄氏度””5%</del>90%”<br>DHT11基于单总线，同样利用RMT红外进行控制（接收数据）。<br>工作流程：定义RMT接收用结构体-&gt;调用RMT接收通道API-&gt;使用队列接收数据-&gt;接收完使用回调至接收模式</p>
+<h3 id="初始化DHT11"><a href="#初始化DHT11" class="headerlink" title="初始化DHT11"></a>初始化DHT11</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">rmt_rx_channel_config_t</span> rx_chan_config = &#123;<br>    .clk_src = RMT_CLK_SRC_APB, <span class="hljs-comment">// 选择时钟源</span><br>    .resolution_hz = <span class="hljs-number">1000</span> * <span class="hljs-number">1000</span>, <span class="hljs-comment">// 1 MHz 滴答分辨率，即 1 滴答 = 1 µs</span><br>    .mem_block_symbols = <span class="hljs-number">64</span>, <span class="hljs-comment">// 内存块大小，即 64 * 4 = 256 字节</span><br>    .gpio_num = dht11_pin, <span class="hljs-comment">// GPIO 编号</span><br>    .flags.invert_in = <span class="hljs-literal">false</span>, <span class="hljs-comment">// 不反转输入信号</span><br>    .flags.with_dma = <span class="hljs-literal">false</span>, <span class="hljs-comment">// 不需要 DMA 后端(ESP32S3才有)</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">rmt_rx_channel_config_t</span> rx_chan_config = &#123; .clk_src = RMT_CLK_SRC_APB, <span class="hljs-comment">// 选择时钟源 .resolution_hz = 1000 * 1000, // 1 MHz 滴答分辨率，即 1 滴答 = 1 µs .mem_block_symbols = 64, // 内存块大小，即 64 * 4 = 256 字节 .gpio_num = dht11_pin, // GPIO 编号 .flags.invert_in = false, // 不反转输入信号 .flags.with_dma = false, // 不需要 DMA 后端(ESP32S3才有) &#125;;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="调用rmt接受通道"><a href="#调用rmt接受通道" class="headerlink" title="调用rmt接受通道"></a>调用rmt接受通道</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">//创建rmt接收通道</span><br>ESP_ERROR_CHECK(rmt_new_rx_channel(&amp;rx_chan_config, &amp;rx_chan_handle));<br><span class="hljs-comment">//使能RMT接收通道</span><br>ESP_ERROR_CHECK(rmt_enable(rx_chan_handle))<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">//创建rmt接收通道 ESP_ERROR_CHECK(rmt_new_rx_channel(&amp;rx_chan_config, &amp;rx_chan_handle)); //使能RMT接收通道ESP_ERROR_CHECK(rmt_enable(rx_chan_handle)))</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="使用队列接收数据"><a href="#使用队列接收数据" class="headerlink" title="使用队列接收数据"></a>使用队列接收数据</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">//新建接收数据队列</span><br>rx_receive_queue = xQueueCreate(<span class="hljs-number">20</span>, <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">rmt_rx_done_event_data_t</span>));<br><span class="hljs-comment">//assert用于检测队列是否创建成功</span><br>assert(rx_receive_queue);<br><br><span class="hljs-comment">//接收完成回调函数</span><br><span class="hljs-type">static</span> <span class="hljs-type">bool</span> IRAM_ATTR <span class="hljs-title function_">example_rmt_rx_done_callback</span><span class="hljs-params">(<span class="hljs-type">rmt_channel_handle_t</span> channel, <span class="hljs-type">const</span> <span class="hljs-type">rmt_rx_done_event_data_t</span> *edata, <span class="hljs-type">void</span> *user_data)</span><br>&#123;<br>    BaseType_t high_task_wakeup = pdFALSE; <span class="hljs-comment">// 标记发送队列后 无需 唤醒高优先级任务。</span><br>    QueueHandle_t rx_receive_queue = (QueueHandle_t)user_data; <span class="hljs-comment">// 将 user_data 强制转换为 QueueHandle_t 类型，以获取预先传入的FreeRTOS队列句柄 ， 将收到的 RMT 符号发送到解析器任务</span><br>    xQueueSendFromISR(rx_receive_queue, edata, &amp;high_task_wakeup);<span class="hljs-comment">//向队列头部发送一个消息的中断版本</span><br>    <span class="hljs-keyword">return</span> high_task_wakeup == pdTRUE; <span class="hljs-comment">// 返回需要触发任务切换</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">//新建接收数据队列 rx_receive_queue = xQueueCreate(20, sizeof(rmt_rx_done_event_data_t)); / / assert用于检测队列是否创建成功 assert(rx_receive_queue); //接收完成回调函数 static bool IRAM_ATTR example_rmt_rx_done_callback(rmt_channel_handle_t channel, const rmt_rx_done_event_data_t *edata, void *user_data) &#123; BaseType_t high_task_wakeup = pdFALSE; / / 标记发送队列后无需唤醒高优先级任务。 QueueHandle_t rx_receive_queue = (QueueHandle_t)user_data;//将 user_data 强制转换为 QueueHandle_t 类型，以获取预先传入的FreeRTOS队列句柄，将收到的 RMT 符号发送到解析器任务 xQueueSendFromISR(rx_receive_queue, edata, &amp;high_task_wakeup);//向队列头部发送一个消息的中断版本 return high_task_wakeup == pdTRUE;//返回需要触发任务切换 &#125;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="将RMT读取到的脉冲数据处理为温度和湿度"><a href="#将RMT读取到的脉冲数据处理为温度和湿度" class="headerlink" title="将RMT读取到的脉冲数据处理为温度和湿度"></a>将RMT读取到的脉冲数据处理为温度和湿度</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">static</span> <span class="hljs-type">int</span> <span class="hljs-title function_">parse_items</span><span class="hljs-params">(<span class="hljs-type">rmt_symbol_word_t</span> *item, <span class="hljs-type">int</span> item_num, <span class="hljs-type">int</span> *humidity, <span class="hljs-type">int</span> *temp_x10)</span>&#123;&#125;;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">static</span> <span class="hljs-type">int</span> <span class="hljs-title function_">parse_items</span><span class="hljs-params">(<span class="hljs-type">rmt_symbol_word_t</span> *item, <span class="hljs-type">int</span> item_num, <span class="hljs-type">int</span> *humidity, <span class="hljs-type">int</span> *temp_x10)</span>&#123;&#125;;)<br></code></pre></td></tr></table></figure>
+
+<h4 id="脉冲信号处理，复制即可"><a href="#脉冲信号处理，复制即可" class="headerlink" title="脉冲信号处理，复制即可"></a>脉冲信号处理，复制即可</h4><h4 id="调整脉冲信号以接受DHT11数据"><a href="#调整脉冲信号以接受DHT11数据" class="headerlink" title="调整脉冲信号以接受DHT11数据"></a>调整脉冲信号以接受DHT11数据</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">DHT11_StartGet</span><span class="hljs-params">(<span class="hljs-type">int</span> *temp_x10, <span class="hljs-type">int</span> *humidity)</span>&#123;&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">DHT11_StartGet</span><span class="hljs-params">(<span class="hljs-type">int</span> *temp_x10, <span class="hljs-type">int</span> *humidity)</span>&#123;&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="脉冲信号调整部分复制即可"><a href="#脉冲信号调整部分复制即可" class="headerlink" title="脉冲信号调整部分复制即可"></a>脉冲信号调整部分复制即可</h4><h4 id="调整后接收数据"><a href="#调整后接收数据" class="headerlink" title="调整后接收数据"></a>调整后接收数据</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">static</span> <span class="hljs-type">rmt_symbol_word_t</span> raw_symbols[<span class="hljs-number">128</span>];<span class="hljs-comment">//接收缓存</span><br><span class="hljs-type">static</span> <span class="hljs-type">rmt_rx_done_event_data_t</span> rx_data;<span class="hljs-comment">//实际接收到的数据</span><br>ESP_ERROR_CHECK(rmt_receive(rx_chan_handle, raw_symbols, <span class="hljs-keyword">sizeof</span>(raw_symbols), &amp;receive_config));<br><span class="hljs-comment">// wait for RX done signal</span><br><span class="hljs-keyword">if</span> (xQueueReceive(rx_receive_queue, &amp;rx_data, pdMS_TO_TICKS(<span class="hljs-number">1000</span>)) == pdTRUE)<br>&#123;<br>    <span class="hljs-comment">//解析接收符号并打印结果</span><br>    <span class="hljs-keyword">return</span> parse_items(rx_data.received_symbols, rx_data.num_symbols,humidity, temp_x10);<br>&#125;<br><span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">static</span> <span class="hljs-type">rmt_symbol_word_t</span> raw_symbols[<span class="hljs-number">128</span>];<span class="hljs-comment">//接收缓存 static rmt_rx_done_event_data_t rx_data;//实际接收到的数据ESP_ERROR_CHECK(rmt_receive(rx_chan_handle, raw_symbols, sizeof(raw_symbols), &amp;receive_config));// wait for RX done signalif (xQueueReceive(rx_receive_queue, &amp;rx_data, pdMS_TO_TICKS(1000)) == pdTRUE) &#123;//解析接收符号并打印结果return parse_items(rx_data.received_symbols, rx_data.num_symbols,humidity, temp_x10);&#125; return 0;)</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="LCD"><a href="#LCD" class="headerlink" title="LCD"></a>LCD</h2><p>液晶显示屏<br>这里采用 液晶屏驱动芯片ST7789，采用SPI通信方式与ESP32连接.由于esp32的引脚数量少，可以使用寄存器 PCA9557，对远程位置上的输入输出控制和状态监控，用于解决微控制器I&#x2F;O资源不足的问题，并允许通过简单的I2C接口实现复杂的I&#x2F;O操作。液晶屏的LCD_CS引脚由IO扩展芯片pca9557控制，所以需要先初始化pca9557，而pca9557是i2c通信芯片，所以又需要先初始化i2c。</p>
+<blockquote>
+<p><strong>Comment by 刘子华:</strong><br><code>BSP_I2C_NUM</code>依旧是使用的I2C外设编号，<code>SENSOR_ADDR</code>是寄存器的地址，I2C通过地址找到寄存器并进行读写操作。…<code>ESP_ERROR_CHECK</code> 是一个宏函数，位于 esp-idf 文件中，用于检测执行函数的返回结果，如果没有错误，什么事情都不会发生，如果有错误，会引起单片机重启。使用这个宏函数，需要包含 esp_err.h 头文件。…假设您正在开发一个项目，其中微控制器的GPIO引脚不够用，而您需要连接更多的按钮和LED。这时，您可以使用PCA9557来扩展I&#x2F;O端口。将按钮连接到PCA9557的一些GPIO引脚上，并将其配置为输入模式；将LED连接到其他GPIO引脚，并将其配置为输出模式。然后，通过I2C总线与PCA9557通信，以读取按钮状态并控制LED。</p>
+</blockquote>
+<blockquote>
+<p><strong>Comment by 高希来:</strong><br>能不能直接加到文档里QAQ</p>
+</blockquote>
+<h3 id="初始化PCA8559"><a href="#初始化PCA8559" class="headerlink" title="初始化PCA8559"></a>初始化PCA8559</h3><p>首先需要设置PCA9557的工作模式（如输入或输出）。这是通过向特定寄存器写入配置数据完成的。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">pca9557_init</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span><br>&#123;<br>    <span class="hljs-comment">// 写入控制引脚默认值</span><br>    DVP_PWDN=<span class="hljs-number">1</span><br>    PA_EN = <span class="hljs-number">0</span><br>    LCD_CS = <span class="hljs-number">1</span><br>    pca9557_register_write_byte(PCA9557_OUTPUT_PORT, <span class="hljs-number">0x05</span>); <span class="hljs-comment">// 把PCA9557芯片的IO1 IO1 IO2设置为输出 其它引脚保持默认的输入</span><br>    pca9557_register_write_byte(PCA9557_CONFIGURATION_PORT, <span class="hljs-number">0xf8</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">pca9557_init</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span> &#123; <span class="hljs-comment">// 写入控制引脚默认值 DVP_PWDN=1 PA_EN = 0 LCD_CS = 1 pca9557_register_write_byte(PCA9557_OUTPUT_PORT, 0x05); // 把PCA9557芯片的IO1 IO1 IO2设置为输出 其它引脚保持默认的输入 pca9557_register_write_byte(PCA9557_CONFIGURATION_PORT, 0xf8); &#125;)</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="读写PCA8559"><a href="#读写PCA8559" class="headerlink" title="读写PCA8559"></a>读写PCA8559</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// 读取PCA9557寄存器的值</span><br><span class="hljs-type">esp_err_t</span> <span class="hljs-title function_">pca9557_register_read</span><span class="hljs-params">(<span class="hljs-type">uint8_t</span> reg_addr, <span class="hljs-type">uint8_t</span> *data, <span class="hljs-type">size_t</span> len)</span><br>&#123;<br>    <span class="hljs-keyword">return</span> i2c_master_write_read_device(BSP_I2C_NUM, PCA9557_SENSOR_ADDR, &amp;reg_addr, <span class="hljs-number">1</span>, data, len, <span class="hljs-number">1000</span> / portTICK_PERIOD_MS);<br>&#125;<br><br><span class="hljs-comment">// 给PCA9557的寄存器写值</span><br><span class="hljs-type">esp_err_t</span> <span class="hljs-title function_">pca9557_register_write_byte</span><span class="hljs-params">(<span class="hljs-type">uint8_t</span> reg_addr, <span class="hljs-type">uint8_t</span> data)</span><br>&#123;<br>    <span class="hljs-type">uint8_t</span> write_buf[<span class="hljs-number">2</span>] = &#123;reg_addr, data&#125;;<br>    <span class="hljs-keyword">return</span> i2c_master_write_to_device(BSP_I2C_NUM, PCA9557_SENSOR_ADDR, write_buf, <span class="hljs-keyword">sizeof</span>(write_buf), <span class="hljs-number">1000</span> / portTICK_PERIOD_MS);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// 读取PCA9557寄存器的值 esp_err_t pca9557_register_read(uint8_t reg_addr, uint8_t *data, size_t len) &#123; return i2c_master_write_read_device(BSP_I2C_NUM, PCA9557_SENSOR_ADDR, &amp;reg_addr, 1, data, len, 1000 / portTICK_PERIOD_MS); &#125; // 给PCA9557的寄存器写值 esp_err_t pca9557_register_write_byte(uint8_t reg_addr, uint8_t data) &#123; uint8_t write_buf[2] = &#123;reg_addr, data&#125;; return i2c_master_write_to_device(BSP_I2C_NUM, PCA9557_SENSOR_ADDR, write_buf, sizeof(write_buf), 1000 / portTICK_PERIOD_MS); &#125;)</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="控制PCA9557任意一个单独引脚变高变低"><a href="#控制PCA9557任意一个单独引脚变高变低" class="headerlink" title="控制PCA9557任意一个单独引脚变高变低"></a>控制PCA9557任意一个单独引脚变高变低</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// 设置PCA9557芯片的某个IO引脚输出高低电平</span><br><span class="hljs-type">esp_err_t</span> <span class="hljs-title function_">pca9557_set_output_state</span><span class="hljs-params">(<span class="hljs-type">uint8_t</span> gpio_bit, <span class="hljs-type">uint8_t</span> level)</span><br>&#123;<br>    <span class="hljs-type">uint8_t</span> data;<br>    <span class="hljs-type">esp_err_t</span> res = ESP_FAIL;<br>    pca9557_register_read(PCA9557_OUTPUT_PORT, &amp;data, <span class="hljs-number">1</span>);<br>    res = pca9557_register_write_byte(PCA9557_OUTPUT_PORT, SET_BITS(data, gpio_bit, level));<br>    <span class="hljs-keyword">return</span> res;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// 设置PCA9557芯片的某个IO引脚输出高低电平 esp_err_t pca9557_set_output_state(uint8_t gpio_bit, uint8_t level) &#123; uint8_t data; esp_err_t res = ESP_FAIL; pca9557_register_read(PCA9557_OUTPUT_PORT, &amp;data, 1); res = pca9557_register_write_byte(PCA9557_OUTPUT_PORT, SET_BITS(data, gpio_bit, level)); return res; &#125;)</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="控制PCA9557-LCD-CS输出高低电平"><a href="#控制PCA9557-LCD-CS输出高低电平" class="headerlink" title="控制PCA9557_LCD_CS输出高低电平"></a>控制PCA9557_LCD_CS输出高低电平</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// 控制 PCA9557_LCD_CS 引脚输出高低电平 参数0输出低电平 参数1输出高电平</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">lcd_cs</span><span class="hljs-params">(<span class="hljs-type">uint8_t</span> level)</span><br>&#123;<br>    pca9557_set_output_state(LCD_CS_GPIO, level);<br>&#125;<br><br><span class="hljs-comment">// 控制 PCA9557_PA_EN 引脚输出高低电平 参数0输出低电平 参数1输出高电平</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">pa_en</span><span class="hljs-params">(<span class="hljs-type">uint8_t</span> level)</span><br>&#123;<br>    pca9557_set_output_state(PA_EN_GPIO, level);<br>&#125;<br><br><span class="hljs-comment">// 控制 PCA9557_DVP_PWDN 引脚输出高低电平 参数0输出低电平 参数1输出高电平</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">dvp_pwdn</span><span class="hljs-params">(<span class="hljs-type">uint8_t</span> level)</span><br>&#123;<br>    pca9557_set_output_state(DVP_PWDN_GPIO, level);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// 控制 PCA9557_LCD_CS 引脚输出高低电平 参数0输出低电平 参数1输出高电平 void lcd_cs(uint8_t level) &#123; pca9557_set_output_state(LCD_CS_GPIO, level); &#125;// 控制 PCA9557_PA_EN 引脚输出高低电平 参数0输出低电平 参数1输出高电平 void pa_en(uint8_t level) &#123; pca9557_set_output_state(PA_EN_GPIO, level); &#125;// 控制 PCA9557_DVP_PWDN 引脚输出高低电平 参数0输出低电平 参数1输出高电平 void dvp_pwdn(uint8_t level) &#123; pca9557_set_output_state(DVP_PWDN_GPIO, level); &#125;)</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="初始化I2C"><a href="#初始化I2C" class="headerlink" title="初始化I2C"></a>初始化I2C</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">esp_err_t</span> <span class="hljs-title function_">bsp_i2c_init</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span><br>&#123;<br>    <span class="hljs-type">i2c_config_t</span> i2c_conf = &#123;<br>        .mode = I2C_MODE_MASTER,<br>        .sda_io_num = BSP_I2C_SDA,<br>        .sda_pullup_en = GPIO_PULLUP_ENABLE,<br>        .scl_io_num = BSP_I2C_SCL,<br>        .scl_pullup_en = GPIO_PULLUP_ENABLE,<br>        .master.clk_speed = BSP_I2C_FREQ_HZ<br>    &#125;;<br>    i2c_param_config(BSP_I2C_NUM, &amp;i2c_conf);<br>    <span class="hljs-keyword">return</span> i2c_driver_install(BSP_I2C_NUM, i2c_conf.mode, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">esp_err_t</span> <span class="hljs-title function_">bsp_i2c_init</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span> &#123; <span class="hljs-type">i2c_config_t</span> i2c_conf = &#123; .mode = I2C_MODE_MASTER, .sda_io_num = BSP_I2C_SDA, .sda_pullup_en = GPIO_PULLUP_ENABLE, .scl_io_num = BSP_I2C_SCL, .scl_pullup_en = GPIO_PULLUP_ENABLE, .master.clk_speed = BSP_I2C_FREQ_HZ &#125;; i2c_param_config(BSP_I2C_NUM, &amp;i2c_conf); <span class="hljs-keyword">return</span> i2c_driver_install(BSP_I2C_NUM, i2c_conf.mode, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>); &#125;)<br></code></pre></td></tr></table></figure>
+
+<h3 id="初始化LCD"><a href="#初始化LCD" class="headerlink" title="初始化LCD"></a>初始化LCD</h3><h2 id="CMake-是什么-？"><a href="#CMake-是什么-？" class="headerlink" title="CMake 是什么 ？"></a>CMake 是什么 ？</h2><p>在 ESP-IDF（ESP32 开发框架）中，CMake 负责组织和管理各个组件的编译过程。详细 内容 可 参考 小白入门笔记：CMake编译过程详解-腾讯云开发者社区-腾讯云 ， 这里 只 说一下 跟 ESP 3 2 相关 的 或者 是 我遇到 的 问题 。</p>
+<h3 id="CMake-L-i-s-t-s-t-x-t-是什么-，-有什么-用-？"><a href="#CMake-L-i-s-t-s-t-x-t-是什么-，-有什么-用-？" class="headerlink" title="CMake L i s t s . t x t 是什么 ， 有什么 用 ？"></a>CMake L i s t s . t x t 是什么 ， 有什么 用 ？</h3><p>拿 这段 代码 举例 ：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">idf_component_register(SRCS <span class="hljs-string">&quot;uart_echo_example_main.c&quot;</span> INCLUDE_DIRS <span class="hljs-string">&quot;.&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">idf_component_register(SRCS <span class="hljs-string">&quot;uart_echo_example_main.c&quot;</span> INCLUDE_DIRS <span class="hljs-string">&quot;.&quot;</span>))<br></code></pre></td></tr></table></figure>
+
+<p>简单来说，这就是告诉 ESP-IDF：“我要编译 uart_echo_example_main.c，并且头文件就在当前目录。”CMake 会自动把 uart_echo_example_main.c 加入编译，并把当前目录作为头文件搜索路径。</p>
+<h2 id="使用ESP32中遇到的奇奇怪怪的问题"><a href="#使用ESP32中遇到的奇奇怪怪的问题" class="headerlink" title="使用ESP32中遇到的奇奇怪怪的问题"></a>使用ESP32中遇到的奇奇怪怪的问题</h2><h3 id="明明添加了”esp-log-h”这种头文件，但是根本识别不到该怎么办？"><a href="#明明添加了”esp-log-h”这种头文件，但是根本识别不到该怎么办？" class="headerlink" title="明明添加了”esp_log.h”这种头文件，但是根本识别不到该怎么办？"></a>明明添加了”esp_log.h”这种头文件，但是根本识别不到该怎么办？</h3><ol>
+<li>ESP-IDF的路径设置对了吗。</li>
+<li>需要用“ ESP-IDF: 添加 VS Code 配置文件夹“给这个项目添加以下配置文件夹</li>
+</ol>
+<h3 id="编译卡在CMake过不去，但是检查了一圈程序发现没问题"><a href="#编译卡在CMake过不去，但是检查了一圈程序发现没问题" class="headerlink" title="编译卡在CMake过不去，但是检查了一圈程序发现没问题"></a>编译卡在CMake过不去，但是检查了一圈程序发现没问题</h3><ol>
+<li>删掉build文件夹，再重新编译一下</li>
+</ol>
+<h3 id="明明头文件设置好了，但是头文件中的函数无法调用怎么办？"><a href="#明明头文件设置好了，但是头文件中的函数无法调用怎么办？" class="headerlink" title="明明头文件设置好了，但是头文件中的函数无法调用怎么办？"></a>明明头文件设置好了，但是头文件中的函数无法调用怎么办？</h3><ol>
+<li>在 CMakeLists.txt中，按照格式把需要编译的.C程序添加进去（根据已有的格式设置就行）</li>
+</ol>
+
+        </div>
+        <!-- .entry-content -->
+        <div class="single-reward">
+          <div class="reward-open">赏
+            <div class="reward-main">
+              <ul class="reward-row">
+                <li class="alipay-code"><img src="https://cdn.cdn.yourlai.icu//img/custom/donate/AliPayQR.jpg"></li>
+                <li class="wechat-code"><img src="https://cdn.cdn.yourlai.icu//img/custom/donate/WeChanQR.jpg"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/2025/05/21/%E5%9B%BE%E7%89%87%E5%A2%99/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.cdn.yourlai.icu/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.cdn.yourlai.icu/img/hexo/After_05239.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.cdn.yourlai.icu/img/hexo/After_05239.jpg">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                图片墙</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+        
+          
+            <div class="post-nepre half next">
+          
+            <a href="/2025/05/18/freertos/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.cdn.yourlai.icu/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.cdn.yourlai.icu/img/hexo/After_05254.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.cdn.yourlai.icu/img/hexo/After_05254.jpg">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                FreeRTOS入门教程</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "GyC3NzMvd0hT9Yyd2hYIC0MN-gzGzoHsz",
+        appKey: "mgOpfzbkHYqU92CV4IDlAUHQ",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
+
+
+
+
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+          <a href="" class="profile gravatar"><img src="" itemprop="image" alt="" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="" itemprop="url" rel="author"></a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i></p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
+</div>
+
+
+
+    </div>    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..."/>
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            // PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2026 Yourlai<br>
+      powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer> -->
+<footer id="colophon" class="site-footer" role="contentinfo">
+  <div class="site-info">
+    <div class="footertext">
+      <div class="img-preload">
+        <img src="https://cdn.cdn.yourlai.icu/img/other/wordpress-rotating-ball-o.svg">
+        <img src="https://cdn.cdn.yourlai.icu/img/other/disqus-preloader.svg">
+      </div>
+      <p style="color: #62b8ed;"><a target="_blank" rel="noopener" href="https://yourlai.icu" style="color: #62b8ed; text-decoration: none;">Yourlai &copy; 2025</a></p>
+    </div>
+    <div class="footer-device">
+    <p style="font-family: 'Ubuntu', sans-serif;">
+        <span style="color: #60bfe4;">Powered by Hexo, Hosted by Coding Pages</span>
+      </p>
+    </div>
+  </div><!-- .site-info -->
+</footer>
+
+
+
+<!-- <script src="/js/tocbot.js"></script> -->
+<script type="text/javascript" src="/js/lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/InsightSearch.js"></script>
+<script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="/js/zoom.min.js"></script>
+<script type="text/javascript" src="/js/sakura-app.js"></script>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine@1.3.4/dist/Valine.min.js'></script>
+<script src="/js/botui.js"></script>
+<!-- 不蒜子 网页计数器 -->
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script> -->
+<script type="text/javascript">
+/* <![CDATA[ */
+if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/honjun/hojun@1.2","name":"Unbroken.mp4","live":"close"},"windowheight":"fixed","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+} else {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/honjun/hojun@1.2","name":"Unbroken.mp4","live":"open"},"windowheight":"auto","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+}
+/* ]]> */
+
+</script>
+<script>
+$(document).ready(function() {
+  if ($(".toc").length > 0 && document.body.clientWidth > 1200) {
+    if ($(".pattern-center").length > 0) { //有图的情况
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -400,
+          scrollSmoothOffset: -85
+      });
+    } else {
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -85,
+          scrollSmoothOffset: -85
+      });
+    }
+    var offsetTop = $('.toc').offset().top - 95;
+    window.onscroll = function() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop >= offsetTop) {
+        $('.toc').addClass('toc-fixed');
+      } else {
+        $('.toc').removeClass('toc-fixed');
+      }
+    }
+  }
+});
+</script>
+
+    <div class="openNav no-select" style="height: 50px;">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <div id="mo-nav" class="">
+  <div class="m-avatar">
+    <img src="https://cdn.cdn.yourlai.icu//img/custom/ava_Little_size.jpg">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">Yourlai'sBlog</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+      
+        <a href="https://space.bilibili.com/396079395" class="fa " target="_blank" style="color: #; margin-left:20px"></a>
+      
+        <a href="https://music.163.com/#/user/home?id=1298327087" class="fa " target="_blank" style="color: #; margin-left:20px"></a>
+      
+        <a href="http://ipv6.yourlai.icu" class="fa " target="_blank" style="color: #; margin-left:20px"></a>
+      
+        <a href="mailto:yourlai@yourlai.icu" class="fa " target="_blank" style="color: #; margin-left:20px"></a>
+      
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+            首页
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/archives">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+            随便写的
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/categories/wiki/">
+                  <i class="fa fa-code" aria-hidden="true"></i>
+                  Wiki
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/%E6%95%99%E7%A8%8B/">
+                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                  教程
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/%E9%97%B2%E8%B0%88/">
+                  <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                  闲谈
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/%E5%B0%8F%E8%AF%B4/">
+                  <i class="fa fa-book" aria-hidden="true"></i>
+                  小说
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+            推荐
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/tags/%E6%82%A6%E8%AF%BB/">
+                  <i class="fa fa-th-list faa-bounce" aria-hidden="true"></i>
+                  书单
+                </a>
+              </li>
+            
+              <li>
+                <a href="/bangumi/">
+                  <i class="fa fa-film faa-vertical" aria-hidden="true"></i>
+                  番组
+                </a>
+              </li>
+            
+              <li>
+                <a href="/music/">
+                  <i class="fa fa-headphones" aria-hidden="true"></i>
+                  歌单
+                </a>
+              </li>
+            
+              <li>
+                <a href="/tags/%E5%9B%BE%E9%9B%86/">
+                  <i class="fa fa-photo" aria-hidden="true"></i>
+                  图集
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/about/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-question-circle faa-wrench" aria-hidden="true"></i>
+            关于本站
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a target="_blank" rel="noopener" href="https://yourlai.icu">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+            主站链接
+          </span>
+        </a>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">Yourlai  &copy 2025</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+<style>
+  .aplayer .aplayer-lrc {
+    height: 35px;
+  }
+  .aplayer .aplayer-lrc p{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px !important;
+  }
+  .aplayer .aplayer-lrc p.aplayer-lrc-current{
+    color: #14ccff;
+  }
+  .aplayer.aplayer-narrow .aplayer-body{
+    left: -66px !important;
+  }
+  .aplayer.aplayer-fixed .aplayer-lrc {
+    display: none;
+  }
+  .aplayer .aplayer-lrc.aplayer-lrc-hide {
+      display:none !important;
+  }
+  .aplayer.aplayer-fixed .lrc-show {
+    display: block;
+    background: rgba(255, 255, 255, 0.8);
+  }
+</style>
+<meting-js
+
+    id="13308314083"
+
+    server="netease"
+
+    type="playlist"
+
+    fixed="true"
+
+    autoplay="true"
+
+    loop="all"
+
+    order="random"
+
+    preload="auto"
+
+    volume="0.7"
+
+    mutex="true"
+
+</meting-js>
+<script>
+  $(function(){
+    $('body').on('click', '.aplayer', function(){
+      if($('.aplayer-button').hasClass('aplayer-play')) {
+        $('.aplayer-lrc').removeClass('lrc-show');
+      } else {
+        $('.aplayer-lrc').addClass('lrc-show');
+      }
+    })
+  });
+</script>
+</body>
+</html>
