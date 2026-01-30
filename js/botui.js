@@ -147,7 +147,7 @@ function bot_ui_ini() {
             }).then(function () {
                 botui.message.add({
                     delay: 1600,
-                    content: "这个站更新和维护都不如另一个，欢迎去我的主站ipv6.yourlai.icu看看哦。"
+                    content: "这个站更新和维护都不如另一个，欢迎去我的主站yourlai.icu看看哦。"
                 })
             })
         } 
